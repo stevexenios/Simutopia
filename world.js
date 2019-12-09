@@ -21,15 +21,33 @@ function World(game, ctx) {
 
 	// Histogram
 	this.gene_0_data = [];
-	this.gene_0_Histogram = new Histogram(game, 780, 0, "Gene_0_Histogram");
+	this.gene_0_Histogram = new Histogram(game, 810, 10, "Gene_0_Histogram");
 	this.game.addEntity(this.gene_0_Histogram);
+
+	// Histogram
+	this.gene_1_data = [];
+	this.gene_1_Histogram = new Histogram(game, 810, 210, "Gene_1_Histogram");
+	this.game.addEntity(this.gene_1_Histogram);
+
+	// Histogram
+	this.gene_2_data = [];
+	this.gene_2_Histogram = new Histogram(game, 810, 410, "Gene_2_Histogram");
+	this.game.addEntity(this.gene_2_Histogram);
+
+	// Histogram
+	this.gene_3_data = [];
+	this.gene_3_Histogram = new Histogram(game, 810, 610, "Gene_3_Histogram");
+	this.game.addEntity(this.gene_3_Histogram);
+
+	// Histogram
+	this.gene_4_data = [];
+	this.gene_4_Histogram = new Histogram(game, 810, 810, "Gene_4_Histogram");
+	this.game.addEntity(this.gene_4_Histogram);
 
 	// Graph
 	this.agentsNumber = [];
-	//this.agentsEnergies = [];
-	this.agentsGraph = new Graph(this.game, 780, 200, this, "Population");
-	//this.game.addEntity(this.agentsGraph);
-	Entity.call(this, game, 0, 0);
+	this.agentsGraph = new Graph(this.game, 1210, 10, this, "Population");
+	this.game.addEntity(this.agentsGraph);
 }
 
 World.prototype = new Entity();
@@ -69,7 +87,7 @@ World.prototype.update = function () {
 			this.cells[g][h].update();
 		}
 	}
-
+	// UPDATE_PERIOD
 	if (this.day % UPDATE_PERIOD === 0) {
 		this.updateData();
 		this.updateGeneration();
@@ -78,15 +96,50 @@ World.prototype.update = function () {
 
 World.prototype.updateData = function () {
 	var gene_0_data = [];
-	for (var i = 0; i < 4; i++) {
+	var gene_1_data = [];
+	var gene_2_data = [];
+	var gene_3_data = [];
+	var gene_4_data = [];
+
+	for (var i = 0; i < 20; i++) {
 		gene_0_data.push(0);
+		gene_1_data.push(0);
+		gene_2_data.push(0);
+		gene_3_data.push(0);
+		gene_4_data.push(0);
 	}
+
 	for (var k = 0; k < this.agents.length; k++) {
 		var g0 = this.agents[k].genome.genotype[0].value < 20 ? this.agents[k].genome.genotype[0].value : 19;
-		gene_0_data[g0] ++;
+		gene_0_data[g0]++;
+
+		var g1 = this.agents[k].genome.genotype[1].value < 20 ? this.agents[k].genome.genotype[1].value : 19;
+		gene_1_data[g0]++;
+
+		var g2 = this.agents[k].genome.genotype[2].value < 20 ? this.agents[k].genome.genotype[2].value : 19;
+		gene_2_data[g0]++;
+
+		var g3 = this.agents[k].genome.genotype[3].value < 20 ? this.agents[k].genome.genotype[3].value : 19;
+		gene_3_data[g0]++;
+
+		var g4 = this.agents[k].genome.genotype[4].value < 20 ? this.agents[k].genome.genotype[4].value : 19;
+		gene_4_data[g4]++;
 	}
+
 	this.gene_0_data.push(gene_0_data);
 	this.gene_0_Histogram.data = this.gene_0_data;
+
+	this.gene_1_data.push(gene_1_data);
+	this.gene_1_Histogram.data = this.gene_1_data;
+
+	this.gene_2_data.push(gene_2_data);
+	this.gene_2_Histogram.data = this.gene_2_data;
+
+	this.gene_3_data.push(gene_3_data);
+	this.gene_3_Histogram.data = this.gene_3_data;
+
+	this.gene_4_data.push(gene_4_data);
+	this.gene_4_Histogram.data = this.gene_4_data;
 
 	this.agentsNumber.push(this.worldPopulation);
 };
@@ -113,14 +166,14 @@ World.prototype.displayData = function () {
 	//this.ctx.strokeStyle = "#000000";
 	//this.ctx.fillSytle = "#000000";
 	this.ctx.font = "15px sans-serif";
-	this.ctx.fillText("Day: " + this.day, 1280, 20);
-	this.ctx.fillText("Population: " + this.worldPopulation, 1280, 40);
-	this.ctx.fillText("Min Gen: " + this.minGen, 1280, 60);
-	this.ctx.fillText("Average Gen: " + this.averageGen, 1280, 80);
-	this.ctx.fillText("Max Gen: " + this.maxGen, 1280, 100);
-	this.ctx.fillText("Min Age: " + this.minAge, 1280, 120);
-	this.ctx.fillText("Average Age: " + this.averageAge, 1280, 140);
-	this.ctx.fillText("Max Age: " + this.maxAge, 1280, 160);
+	this.ctx.fillText("Day: " + this.day, 1300, 620);
+	this.ctx.fillText("Population: " + this.worldPopulation, 1300, 640);
+	this.ctx.fillText("Min Gen: " + this.minGen, 1300, 660);
+	this.ctx.fillText("Average Gen: " + this.averageGen, 1300, 680);
+	this.ctx.fillText("Max Gen: " + this.maxGen, 1300, 700);
+	this.ctx.fillText("Min Age: " + this.minAge, 1300, 720);
+	this.ctx.fillText("Average Age: " + this.averageAge, 1300, 740);
+	this.ctx.fillText("Max Age: " + this.maxAge, 1300, 760);
 };
 
 World.prototype.updateGeneration = function () {

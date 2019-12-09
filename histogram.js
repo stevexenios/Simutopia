@@ -9,9 +9,6 @@ function Histogram(game, x, y, label) {
 	this.maxVal = 0;
 };
 
-//Histogram.prototype = new Entity();
-//Histogram.prototype.constructor = Histogram;
-
 Histogram.prototype.update = function () {
 
 };
@@ -40,6 +37,7 @@ Histogram.prototype.draw = function (ctx) {
 };
 
 Histogram.prototype.fill = function (color, x, y) {
+	
 	switch (color) {
 		case 0:
 			this.ctx.fillStyle = "#FFFFFF";
@@ -105,8 +103,7 @@ Histogram.prototype.fill = function (color, x, y) {
 			this.ctx.fillStyle = "#0C0C0C";
 			break;
 	}
-	//var width = Math.floor(this.xSize / 120);
-	var width = 1;
+	var width = Math.floor(this.xSize / 120);
 	var height = Math.floor(this.ySize / 20);
 	this.ctx.fillRect(this.x + (x * width),
 		this.y + (y * height),
