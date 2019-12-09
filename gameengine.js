@@ -28,7 +28,6 @@ Timer.prototype.tick = function () {
 }
 
 function GameEngine() {
-	this.world = null;
     this.entities = [];
     this.showOutlines = false;
     this.ctx = null;
@@ -37,6 +36,7 @@ function GameEngine() {
     this.wheel = null;
     this.surfaceWidth = null;
 	this.surfaceHeight = null;
+	this.world = null;
 	this.updateCounter = 0;
 	this.cellCount = 0;
 	this.agentCount = 0;
@@ -48,15 +48,17 @@ function GameEngine() {
 
 GameEngine.prototype.init = function (ctx) {
 	this.ctx = ctx;
+	this.world = new World(this, this.ctx);
+	this.addEntity(this.world);
 	this.restart = document.getElementById("restart");
 	this.pause = document.getElementById("pause");
 	this.play = document.getElementById("play");
 	this.reset = document.getElementById("reset");
     this.surfaceWidth = this.ctx.canvas.width;
 	this.surfaceHeight = this.ctx.canvas.height;
-	this.setParameters(); 
 	this.startInput();
-    this.timer = new Timer();
+	this.timer = new Timer();
+	this.start();
     console.log('Game initialized');
 }
 
@@ -69,36 +71,31 @@ GameEngine.prototype.start = function () {
     })();
 }
 
-// Restart button
+// ?? Restart button
 GameEngine.prototype.restartGame = function () {
-	//console.clear();
-	this.setParameters();
-	this.startInput();
-	this.timer = new Timer();
 	console.log('Game restarted');
+	var canvas = document.getElementById('gameWorld');
+	this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+	this.init(this.ctx);
+	that.timer = new Timer();
 }
 
-// Reset button
+// ?? Reset button
 GameEngine.prototype.resetGame = function () {
 	console.log("Resetting sim");
 	this.setParameters();
+	this.loop();
 }
 
-// Pause button
 GameEngine.prototype.pauseGame = function () {
-	console.log("Pausing sim");
 	this.isPaused = true;
 }
 
-// Play button
 GameEngine.prototype.playGame = function () {
-	console.log("Playing sim");
 	this.isPaused = false;
 }
 
-
 GameEngine.prototype.startInput = function () {
-	console.log('Starting input');
     var that = this;
 
     var getXandY = function (e) {
@@ -132,7 +129,7 @@ GameEngine.prototype.startInput = function () {
 	}, false);
 
 	this.play.addEventListener("click", function (e) {
-		that.resumeGame();
+		that.playGame();
 	}, false);
 
 	this.pause.addEventListener("click", function (e) {

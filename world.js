@@ -8,7 +8,7 @@ function World(game, ctx) {
 	this.cells = [];
 	this.agents = [];
 	this.worldPopulation = INITIAL_POPULATION;
-	this.dimension = WORLD_DIMENSION;
+	this.dimension = NUMBER_OF_CELLS;
 	this.minGen = 0;
 	this.maxGen = 0;
 	this.averageGen = 0;
@@ -17,7 +17,6 @@ function World(game, ctx) {
 	this.averageAge = 0;
 	this.tick = 0;
 	this.day = 0;
-
 	this.initiate();
 
 	// Histogram
@@ -38,20 +37,17 @@ World.prototype.constructor = World;
 
 World.prototype.initiate = function () {
 	this.day++;
-	for (var i = 0; i < this.dimension; i++) {
+	for (var i = 0; i < NUMBER_OF_CELLS; i++) {
 		this.cells.push([]);
-		for (var j = 0; j < this.dimension; j++) {
+		for (var j = 0; j < NUMBER_OF_CELLS; j++) {
 			this.cells[i].push(new Cell(this.game, i, j));
 		}
 	}
 	for (var z = 0; z < this.worldPopulation; z++) {
-		var x = randomInt(this.dimension);
-		var y = randomInt(this.dimension);
-		var agent = new Agent(this.game, x, y, this);
-		this.cells[x][y].agents.push(agent);
+		var agent = new Agent(this.game, this.cells[randomInt(this.dimension)][randomInt(this.dimension)], this);
 		this.agents.push(agent);
 	}
-}
+};
 
 World.prototype.update = function () {
 	this.day++;
