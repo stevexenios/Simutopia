@@ -35,6 +35,11 @@ GameEngine
 	-Adds cloned agent during reproduction to entity list
 	-Agent determines agent relocation from World cells array
 
+//////
+SET so that AGENTS know their location after each update
+SET so that CELLS can find number of agents in their area after each update
+USe HASHMAP to set up key value pairs
 
 
-
+Key: CELL ID
+Value: Agent Array

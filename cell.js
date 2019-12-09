@@ -1,5 +1,6 @@
 // JavaScript source code
 function Cell(game, x, y) {
+	this.ID = null;
 	this.ctx = game.ctx;
 	this.label = 1;
 	this.x = x;
@@ -21,9 +22,6 @@ function Cell(game, x, y) {
 	this.color = rgb(0, this.colorParameter, this.colorParameter);
 }
 
-//Cell.prototype = new Entity();
-//Cell.prototype.constructor = Cell;
-
 Cell.prototype.update = function () {
 	var c = this.agents.length + this.colorParameter > 255 ? 255 : this.agents.length + this.colorParameter;
 	this.color = rgb(c, this.colorParameter, this.colorParameter);
@@ -34,5 +32,9 @@ Cell.prototype.draw = function (ctx) {
 	ctx.fillStyle = this.color;
 	ctx.fillRect(this.x * CELL_DIMENSION, this.y * CELL_DIMENSION, this.width, this.height);
 	ctx.fill();
+};
+
+Cell.prototype.determineAgentCount = function (){
+
 };
 
