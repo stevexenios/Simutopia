@@ -9,7 +9,7 @@ Gene.prototype.clone = function () {
 };
 
 Gene.prototype.mutate = function () {
-	if (params.gene_mutation_chance > Math.random()) {
+	if (MUTATION_RATE > Math.random()) {
 		if (Math.random() > 0.5) { this.value++; }
 		else {
 			this.value--;

@@ -13,8 +13,8 @@ var Genome = function (geneCount) {
 
 Genome.prototype.mutate = function () {
 	this.generation++;
-	if (Math.random() > 0.5) {
-		this.genotype.forEach(element => element.mutate());
+	for (var i = 0; i < GENE_COUNT; i++) {
+		this.genotype[i].mutate();
 	}
 };
 
@@ -27,6 +27,7 @@ Genome.prototype.clone = function () {
 		var d = this.genotype[i].clone();
 		g.genotype.push(d);
 	}
+	g.mutate();
 	return g;
 };
 
