@@ -19,7 +19,7 @@ function Cell(game, x, y) {
 	this.sumbonuses = this.bonuses.reduce(function (acc, x) { return acc + x; });
 	this.worldPopulation = INITIAL_POPULATION;
 	this.colorParameter = Math.floor(((this.sumbonuses / GENE_COUNT) / MAX_BONUS) * 256);
-	this.color = rgb(0, this.colorParameter, this.colorParameter);
+	this.color = rgb(this.colorParameter, this.colorParameter, this.colorParameter);
 }
 
 Cell.prototype.update = function () {
