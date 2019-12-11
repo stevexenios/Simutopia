@@ -8,10 +8,10 @@ function Entity(game, x, y) {
 
 Entity.prototype.update = function () {
 
-}
+};
 
 Entity.prototype.update = function (ctx) {
-}
+};
 
 Entity.prototype.draw = function (ctx) {
 	if (this.game.showOutlines && this.radius) {
@@ -21,7 +21,7 @@ Entity.prototype.draw = function (ctx) {
 		this.game.ctx.stroke();
 		this.game.ctx.closePath();
 	}
-}
+};
 
 Entity.prototype.rotateAndCache = function (image, angle) {
 	var offscreenCanvas = document.createElement('canvas');
@@ -38,4 +38,4 @@ Entity.prototype.rotateAndCache = function (image, angle) {
 	//offscreenCtx.strokeStyle = "red";
 	//offscreenCtx.strokeRect(0,0,size,size);
 	return offscreenCanvas;
-}
+};

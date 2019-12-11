@@ -23,9 +23,8 @@ function Cell(game, x, y) {
 }
 
 Cell.prototype.update = function () {
-	var c = this.agents.length + this.colorParameter > 255 ? 255 : this.agents.length + this.colorParameter;
-	this.color = rgb(c, this.colorParameter, this.colorParameter);
-	this.worldPopulation = this.game.world.worldPopulation;
+	this.deleteDeadAgents();
+	this.updateColor();
 };
 
 Cell.prototype.draw = function (ctx) {
@@ -34,7 +33,16 @@ Cell.prototype.draw = function (ctx) {
 	ctx.fill();
 };
 
-Cell.prototype.determineAgentCount = function (){
-
+Cell.prototype.deleteDeadAgents = function () {
+	for (var i = 0; i < this.agents.length; i++) {
+		if (!this.agents[i].alive) {
+			this.agents.splice(i, 1);
+		}
+	}
 };
 
+Cell.prototype.updateColor = function () {
+	var c = this.agents.length + this.colorParameter > 255 ? 255 : this.agents.length + this.colorParameter;
+	this.color = rgb(c, this.colorParameter, this.colorParameter);
+	this.worldPopulation = this.game.world.worldPopulation;
+};

@@ -9,17 +9,15 @@ GameEngine
 	iii. Splices dead agents from entities
 	
 	Game Engine calls...
-		-removeFromWorld on entities
-		(World also removes dead agents from agent list on each update)
-		-Has its world copy, save during main call
 		-Calls Update and Draw on World
+			World (entity)
+			-Calls Update and Draw for Cell
+				Cell (Label = 1)
+					-Calls Update and Draw for Agent
+					-Adds cloned agent to its agent list
+					-Deletes dead agents  from its Agent List
 	
-	World (entity)
-		-Calls Update and Draw:
-			a. Cell (Label = 1)
-			b. Agent (Label = 2)
-		-Adds cloned agent to its agent list
-		-Deletes dead agents from World
+	
 	
 		??Needs method to remove dead agents
 		??Needs method to add new born agents

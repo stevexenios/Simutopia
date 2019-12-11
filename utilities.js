@@ -42,7 +42,7 @@ function rgb(r, g, b) {
 //World
 var NUMBER_OF_CELLS = 10;
 var SIM_DURATION = 10000;
-var UPDATE_PERIOD = 100;
+var UPDATE_PERIOD = 10;
 var INITIAL_POPULATION = 100;
 var WORLD_DIFFICULTY = 60;
 //Cell
