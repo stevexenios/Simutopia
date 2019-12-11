@@ -211,3 +211,8 @@ GameEngine.prototype.setParameters = function () {
 	SOCIAL_LEARNING = document.getElementById("sl").checked;
 	BIOLOGICAL_LEARNING = document.getElementById("pl").checked;
 }
+
+download_img = function (el) {
+	var image = canvas.toDataURL("image/jpg");
+	el.href = image;
+};

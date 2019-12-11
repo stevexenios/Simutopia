@@ -67,6 +67,10 @@ World.prototype.initiate = function () {
 	}
 };
 
+// Method to delete agents from world and cells
+
+// Method to add length of cells to world population
+
 World.prototype.update = function () {
 	this.day++;
 	for (var k = 0; k < this.agents.length; k++) {
@@ -77,6 +81,8 @@ World.prototype.update = function () {
 			this.agents[k].reproduce = false;
 		}
 		if (!this.agents[k].alive) {
+			// MAP Structure to keep track of the agents, by ID
+
 			this.agents.splice(k, 1);
 		}
 	}
@@ -114,13 +120,13 @@ World.prototype.updateData = function () {
 		gene_0_data[g0]++;
 
 		var g1 = this.agents[k].genome.genotype[1].value < 20 ? this.agents[k].genome.genotype[1].value : 19;
-		gene_1_data[g0]++;
+		gene_1_data[g1]++;
 
 		var g2 = this.agents[k].genome.genotype[2].value < 20 ? this.agents[k].genome.genotype[2].value : 19;
-		gene_2_data[g0]++;
+		gene_2_data[g2]++;
 
 		var g3 = this.agents[k].genome.genotype[3].value < 20 ? this.agents[k].genome.genotype[3].value : 19;
-		gene_3_data[g0]++;
+		gene_3_data[g3]++;
 
 		var g4 = this.agents[k].genome.genotype[4].value < 20 ? this.agents[k].genome.genotype[4].value : 19;
 		gene_4_data[g4]++;

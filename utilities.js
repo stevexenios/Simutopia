@@ -58,3 +58,9 @@ var SOCIAL_LEARNING = true;
 var BIOLOGICAL_LEARNING = true;
 var MUTATION_RATE = 0.05;
 var GENE_COUNT = 5;
+
+
+download_img = function (el) {
+	var image = canvas.toDataURL("image/jpg");
+	el.href = image;
+};

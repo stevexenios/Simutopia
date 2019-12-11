@@ -8,4 +8,9 @@ ASSET_MANAGER.downloadAll(function () {
 	var canvas = document.getElementById('gameWorld');
 	var ctx = canvas.getContext('2d');
 	gameEngine.init(ctx);
+
+	download_img = function (el) {
+		var image = canvas.toDataURL("image/jpg");
+		el.href = image;
+	};
 });
