@@ -82,6 +82,8 @@ World.prototype.update = function () {
 			this.agents[k].reproduce = false;
 		}
 		if (!this.agents[k].alive) {
+			// MAP Structure to keep track of the agents, by ID
+
 			this.agents.splice(k, 1);
 		}
 	}

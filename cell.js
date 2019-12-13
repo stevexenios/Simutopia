@@ -46,3 +46,7 @@ Cell.prototype.updateColor = function () {
 	this.color = rgb(c, this.colorParameter, this.colorParameter);
 	this.worldPopulation = this.game.world.worldPopulation;
 };
+Cell.prototype.determineAgentCount = function (){
+
+};
+
