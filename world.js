@@ -1,5 +1,7 @@
 const newLocal = this.label = 0;
 // JavaScript source code
+// Epoch Master..
+// Code to defibrilate the population, if all agents die,...??
 function World(game, ctx) {
 	this.ctx = ctx;
 	this.game = game;
