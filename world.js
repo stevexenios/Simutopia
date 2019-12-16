@@ -1,6 +1,8 @@
+const newLocal = this.label = 0;
 // JavaScript source code
+// Epoch Master..
+// Code to defibrilate the population, if all agents die,...??
 function World(game, ctx) {
-	this.label = 0;
 	this.ctx = ctx;
 	this.game = game;
 	this.x = 0;
@@ -18,6 +20,7 @@ function World(game, ctx) {
 	this.tick = 0;
 	this.day = 0;
 	this.initiate();
+	this.difficulty = WORLD_DIFFICULTY;
 
 	// Histogram
 	this.gene_0_data = [];
@@ -199,16 +202,16 @@ World.prototype.updateGeneration = function () {
 		this.averageGen = Math.round(average);
 		this.averageAge = Math.round(averageAge);
 
-		this.minGen = this.agents.reduce(function (min, cur) {
+		this.minGen = this.agents.length === 0 ? 0 : this.agents.reduce(function (min, cur) {
 			return cur.generation < min.generation ? cur : min;
 		}).generation;
-		this.maxGen = this.agents.reduce(function (max, cur) {
+		this.maxGen = this.agents.length === 0 ? 0 : this.agents.reduce(function (max, cur) {
 			return cur.generation > max.generation ? cur : max;
 		}).generation;
-		this.minAge = this.agents.reduce(function (min, cur) {
+		this.minAge = this.agents.length === 0 ? 0 : this.agents.reduce(function (min, cur) {
 			return cur.age < min.age ? cur : min;
 		}).age;
-		this.maxAge = this.agents.reduce(function (max, cur) {
+		this.maxAge = this.agents.length === 0 ? 0 : this.agents.reduce(function (max, cur) {
 			return cur.age > max.age ? cur : max;
 		}).age;
 	}

@@ -1,0 +1,43 @@
+GameEngine
+1. Entity:
+	a. World (Label = 0)	
+	b. Graphs
+	c. 5 Histograms for each gene
+
+	i. Calls draw on all entities
+	ii. Calls update for all entities
+	iii. Splices dead agents from entities
+	
+	Game Engine calls...
+		-Calls Update and Draw on World
+			World (entity)
+			-Calls Update and Draw for Cell
+				Cell (Label = 1)
+					-Calls Update and Draw for Agent
+					-Adds cloned agent to its agent list
+					-Deletes dead agents  from its Agent List
+	
+	
+	
+		??Needs method to remove dead agents
+		??Needs method to add new born agents
+
+1. Cell
+	-Color based on 
+		a. Bonuses
+			-Dark regions less bonus
+		b. Agent count
+			-Higher red density, higher pop
+
+2. Agent
+	-Adds cloned agent during reproduction to entity list
+	-Agent determines agent relocation from World cells array
+
+//////
+SET so that AGENTS know their location after each update
+SET so that CELLS can find number of agents in their area after each update
+USe HASHMAP to set up key value pairs
+
+
+Key: CELL ID
+Value: Agent Array
