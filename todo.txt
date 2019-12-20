@@ -1,43 +1,47 @@
-GameEngine
-1. Entity:
-	a. World (Label = 0)	
-	b. Graphs
-	c. 5 Histograms for each gene
+"Life is a Process that Can be Abstracted Away from Any Particular Medium."
 
-	i. Calls draw on all entities
-	ii. Calls update for all entities
-	iii. Splices dead agents from entities
-	
-	Game Engine calls...
-		-Calls Update and Draw on World
-			World (entity)
-			-Calls Update and Draw for Cell
-				Cell (Label = 1)
-					-Calls Update and Draw for Agent
-					-Adds cloned agent to its agent list
-					-Deletes dead agents  from its Agent List
-	
-	
-	
-		??Needs method to remove dead agents
-		??Needs method to add new born agents
-
-1. Cell
-	-Color based on 
-		a. Bonuses
-			-Dark regions less bonus
-		b. Agent count
-			-Higher red density, higher pop
-
-2. Agent
-	-Adds cloned agent during reproduction to entity list
-	-Agent determines agent relocation from World cells array
-
-//////
-SET so that AGENTS know their location after each update
-SET so that CELLS can find number of agents in their area after each update
-USe HASHMAP to set up key value pairs
+Ouroboros programs
+-The quine concept can be extended to multiple levels of recursion, originating "ouroboros programs", or quine-relays. This should not be confused with Multiquines.
+- Conway's Game of Life showed examples of how emergence and self-organization can emerge without objective direction.
 
 
-Key: CELL ID
-Value: Agent Array
+- The Garden of Eden pattern
+- Von_Neumann Universal Constructor
+
+Based on the Game of Life:
+1.There should be no explosive growth.
+2.There should exist small initial patterns with chaotic, unpredictable outcomes.
+3.There should be potential for von Neumann universal constructors.
+4.The rules should be as simple as possible, whilst adhering to the above constraints.
+
+Universal Concepts
+-In Evolutionary Systems mutation increases diversity in the population and selection acts as a force increasing quality.
+-Many Aspects of Evolution are Stochastic, random. 
+-On the other hand, selection operators can be either deterministic, or stochastic. 
+-In the latter case, individuals with a higher fitness have a higher chance to be selected than individuals with a lower fitness, 
+ but typically even the weak individuals have a chance to become a parent or to survive.
+
+
+Termination conditions:
+- Fixed Number of Generations
+- Average Web Browser time to Compute and diplay the simulation is exceeded by a certain factor
+- Manual Inspection
+
+Motility and Motion
+- Taxis is the movement of an organism in response to a stimulus such as light or the presence of food. Taxes are innate behavioural responses. A taxis differs from a 
+- Tropism which is a turning response, often growth towards or away from a stimulus
+
+In the case of taxis, the organism has motility and demonstrates guided movement towards or away from the stimulus source.
+
+ Kinesis, a non-directional change in activity in response to a stimulus.
+ 
+ Mnemotaxis is the use of memory to follow trails that organisms have left when travelling to or from their home.
+
+ The dimensions of the world grid is any finite number of dimensions.
+
+ - Genetic Algorithms are used to generate high quality solutions ot optimization and earch problems relying on bio-inspired operators such as mutation and selction.
+
+ - The Price equation shows that a change in the average amount of a trait in a population
+from one generation to the next is determined by the covariance between the amounts of the
+trait for subpopulations, together with the expected change in the amount of the trait value
+due to fitness.
