@@ -1,5 +1,7 @@
 const newLocal = this.label = 0;
 // JavaScript source code
+// Epoch Master..
+// Code to defibrilate the population, if all agents die,...??
 function World(game, ctx) {
 	this.ctx = ctx;
 	this.game = game;
@@ -147,6 +149,8 @@ World.prototype.update = function () {
 			this.agents[k].reproduce = false;
 		}
 		if (!this.agents[k].alive) {
+			// MAP Structure to keep track of the agents, by ID
+
 			this.agents.splice(k, 1);
 		}
 	}

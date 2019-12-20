@@ -38,7 +38,6 @@ Histogram.prototype.draw = function (ctx) {
 };
 
 Histogram.prototype.fill = function (color, x, y) {
-	
 	switch (color) {
 		case 0:
 			this.ctx.fillStyle = "#FFFFFF";

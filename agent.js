@@ -34,7 +34,7 @@ Agent.prototype.addAgentToCell = function () {
 
 Agent.prototype.clone = function () {
 	var a = new Agent(this.game, this.relocationCell(), this.world);
-	a.genome = this.genome.clone();
+	a.genome = this.genome.clone(); // Cloned and Mutated
 	a.generation = this.generation + 1;
 	return a;
 };
