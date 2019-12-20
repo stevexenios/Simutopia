@@ -1,6 +1,6 @@
 function Histogram(game, x, y, label) {
-	this.xSize = 360;
-	this.ySize = 180;
+	this.xSize = 240;
+	this.ySize = 120;
 	this.x = x;
 	this.y = y;
 	this.label = label;
@@ -23,10 +23,11 @@ Histogram.prototype.draw = function (ctx) {
 			return acc + x;
 		}, 0);
 		for (var j = 0; j < this.data[i + start].length; j++) {
-			var val = Math.ceil(this.data[i + start][j] / maxVal * 20);
+			var val = Math.ceil(20 * this.data[i + start][j] / maxVal);
 			this.fill(val, i, 19 - j);
 		}
 	}
+	
 	this.ctx.fillStyle = "#000000";
 	this.ctx.textAlign = "center";
 	this.ctx.fillText(this.label, this.x + this.xSize / 2, this.y + this.ySize + 10);

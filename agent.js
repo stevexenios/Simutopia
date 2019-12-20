@@ -25,6 +25,7 @@ function Agent(game, cell, world) {
 	this.genome = new Genome(GENE_COUNT);
 	this.reproduce = false;
 	this.addAgentToCell();
+	this.learningBonus = [];
 }
 
 Agent.prototype.addAgentToCell = function () {
@@ -47,7 +48,7 @@ Agent.prototype.update = function () {
 
 Agent.prototype.checkDeathChance = function () {
 	this.energy -= 1;
-	if (Math.random() < DEATH_CHANCE) {
+	if (Math.random() < DEATH_CHANCE || this.energy < 0) {
 		this.removeFromWorld = true;
 		this.alive = false;
 	}
@@ -60,14 +61,14 @@ Agent.prototype.mutate = function () {
 Agent.prototype.attemptTasks = function () {
 	this.energy -= 1;
 	for (var i = 0; i < GENE_COUNT; i++) {
-		if (this.genome.genotype[i].value + this.cell.bonuses[i] > WORLD_DIFFICULTY) {
+		if (this.genome.bioGenotype[i].value + this.cell.bonuses[i] > WORLD_DIFFICULTY) {
 			this.energy++;
 		}
 	}
 
-	if (this.cell.agents.length / 100 > 1) {
-		this.energy -= Math.floor(this.energy * this.cell.agents.length / this.world.worldPopulation);
-	}
+	// if (this.cell.agents.length / 100 > 1) {
+	// 	this.energy -= Math.floor(this.energy * this.cell.agents.length / this.world.worldPopulation);
+	// }
 };
 
 Agent.prototype.reproduction = function () {
@@ -88,11 +89,14 @@ Agent.prototype.draw = function (ctx) {
 Agent.prototype.relocationCell = function () {
 	fromX = this.cell.x;
 	fromY = this.cell.y;
-	var pX = fromX + [-1, 0, 1][randomInt(3)] - 1;
-	var pY = fromY + [-1, 0, 1][randomInt(3)] - 1;
+	var units = [-3, -2, -1, 0, 1, 2, 3];
+	var firstRand = units[randomInt(7)];
+	var secondRand = units[randomInt(7)];
+	var pX = fromX + firstRand - 2;
+	var pY = fromY + secondRand - 2;
 	var returnX;
 	var returnY;
-	if (pX > NUMBER_OF_CELLS) {
+	if (pX >= NUMBER_OF_CELLS) {
 		returnX = pX - NUMBER_OF_CELLS;
 	} else if (pX < 0) {
 		returnX = NUMBER_OF_CELLS + pX;
@@ -100,12 +104,14 @@ Agent.prototype.relocationCell = function () {
 		returnX = pX;
 	}
 
-	if (pY > NUMBER_OF_CELLS) {
+	if (pY >= NUMBER_OF_CELLS) {
 		returnY = pY - NUMBER_OF_CELLS;
 	} else if (pY < 0) {
 		returnY = NUMBER_OF_CELLS + pY;
 	} else {
 		returnY = pY;
 	}
+	//console.log(returnY);
+	//console.log(pY);
 	return this.world.cells[returnX][returnY];
 };

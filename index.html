@@ -2,88 +2,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        #parent2 {
-            position: absolute;
-            border: 4px solid black;
-            border-radius: 5px;
-            width: 500px;
-            height: 500px;
-            background: #2196F3;
-            top: 1080px;
-            left: 5px;
-        }
-
-        #histograms {
-            position: absolute;
-            border: 4px solid black;
-            border-radius: 5px;
-            width: 400px;
-            height: 800px;
-            top: 50px;
-            right: 5px;
-        }
-
-        #title1 {
-            position: absolute;
-            top: 10px;
-            left: 5px;
-        }
-
-        #checkbx {
-            position: relative;
-            width: 390px;
-            height: 250px;
-            top: 10px;
-            right: 2px;
-        }
-
-            #checkbx[label] {
-                text-align: left;
-            }
-
-        label {
-            width: 180px;
-            display: inline-block;
-            text-align: left;
-        }
-
-        #inputtxt {
-            position: relative;
-            width: 390px;
-            height: 300px;
-            top: 10px;
-            right: 2px;
-            display: inline-block;
-        }
-
-        input[type = "text"] {
-            padding: 6px;
-            font-size: 14px;
-            border-radius: 2px;
-            width: 180px;
-            display: inline-block;
-        }
-
-        .button {
-            display: grid;
-            border-radius: 5px;
-            color: slategrey;
-            grid-template-columns: auto auto auto auto;
-            grid-gap: 10px;
-            padding: 10px;
-        }
-
-            .button > div {
-                background-color: rgba(255, 255, 255, 0.8);
-                text-align: center;
-                padding: 20px 0;
-                font-size: 30px;
-            }
-    </style>
+    <!--External CSS-->
+    <link rel = "stylesheet" href = "layout.css">
 
     <meta charset="utf-8">
     <title>Simutopia</title>
+
+    <!--External JS-->
     <script type="text/javascript" src="./utilities.js"></script>
     <script type="text/javascript" src="./gameengine.js"></script>
     <script type="text/javascript" src="./assetmanager.js"></script>
@@ -94,8 +19,10 @@
     <script type="text/javascript" src="./agent.js"></script>
     <script type="text/javascript" src="./graph.js"></script>
     <script type="text/javascript" src="./histogram.js"></script>
+    <script type="text/javascript" src="./bubbleChart.js"></script>
     <script type="text/javascript" src="./world.js"></script>
     <script type="text/javascript" src="./main.js"></script>
+    
 
 </head>
 <center>
@@ -114,7 +41,8 @@
                 position: absolute;
                 left: 5px;
                 top: 50px;
-                border-radius: 5px"></canvas>
+                border-radius: 5px">        
+        </canvas>
 
         <div id="parent2">
             <div class="button">

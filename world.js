@@ -19,40 +19,105 @@ function World(game, ctx) {
 	this.day = 0;
 	this.initiate();
 	this.difficulty = WORLD_DIFFICULTY;
+	this.initializeNormalGeneHistograms();
+	this.initializeIndividualLearningGeneHistograms();
+	this.initializeSocialLearningGeneHistograms();
+	
 
-	// Histogram
-	this.gene_0_data = [];
-	this.gene_0_Histogram = new Histogram(game, 810, 10, "Gene_0_Histogram");
-	this.game.addEntity(this.gene_0_Histogram);
-
-	// Histogram
-	this.gene_1_data = [];
-	this.gene_1_Histogram = new Histogram(game, 810, 210, "Gene_1_Histogram");
-	this.game.addEntity(this.gene_1_Histogram);
-
-	// Histogram
-	this.gene_2_data = [];
-	this.gene_2_Histogram = new Histogram(game, 810, 410, "Gene_2_Histogram");
-	this.game.addEntity(this.gene_2_Histogram);
-
-	// Histogram
-	this.gene_3_data = [];
-	this.gene_3_Histogram = new Histogram(game, 810, 610, "Gene_3_Histogram");
-	this.game.addEntity(this.gene_3_Histogram);
-
-	// Histogram
-	this.gene_4_data = [];
-	this.gene_4_Histogram = new Histogram(game, 810, 810, "Gene_4_Histogram");
-	this.game.addEntity(this.gene_4_Histogram);
-
-	// Graph
+	// Graph for Population
 	this.agentsNumber = [];
-	this.agentsGraph = new Graph(this.game, 1210, 10, this, "Population");
+	this.agentsGraph = new Graph(this.game, 1030,820, this, "Population");
 	this.game.addEntity(this.agentsGraph);
+
+	// Bubble Chart
+	//this.bubbleChart = new BubbleChart(game, 1210, 200 , this);
 }
 
 World.prototype = new Entity();
 World.prototype.constructor = World;
+
+World.prototype.initializeNormalGeneHistograms = function(){
+	// Histogram
+	this.gene_0_data = [];
+	this.gene_0_Histogram = new Histogram(this.game, 1030, 20, "Gene_0_Histogram");
+	this.game.addEntity(this.gene_0_Histogram);
+
+	// Histogram
+	this.gene_1_data = [];
+	this.gene_1_Histogram = new Histogram(this.game, 1030, 160, "Gene_1_Histogram");
+	this.game.addEntity(this.gene_1_Histogram);
+
+	// Histogram
+	this.gene_2_data = [];
+	this.gene_2_Histogram = new Histogram(this.game, 1030, 300, "Gene_2_Histogram");
+	this.game.addEntity(this.gene_2_Histogram);
+
+	// Histogram
+	this.gene_3_data = [];
+	this.gene_3_Histogram = new Histogram(this.game, 1030, 440, "Gene_3_Histogram");
+	this.game.addEntity(this.gene_3_Histogram);
+
+	// Histogram
+	this.gene_4_data = [];
+	this.gene_4_Histogram = new Histogram(this.game, 1030, 580, "Gene_4_Histogram");
+	this.game.addEntity(this.gene_4_Histogram);
+};
+
+// Individual Learning Histograms
+World.prototype.initializeIndividualLearningGeneHistograms = function(){
+	// Histogram
+	this.genei_0_data = [];
+	this.genei_0_Histogram = new Histogram(this.game, 1290, 20, "Gene_0_Histogram");
+	this.game.addEntity(this.genei_0_Histogram);
+
+	// Histogram
+	this.genei_1_data = [];
+	this.genei_1_Histogram = new Histogram(this.game, 1290, 160, "Gene_1_Histogram");
+	this.game.addEntity(this.genei_1_Histogram);
+
+	// Histogram
+	this.genei_2_data = [];
+	this.genei_2_Histogram = new Histogram(this.game, 1290, 300, "Gene_2_Histogram");
+	this.game.addEntity(this.genei_2_Histogram);
+
+	// Histogram
+	this.genei_3_data = [];
+	this.genei_3_Histogram = new Histogram(this.game, 1290, 440, "Gene_3_Histogram");
+	this.game.addEntity(this.genei_3_Histogram);
+
+	// Histogram
+	this.genei_4_data = [];
+	this.genei_4_Histogram = new Histogram(this.game, 1290, 580, "Gene_4_Histogram");
+	this.game.addEntity(this.genei_4_Histogram);
+};
+
+// Social Learning Histograms
+World.prototype.initializeSocialLearningGeneHistograms = function(){
+	// Histogram
+	this.sgene_0_data = [];
+	this.sgene_0_Histogram = new Histogram(this.game, 1550, 20, "Gene_0_Histogram");
+	this.game.addEntity(this.sgene_0_Histogram);
+
+	// Histogram
+	this.sgene_1_data = [];
+	this.sgene_1_Histogram = new Histogram(this.game, 1550, 160, "Gene_1_Histogram");
+	this.game.addEntity(this.sgene_1_Histogram);
+
+	// Histogram
+	this.sgene_2_data = [];
+	this.sgene_2_Histogram = new Histogram(this.game, 1550, 300, "Gene_2_Histogram");
+	this.game.addEntity(this.sgene_2_Histogram);
+
+	// Histogram
+	this.sgene_3_data = [];
+	this.sgene_3_Histogram = new Histogram(this.game, 1550, 440, "Gene_3_Histogram");
+	this.game.addEntity(this.sgene_3_Histogram);
+
+	// Histogram
+	this.sgene_4_data = [];
+	this.sgene_4_Histogram = new Histogram(this.game, 1550, 580, "Gene_4_Histogram");
+	this.game.addEntity(this.sgene_4_Histogram);
+};
 
 World.prototype.initiate = function () {
 	this.day++;
@@ -92,6 +157,7 @@ World.prototype.update = function () {
 			this.cells[g][h].update();
 		}
 	}
+	//this.bubbleChart.cells = this.cells;
 	// UPDATE_PERIOD
 	if (this.day % UPDATE_PERIOD === 0) {
 		this.updateData();
@@ -158,8 +224,8 @@ World.prototype.draw = function (ctx) {
 	for (var k = 0; k < this.agents.length; k++) {
 		this.agents[k].draw(ctx);
 	}
-
 	this.displayData();
+	//this.bubbleChart.draw(ctx);
 };
 
 World.prototype.secondUpdate = function () {
@@ -170,15 +236,23 @@ World.prototype.displayData = function () {
 	this.ctx = this.game.ctx;
 	//this.ctx.strokeStyle = "#000000";
 	//this.ctx.fillSytle = "#000000";
-	this.ctx.font = "15px sans-serif";
-	this.ctx.fillText("Day: " + this.day, 1300, 620);
-	this.ctx.fillText("Population: " + this.worldPopulation, 1300, 640);
-	this.ctx.fillText("Min Gen: " + this.minGen, 1300, 660);
-	this.ctx.fillText("Average Gen: " + this.averageGen, 1300, 680);
-	this.ctx.fillText("Max Gen: " + this.maxGen, 1300, 700);
-	this.ctx.fillText("Min Age: " + this.minAge, 1300, 720);
-	this.ctx.fillText("Average Age: " + this.averageAge, 1300, 740);
-	this.ctx.fillText("Max Age: " + this.maxAge, 1300, 760);
+	this.ctx.strokeStyle = "black"
+	this.ctx.font = "bold 15px Courier";
+	this.ctx.textAlign = "start";
+	
+	this.ctx.fillText("Normal Genes", 1050, 15);
+	this.ctx.fillText("Day: " + this.day, 1100, 740);
+	this.ctx.fillText("Population: " + this.worldPopulation, 1100, 755);
+	this.ctx.fillText("Min Gen: " + this.minGen, 1100, 770);
+
+	this.ctx.fillText("Individual Learning Genes", 1590, 15);
+	this.ctx.fillText("Average Gen: " + this.averageGen, 1620, 740);
+	this.ctx.fillText("Max Gen: " + this.maxGen, 1650, 755);
+
+	this.ctx.fillText("Social Learning Genes", 1330, 15);
+	this.ctx.fillText("Min Age: " + this.minAge, 1390, 770);
+	this.ctx.fillText("Average Age: " + this.averageAge, 1390, 740);
+	this.ctx.fillText("Max Age: " + this.maxAge, 1390, 755);
 };
 
 World.prototype.updateGeneration = function () {
