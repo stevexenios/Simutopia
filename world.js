@@ -141,6 +141,7 @@ World.prototype.initiate = function () {
 
 World.prototype.update = function () {
 	this.day++;
+	
 	for (var k = 0; k < this.agents.length; k++) {
 		this.agents[k].update();
 		if (this.agents[k].reproduce) {
@@ -150,7 +151,6 @@ World.prototype.update = function () {
 		}
 		if (!this.agents[k].alive) {
 			// MAP Structure to keep track of the agents, by ID
-
 			this.agents.splice(k, 1);
 		}
 	}
@@ -176,15 +176,40 @@ World.prototype.updateData = function () {
 	var gene_3_data = [];
 	var gene_4_data = [];
 
+	var genei_0_data = [];
+	var genei_1_data = [];
+	var genei_2_data = [];
+	var genei_3_data = [];
+	var genei_4_data = [];
+
+	var sgene_0_data = [];
+	var sgene_1_data = [];
+	var sgene_2_data = [];
+	var sgene_3_data = [];
+	var sgene_4_data = [];
+
 	for (var i = 0; i < 20; i++) {
 		gene_0_data.push(0);
 		gene_1_data.push(0);
 		gene_2_data.push(0);
 		gene_3_data.push(0);
 		gene_4_data.push(0);
+
+		genei_0_data.push(0);
+		genei_1_data.push(0);
+		genei_2_data.push(0);
+		genei_3_data.push(0);
+		genei_4_data.push(0);
+
+		sgene_0_data.push(0);
+		sgene_1_data.push(0);
+		sgene_2_data.push(0);
+		sgene_3_data.push(0);
+		sgene_4_data.push(0);
 	}
 
 	for (var k = 0; k < this.agents.length; k++) {
+		// Biological Genome
 		var g0 = this.agents[k].genome.genotype[0].value < 20 ? this.agents[k].genome.genotype[0].value : 19;
 		gene_0_data[g0]++;
 
@@ -199,8 +224,41 @@ World.prototype.updateData = function () {
 
 		var g4 = this.agents[k].genome.genotype[4].value < 20 ? this.agents[k].genome.genotype[4].value : 19;
 		gene_4_data[g4]++;
+
+		// Individual Learning Genome
+		var gi0 = this.agents[k].individualLearningGenome.ilgenotype[0].value < 20 ? this.agents[k].individualLearningGenome.ilgenotype[0].value : 19;
+		genei_0_data[gi0]++;
+
+		var gi1 = this.agents[k].individualLearningGenome.ilgenotype[1].value < 20 ? this.agents[k].individualLearningGenome.ilgenotype[1].value : 19;
+		genei_1_data[gi1]++;
+
+		var gi2 = this.agents[k].individualLearningGenome.ilgenotype[2].value < 20 ? this.agents[k].individualLearningGenome.ilgenotype[2].value : 19;
+		genei_2_data[gi2]++;
+
+		var gi3 = this.agents[k].individualLearningGenome.ilgenotype[3].value < 20 ? this.agents[k].individualLearningGenome.ilgenotype[3].value : 19;
+		genei_3_data[gi3]++;
+
+		var gi4 = this.agents[k].individualLearningGenome.ilgenotype[4].value < 20 ? this.agents[k].individualLearningGenome.ilgenotype[4].value : 19;
+		genei_4_data[gi4]++;
+
+		// Social Learning Genome
+		var sg0 = this.agents[k].socialLearningGenome.slgenotype[0].value < 20 ? this.agents[k].socialLearningGenome.slgenotype[0].value : 19;
+		sgene_0_data[sg0]++;
+
+		var sg1 = this.agents[k].socialLearningGenome.slgenotype[1].value < 20 ? this.agents[k].socialLearningGenome.slgenotype[1].value : 19;
+		sgene_1_data[sg1]++;
+
+		var sg2 = this.agents[k].socialLearningGenome.slgenotype[2].value < 20 ? this.agents[k].socialLearningGenome.slgenotype[2].value : 19;
+		sgene_2_data[sg2]++;
+
+		var sg3 = this.agents[k].socialLearningGenome.slgenotype[3].value < 20 ? this.agents[k].socialLearningGenome.slgenotype[3].value : 19;
+		sgene_3_data[sg3]++;
+
+		var sg4 = this.agents[k].socialLearningGenome.slgenotype[4].value < 20 ? this.agents[k].socialLearningGenome.slgenotype[4].value : 19;
+		sgene_4_data[sg4]++;
 	}
 
+	// Biological
 	this.gene_0_data.push(gene_0_data);
 	this.gene_0_Histogram.data = this.gene_0_data;
 
@@ -216,6 +274,39 @@ World.prototype.updateData = function () {
 	this.gene_4_data.push(gene_4_data);
 	this.gene_4_Histogram.data = this.gene_4_data;
 
+	// Individual
+	this.genei_0_data.push(genei_0_data);
+	this.genei_0_Histogram.data = this.genei_0_data;
+
+	this.genei_1_data.push(genei_1_data);
+	this.genei_1_Histogram.data = this.genei_1_data;
+
+	this.genei_2_data.push(genei_2_data);
+	this.genei_2_Histogram.data = this.genei_2_data;
+
+	this.genei_3_data.push(genei_3_data);
+	this.genei_3_Histogram.data = this.genei_3_data;
+
+	this.genei_4_data.push(genei_4_data);
+	this.genei_4_Histogram.data = this.genei_4_data;
+
+	// Social
+	this.sgene_0_data.push(sgene_0_data);
+	this.sgene_0_Histogram.data = this.sgene_0_data;
+
+	this.sgene_1_data.push(sgene_1_data);
+	this.sgene_1_Histogram.data = this.sgene_1_data;
+
+	this.sgene_2_data.push(sgene_2_data);
+	this.sgene_2_Histogram.data = this.sgene_2_data;
+
+	this.sgene_3_data.push(sgene_3_data);
+	this.sgene_3_Histogram.data = this.sgene_3_data;
+
+	this.sgene_4_data.push(sgene_4_data);
+	this.sgene_4_Histogram.data = this.sgene_4_data;
+
+	// Graph on Population
 	this.agentsNumber.push(this.worldPopulation);
 };
 
