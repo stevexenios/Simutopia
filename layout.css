@@ -21,6 +21,7 @@
 
 #title1 {
     position: absolute;
+    font-family: courier;
     top: 10px;
     left: 5px;
 }
