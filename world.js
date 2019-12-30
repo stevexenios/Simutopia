@@ -319,35 +319,12 @@ World.prototype.draw = function (ctx) {
 	for (var k = 0; k < this.agents.length; k++) {
 		this.agents[k].draw(ctx);
 	}
-	this.displayData();
+	//this.displayData();
 	//this.bubbleChart.draw(ctx);
 };
 
 World.prototype.secondUpdate = function () {
 	this.tick++;
-};
-
-World.prototype.displayData = function () {
-	this.ctx = this.game.ctx;
-	//this.ctx.strokeStyle = "#000000";
-	//this.ctx.fillSytle = "#000000";
-	this.ctx.strokeStyle = "black"
-	this.ctx.font = "bold 15px Courier";
-	this.ctx.textAlign = "start";
-	
-	this.ctx.fillText("Normal Genes", 1050, 15);
-	this.ctx.fillText("Day: " + this.day, 1100, 740);
-	this.ctx.fillText("Population: " + this.worldPopulation, 1100, 755);
-	this.ctx.fillText("Min Gen: " + this.minGen, 1100, 770);
-
-	this.ctx.fillText("Individual Learning Genes", 1590, 15);
-	this.ctx.fillText("Average Gen: " + this.averageGen, 1620, 740);
-	this.ctx.fillText("Max Gen: " + this.maxGen, 1650, 755);
-
-	this.ctx.fillText("Social Learning Genes", 1330, 15);
-	this.ctx.fillText("Min Age: " + this.minAge, 1390, 770);
-	this.ctx.fillText("Average Age: " + this.averageAge, 1390, 740);
-	this.ctx.fillText("Max Age: " + this.maxAge, 1390, 755);
 };
 
 World.prototype.updateGeneration = function () {

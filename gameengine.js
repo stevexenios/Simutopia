@@ -50,20 +50,25 @@ GameEngine.prototype.init = function (ctx) {
 	this.ctx = ctx;
 	this.world = new World(this, this.ctx);
 	this.addEntity(this.world);
-	this.restart = document.getElementById("restart");
-	this.pause = document.getElementById("pause");
-	this.play = document.getElementById("play");
-	this.reset = document.getElementById("reset");
+	this.setButtons();
     this.surfaceWidth = this.ctx.canvas.width;
 	this.surfaceHeight = this.ctx.canvas.height;
 	this.startInput();
 	this.timer = new Timer();
 	this.start();
-    console.log('Game initialized');
+	//this.displayData();
+    //console.log('Game initialized');
+}
+
+GameEngine.prototype.setButtons = function(){
+	this.restart = document.getElementById("restart");
+	this.pause = document.getElementById("pause");
+	this.play = document.getElementById("play");
+	this.reset = document.getElementById("reload");
 }
 
 GameEngine.prototype.start = function () {
-	console.log("Starting game");
+	//console.log("Starting game");
     var that = this;
     (function gameLoop() {
         that.loop();
@@ -71,20 +76,46 @@ GameEngine.prototype.start = function () {
     })();
 }
 
+GameEngine.prototype.displayData = function () {
+	this.ctx.strokeStyle = "#000000";
+	this.ctx.fillSytle = "#000000";
+	this.ctx.strokeStyle = "black"
+	this.ctx.font = "bold 15px Courier";
+	this.ctx.textAlign = "start";
+	
+	this.ctx.fillText("Normal Genes", 1050, 15);
+	this.ctx.fillText("Day: " + this.world.day, 1100, 740);
+	this.ctx.fillText("Population: " + this.world.worldPopulation, 1100, 755);
+	this.ctx.fillText("Min Gen: " + this.world.minGen, 1100, 770);
+
+	this.ctx.fillText("Individual Learning Genes", 1590, 15);
+	this.ctx.fillText("Average Gen: " + this.world.averageGen, 1620, 740);
+	this.ctx.fillText("Max Gen: " + this.world.maxGen, 1650, 755);
+
+	this.ctx.fillText("Social Learning Genes", 1330, 15);
+	this.ctx.fillText("Min Age: " + this.world.minAge, 1390, 770);
+	this.ctx.fillText("Average Age: " + this.world.averageAge, 1390, 740);
+	this.ctx.fillText("Max Age: " + this.world.maxAge, 1390, 755);
+};
+
 // ?? Restart button
 GameEngine.prototype.restartGame = function () {
-	console.log('Game restarted');
+	//console.log('Game restarting...');
+	for(var i = 0; i < this.entities.length; i++){
+		this.entities.splice(i, 1);
+	}
+	//this.entities.forEach(element=>this.removeEntity(element));
 	var canvas = document.getElementById('gameWorld');
 	this.ctx.clearRect(0, 0, canvas.width, canvas.height);
 	this.init(this.ctx);
-	that.timer = new Timer();
+	this.timer = new Timer();
 }
 
 // ?? Reset button
-GameEngine.prototype.resetGame = function () {
-	console.log("Resetting sim");
+GameEngine.prototype.reloadGame = function () {
+	//console.log("Reloading sim");
 	this.setParameters();
-	this.loop();
+	//this.loop();
 }
 
 GameEngine.prototype.pauseGame = function () {
@@ -137,7 +168,7 @@ GameEngine.prototype.startInput = function () {
 	}, false);
 
 	this.reset.addEventListener("click", function (e) {
-		that.resetGame();
+		that.reloadGame();
 	}, false);
 
 	this.restart.addEventListener("click", function (e) {
@@ -151,6 +182,12 @@ GameEngine.prototype.addEntity = function (entity) {
     this.entities.push(entity);
 }
 
+GameEngine.prototype.removeEntity = function(entity) {
+	//console.log('Removed entity.');
+	var index = this.entities.indexOf(entity);
+	this.entities.splice(index, 1);
+}
+
 GameEngine.prototype.draw = function () {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     this.ctx.save();
@@ -161,6 +198,7 @@ GameEngine.prototype.draw = function () {
 }
 
 GameEngine.prototype.update = function () {
+	this.displayData();
 	this.updateCounter++;
 	for (var i = 0; i < this.entities.length; i++) {
 		this.entities[i].update();
