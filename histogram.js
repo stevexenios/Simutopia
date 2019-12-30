@@ -40,7 +40,7 @@ Histogram.prototype.draw = function (ctx) {
 Histogram.prototype.fill = function (color, x, y) {
 	switch (color) {
 		case 0:
-			this.ctx.fillStyle = "#FFFFFF";
+			this.ctx.fillStyle = "#FFFFFF"; // white
 			break;
 		case 1:
 			this.ctx.fillStyle = "#F0F0F0";
@@ -100,10 +100,10 @@ Histogram.prototype.fill = function (color, x, y) {
 			this.ctx.fillStyle = "#181818";
 			break;
 		case 20:
-			this.ctx.fillStyle = "#0C0C0C";
+			this.ctx.fillStyle = "#0C0C0C"; // black 
 			break;
 	}
-	var width = Math.floor(this.xSize / 120);
+	var width = Math.floor(this.xSize / 80);
 	var height = Math.floor(this.ySize / 20);
 	this.ctx.fillRect(this.x + (x * width),
 		this.y + (y * height),
