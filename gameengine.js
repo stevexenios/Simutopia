@@ -76,28 +76,6 @@ GameEngine.prototype.start = function () {
     })();
 }
 
-GameEngine.prototype.displayData = function () {
-	this.ctx.strokeStyle = "#000000";
-	this.ctx.fillSytle = "#000000";
-	this.ctx.strokeStyle = "black"
-	this.ctx.font = "bold 15px Courier";
-	this.ctx.textAlign = "start";
-	
-	this.ctx.fillText("Normal Genes", 1050, 15);
-	this.ctx.fillText("Day: " + this.world.day, 1100, 740);
-	this.ctx.fillText("Population: " + this.world.worldPopulation, 1100, 755);
-	this.ctx.fillText("Min Gen: " + this.world.minGen, 1100, 770);
-
-	this.ctx.fillText("Individual Learning Genes", 1590, 15);
-	this.ctx.fillText("Average Gen: " + this.world.averageGen, 1620, 740);
-	this.ctx.fillText("Max Gen: " + this.world.maxGen, 1650, 755);
-
-	this.ctx.fillText("Social Learning Genes", 1330, 15);
-	this.ctx.fillText("Min Age: " + this.world.minAge, 1390, 770);
-	this.ctx.fillText("Average Age: " + this.world.averageAge, 1390, 740);
-	this.ctx.fillText("Max Age: " + this.world.maxAge, 1390, 755);
-};
-
 // ?? Restart button
 GameEngine.prototype.restartGame = function () {
 	//console.log('Game restarting...');
@@ -198,7 +176,6 @@ GameEngine.prototype.draw = function () {
 }
 
 GameEngine.prototype.update = function () {
-	this.displayData();
 	this.updateCounter++;
 	for (var i = 0; i < this.entities.length; i++) {
 		this.entities[i].update();

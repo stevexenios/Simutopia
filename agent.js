@@ -1,175 +1,211 @@
 // JavaScript source code
+
 /**
- * Agent is an entity
- * Always resides at x, y
- * @param {any} game
- * @param {any} x
- * @param {any} y
- * @param {any} world
+ * Agent class.
+ * 
+ * @param game - this iteration of the game
+ * @param cell - the cell the agent is located in
+ * @param world - so agent can have a copy of the world
  */
-function Agent(game, cell, world) {
-	this.game = game;
-	this.ctx = world.ctx;
-	this.cell = cell;
-	this.world = world;
-	this.x = this.cell.x;
-	this.y = this.cell.y;
-	this.color = AGENT_COLOR;
-	this.width = AGENT_DIMENSION;
-	this.height = AGENT_DIMENSION;
-	this.label = 2;
-	this.age = 0;
-	this.generation = 0;
-	this.energy = 0;
-	this.alive = true;
+class Agent{
+	constructor(game, cell, world){
+		this.label = "agent";	
+		this.game = game;
+		this.ctx = world.ctx;
+		this.cell = cell;
+		this.world = world;
+		this.x = this.cell.x;
+		this.y = this.cell.y;
+		
+		this.age = 0;
+		this.generation = 0;
+		this.energy = 0;
+		this.alive = true;
+		this.reproduce = false;
 
-	this.genome = new Genome(GENE_COUNT);
-	this.individualLearningGenome = new IndividualLearningGenome(GENE_COUNT);
-	this.socialLearningGenome = new SocialLearningGenome(GENE_COUNT);
+		this.color = AGENT_COLOR;
+		this.width = AGENT_DIMENSION;
+		this.height = AGENT_DIMENSION;
 
-	this.reproduce = false;
-	this.addAgentToCell();
-	this.learningBonus = [];
-	for(var i = 0; i < GENE_COUNT; i++){
-		this.learningBonus.push(0);
+		this.genome = new Genome(GENE_COUNT, BIOLOGICAL_GENOME_LABEL, B_GENOME_MUTATION_RATE);
+		this.individualLearningGenome = new Genome(GENE_COUNT, INDIVIDUAL_LEARNING_LABEL, I_GENOME_MUTATION_RATE);
+		this.socialLearningGenome = new Genome(GENE_COUNT, SOCIAL_LEARNING_LABEL, S_GENOME_MUTATION_RATE);
+		this.learningBonus = [];
+		for(var i = 0; i < GENE_COUNT; i++){
+			this.learningBonus.push(0);
+		}
+		this.addAgentToCell();
+	}
+
+	/**
+	 * Function to add agent to it's cell after it has been created
+	 */
+	addAgentToCell(){
+		this.cell.agents.push(this);
+	}
+
+	/**
+	 * Function to clone this agent. Clones and mutates the genome.
+	 */
+	clone(){
+		var clonedAgent = new Agent(this.game, this.relocationCell(), this.world);
+		clonedAgent.genome = this.genome.clone();
+		clonedAgent.individualLearningGenome = this.individualLearningGenome.clone();
+		clonedAgent.socialLearningGenome = this.socialLearningGenome.clone();
+		clonedAgent.generation = this.generation + 1;
+		return clonedAgent;
+	}
+
+	/**
+	 * Updates each Agent by calling the functions.
+	 */
+	update(){
+		this.age++;
+		this.updateLearningBonus();
+		this.attemptTasks();
+		if(this.world.day % UPDATE_PERIOD === 0){
+			this.setReproduction();
+			this.checkDeathChance();
+		}
+	}
+
+	/**
+	 * Function to update the learning bonus for each agent.
+	 */
+	updateLearningBonus() {
+		var bonus = [];
+		var randomAgent = this.cell.agents[randomInt(this.cell.agents.length)];
+		for(var index = 0; index < GENE_COUNT; index++){
+			var initialSLValue = this.socialLearningGenome.genotype[index].value;
+			bonus.push(this.calculateSociallyLearned(initialSLValue, index, randomAgent));
+		}
+		for(var j = 0; j<GENE_COUNT; j++){
+			this.learningBonus[j] = bonus[j] + this.individualLearningGenome.genotype[j].value;
+		}
+	}
+	
+	/**
+	 * Social Learning is set to occur just within the same cell.
+	 * @param initialSLValue 
+	 * @param index 
+	 * @param randomAgent
+	 */
+	calculateSociallyLearned(initialSLValue, index, randAgent){
+		var possibleSociallyLearnedValue = 0;
+		var attempts = initialSLValue;
+		for(var i = 1; i<=attempts; i++){
+			if(randAgent != null) {
+				if(possibleSociallyLearnedValue < randAgent.socialLearningGenome.genotype[index].value){
+					possibleSociallyLearnedValue = randAgent.socialLearningGenome.genotype[index].value;
+				}
+			}
+		}
+		return possibleSociallyLearnedValue > initialSLValue ? possibleSociallyLearnedValue : initialSLValue;
+	}
+
+	/**
+	 * Function for simulating Agent attemtpting a task.
+	 */
+	attemptTasks() {
+		for (var i = 0; i < GENE_COUNT; i++) {
+			if (this.genome.genotype[i].value + this.learningBonus[i] + this.cell.bonuses[i] > REPRODUCTION_DIFFICULTY) {
+				this.energy++;
+			} else {
+				this.energy--;
+			}
+		}
+	}
+
+	/**
+	 * Function that sets Agent reproduction to TRUE...
+	 * and reduces energy in Agent after the process.
+	 * ...otherwise always false.
+	 */
+	setReproduction() {
+		var sumGenomeCost = this.genomeCost() + REPRODUCTION_BASE_COST;
+		if (this.energy > (sumGenomeCost * REPRODUCTION_FACTOR)) {
+			this.energy -= sumGenomeCost;
+			this.energy -= this.cell.populationPenalty * REPRODUCTION_FACTOR;
+			/**
+			 * This boolean is checked during each update in the world
+			 * If TRUE, Agent clones itself...then World adds agent to itself. 
+			 * Value is then reset to FALSE.
+			 */
+			this.reproduce = true;
+		}
+	}
+
+	/**
+	 * Function for determining death chance. 
+	 * Agent death depends on:
+	 * 		1. DEATH_CHANCE
+	 * 		2. Energy of Agent 
+	 */
+	checkDeathChance() {
+		if (Math.random() < DEATH_CHANCE || this.energy < 0) {
+			this.alive = false;
+		}
+	}
+
+	/**
+	 * Function to calculate the cost of the given genome.
+	 */
+	genomeCost(){
+		var accumulator = 0;
+		for(var i = 0; i < GENE_COUNT; i++){
+			accumulator += this.genome.genotype[i].value;
+			accumulator += this.individualLearningGenome.genotype[i].value;
+			accumulator += this.socialLearningGenome.genotype[i].value;
+		}
+		//console.log(accumulator);
+		return accumulator;
+	}
+	/**
+	 * Function called by World to draw each Agent.
+	 * @param ctx
+	 */
+	draw(ctx) {
+		var center = CELL_DIMENSION / 2 - AGENT_DIMENSION / 2;
+		ctx.fillStyle = this.color;
+		ctx.fillRect(CELL_DIMENSION * this.x + center, CELL_DIMENSION * this.y + center, this.width, this.height);
+		ctx.fill();
+	}
+
+	/**
+	 * Function that determines how far from parent,
+	 * each cloned Agent relocates.
+	 */
+	relocationCell() {
+		var fromX = this.cell.x;
+		var fromY = this.cell.y;
+		var units = [-3, -2, -1, 0, 1, 2, 3];
+		var firstRand = units[randomInt(7)];
+		var secondRand = units[randomInt(7)];
+		var pX = fromX + firstRand - 2;
+		var pY = fromY + secondRand - 2;
+		var returnX;
+		var returnY;
+		if (pX >= NUMBER_OF_CELLS) {
+			returnX = pX - NUMBER_OF_CELLS;
+		} else if (pX < 0) {
+			returnX = NUMBER_OF_CELLS + pX;
+		} else {
+			returnX = pX;
+		}
+	
+		if (pY >= NUMBER_OF_CELLS) {
+			returnY = pY - NUMBER_OF_CELLS;
+		} else if (pY < 0) {
+			returnY = NUMBER_OF_CELLS + pY;
+		} else {
+			returnY = pY;
+		}
+		return this.world.cells[returnX][returnY];
 	}
 }
 
-Agent.prototype.addAgentToCell = function () {
-	this.cell.agents.push(this);
-};
 
-Agent.prototype.clone = function () {
-	var a = new Agent(this.game, this.relocationCell(), this.world);
-	a.genome = this.genome.clone(); // Cloned and Mutated
-	a.individualLearningGenome = this.individualLearningGenome.clone();
-	a.socialLearningGenome = this.socialLearningGenome.clone();
-	a.generation = this.generation + 1;
-	return a;
-};
 
-Agent.prototype.update = function () {
-	this.age++;
-	this.updateLearningBonus();
-	this.attemptTasks();
-	if(randomInt(100) < 2){
-		this.reproduction();
-	}
-	this.checkDeathChance();
-};
 
-Agent.prototype.updateLearningBonus = function (){
-	this.energy -= 1; // Indi and Social learning cost
-	var bonus = [];
-	for(var i = 0; i < GENE_COUNT; i++){
-		var oldslvalue = this.socialLearningGenome.slgenotype[i].value;
-		var newslvalue = this.calculateSociallyLearned(oldslvalue, i);
-		bonus.push(newslvalue);
-	}
-	// console.log(bonus[0]);
-	// console.log(this.individualLearningGenome.ilgenotype[j]);
-	for(var j = 0; j<GENE_COUNT; j++){
-		bonus[j] += this.individualLearningGenome.ilgenotype[j].value;
-	}
-	this.learningBonus = bonus;
-	//this.energy -= this.socialLearningGenome.cost;
-	//this.energy -= this.individualLearningGenome.cost;
 
-};
 
-Agent.prototype.calculateSociallyLearned = function(attempts, index){
-	var maxSociallyLearnedValue = 0;
-	for(var i = 0; i<=attempts; i++){
-		var cellPopulation = this.cell.agents.length;
-		if(cellPopulation>0){//When agents in cell are there to learn from...
-			var randAgent = this.cell.agents[randomInt(cellPopulation)];
-			if(maxSociallyLearnedValue < randAgent.socialLearningGenome.slgenotype[index].value){
-				maxSociallyLearnedValue = randAgent.socialLearningGenome.slgenotype[index].value;
-			}
-		} else{//..if cell pop <0, then socially learn from World Population
-			if(maxSociallyLearnedValue < randAgent.socialLearningGenome.slgenotype[index].value){
-				maxSociallyLearnedValue = randAgent.socialLearningGenome.slgenotype[index].value;
-			}
-		}
-	}
-
-	return maxSociallyLearnedValue>attempts? maxSociallyLearnedValue: attempts;
-};
-
-Agent.prototype.checkDeathChance = function () {
-	this.energy -= 1;
-	if (Math.random() < DEATH_CHANCE || this.energy < 0) {
-		this.removeFromWorld = true;
-		this.alive = false;
-	}
-};
-
-Agent.prototype.mutate = function () {
-	this.genome.mutate();
-};
-
-Agent.prototype.attemptTasks = function () {
-	this.energy --;
-
-	for (var i = 0; i < GENE_COUNT; i++) {
-		var count = this.learningBonus[i];
-		// gene + ind + cellbonus > diff
-		while(count>-1){
-			if (this.genome.genotype[i].value + this.cell.bonuses[i] > WORLD_DIFFICULTY) {
-				this.energy++;
-			} else{
-				this.energy--;
-			}
-			count--;
-		}
-	}
-
-	// if (this.cell.agents.length / 100 > 1) {
-	// 	this.energy -= Math.floor(this.energy * this.cell.agents.length / this.world.worldPopulation);
-	// }
-};
-
-Agent.prototype.reproduction = function () {
-	this.energy -= this.cell.agents.length;
-	if (this.energy > this.genome.cost * 3) {
-		this.energy -= this.genome.cost * 3;
-		this.reproduce = true;
-	}
-};
-
-Agent.prototype.draw = function (ctx) {
-	var center = CELL_DIMENSION / 2 - AGENT_DIMENSION/2;
-	ctx.fillStyle = this.color;
-	ctx.fillRect(CELL_DIMENSION * this.x + center, CELL_DIMENSION * this.y + center, this.width, this.height);
-	ctx.fill();
-};
-
-Agent.prototype.relocationCell = function () {
-	fromX = this.cell.x;
-	fromY = this.cell.y;
-	var units = [-3, -2, -1, 0, 1, 2, 3];
-	var firstRand = units[randomInt(7)];
-	var secondRand = units[randomInt(7)];
-	var pX = fromX + firstRand - 2;
-	var pY = fromY + secondRand - 2;
-	var returnX;
-	var returnY;
-	if (pX >= NUMBER_OF_CELLS) {
-		returnX = pX - NUMBER_OF_CELLS;
-	} else if (pX < 0) {
-		returnX = NUMBER_OF_CELLS + pX;
-	} else {
-		returnX = pX;
-	}
-
-	if (pY >= NUMBER_OF_CELLS) {
-		returnY = pY - NUMBER_OF_CELLS;
-	} else if (pY < 0) {
-		returnY = NUMBER_OF_CELLS + pY;
-	} else {
-		returnY = pY;
-	}
-	//console.log(returnY);
-	//console.log(pY);
-	return this.world.cells[returnX][returnY];
-};

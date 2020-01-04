@@ -1,3 +1,8 @@
+01/03/2020
+-Combine the 3 files for Genomes into one. 
+-Increase number of parameters during genome construction. 
+-Add labels of the genome for the 3 genome types. 
+
 "Life is a Process that Can be Abstracted Away from Any Particular Medium."
 
 Ouroboros programs
