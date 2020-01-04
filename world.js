@@ -20,7 +20,7 @@ function World(game, ctx) {
 	this.tick = 0;
 	this.day = 0;
 	this.initiate();
-	this.difficulty = WORLD_DIFFICULTY;
+	this.difficulty = REPRODUCTION_DIFFICULTY;
 	this.initializeNormalGeneHistograms();
 	this.initializeIndividualLearningGeneHistograms();
 	this.initializeSocialLearningGeneHistograms();
@@ -135,13 +135,9 @@ World.prototype.initiate = function () {
 	}
 };
 
-// Method to delete agents from world and cells
-
-// Method to add length of cells to world population
-
 World.prototype.update = function () {
 	this.day++;
-	
+	this.displayData();
 	for (var k = 0; k < this.agents.length; k++) {
 		this.agents[k].update();
 		if (this.agents[k].reproduce) {
@@ -226,35 +222,35 @@ World.prototype.updateData = function () {
 		gene_4_data[g4]++;
 
 		// Individual Learning Genome
-		var gi0 = this.agents[k].individualLearningGenome.ilgenotype[0].value < 20 ? this.agents[k].individualLearningGenome.ilgenotype[0].value : 19;
+		var gi0 = this.agents[k].individualLearningGenome.genotype[0].value < 20 ? this.agents[k].individualLearningGenome.genotype[0].value : 19;
 		genei_0_data[gi0]++;
 
-		var gi1 = this.agents[k].individualLearningGenome.ilgenotype[1].value < 20 ? this.agents[k].individualLearningGenome.ilgenotype[1].value : 19;
+		var gi1 = this.agents[k].individualLearningGenome.genotype[1].value < 20 ? this.agents[k].individualLearningGenome.genotype[1].value : 19;
 		genei_1_data[gi1]++;
 
-		var gi2 = this.agents[k].individualLearningGenome.ilgenotype[2].value < 20 ? this.agents[k].individualLearningGenome.ilgenotype[2].value : 19;
+		var gi2 = this.agents[k].individualLearningGenome.genotype[2].value < 20 ? this.agents[k].individualLearningGenome.genotype[2].value : 19;
 		genei_2_data[gi2]++;
 
-		var gi3 = this.agents[k].individualLearningGenome.ilgenotype[3].value < 20 ? this.agents[k].individualLearningGenome.ilgenotype[3].value : 19;
+		var gi3 = this.agents[k].individualLearningGenome.genotype[3].value < 20 ? this.agents[k].individualLearningGenome.genotype[3].value : 19;
 		genei_3_data[gi3]++;
 
-		var gi4 = this.agents[k].individualLearningGenome.ilgenotype[4].value < 20 ? this.agents[k].individualLearningGenome.ilgenotype[4].value : 19;
+		var gi4 = this.agents[k].individualLearningGenome.genotype[4].value < 20 ? this.agents[k].individualLearningGenome.genotype[4].value : 19;
 		genei_4_data[gi4]++;
 
 		// Social Learning Genome
-		var sg0 = this.agents[k].socialLearningGenome.slgenotype[0].value < 20 ? this.agents[k].socialLearningGenome.slgenotype[0].value : 19;
+		var sg0 = this.agents[k].socialLearningGenome.genotype[0].value < 20 ? this.agents[k].socialLearningGenome.genotype[0].value : 19;
 		sgene_0_data[sg0]++;
 
-		var sg1 = this.agents[k].socialLearningGenome.slgenotype[1].value < 20 ? this.agents[k].socialLearningGenome.slgenotype[1].value : 19;
+		var sg1 = this.agents[k].socialLearningGenome.genotype[1].value < 20 ? this.agents[k].socialLearningGenome.genotype[1].value : 19;
 		sgene_1_data[sg1]++;
 
-		var sg2 = this.agents[k].socialLearningGenome.slgenotype[2].value < 20 ? this.agents[k].socialLearningGenome.slgenotype[2].value : 19;
+		var sg2 = this.agents[k].socialLearningGenome.genotype[2].value < 20 ? this.agents[k].socialLearningGenome.genotype[2].value : 19;
 		sgene_2_data[sg2]++;
 
-		var sg3 = this.agents[k].socialLearningGenome.slgenotype[3].value < 20 ? this.agents[k].socialLearningGenome.slgenotype[3].value : 19;
+		var sg3 = this.agents[k].socialLearningGenome.genotype[3].value < 20 ? this.agents[k].socialLearningGenome.genotype[3].value : 19;
 		sgene_3_data[sg3]++;
 
-		var sg4 = this.agents[k].socialLearningGenome.slgenotype[4].value < 20 ? this.agents[k].socialLearningGenome.slgenotype[4].value : 19;
+		var sg4 = this.agents[k].socialLearningGenome.genotype[4].value < 20 ? this.agents[k].socialLearningGenome.genotype[4].value : 19;
 		sgene_4_data[sg4]++;
 	}
 
@@ -361,4 +357,26 @@ World.prototype.updateGeneration = function () {
 
 World.prototype.addAgent = function (agent) {
 	this.agents.push(agent);
+};
+
+World.prototype.displayData = function () {
+	this.ctx.strokeStyle = "#000000";
+	this.ctx.fillSytle = "#000000";
+	this.ctx.strokeStyle = "black"
+	this.ctx.font = "bold 15px Courier";
+	this.ctx.textAlign = "start";
+	
+	this.ctx.fillText("Normal Genes", 1050, 15);
+	this.ctx.fillText("Day: " + this.day, 1100, 740);
+	this.ctx.fillText("Population: " + this.worldPopulation, 1100, 755);
+	this.ctx.fillText("Min Gen: " + this.minGen, 1100, 770);
+
+	this.ctx.fillText("Individual Learning Genes", 1590, 15);
+	this.ctx.fillText("Average Gen: " + this.averageGen, 1620, 740);
+	this.ctx.fillText("Max Gen: " + this.maxGen, 1650, 755);
+
+	this.ctx.fillText("Social Learning Genes", 1330, 15);
+	this.ctx.fillText("Min Age: " + this.minAge, 1390, 770);
+	this.ctx.fillText("Average Age: " + this.averageAge, 1390, 740);
+	this.ctx.fillText("Max Age: " + this.maxAge, 1390, 755);
 };
