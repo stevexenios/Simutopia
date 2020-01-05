@@ -6,7 +6,7 @@ var INITIAL_POPULATION = 100;
 
 //Cell
 var CELL_DIMENSION = 1010 / NUMBER_OF_CELLS;
-var MAX_BONUS = 5;
+var MAX_BONUS = 10;
 //Agent
 var DEATH_CHANCE = 0.01;
 var AGENT_DIMENSION = CELL_DIMENSION/4;
@@ -29,16 +29,57 @@ var SOCIAL_LEARNING = true;
 var SOCIAL_LEARNING_LABEL = 2;
 var S_GENOME_MUTATION_RATE = 0.05;
 
-// Reproduction Control Values
-var REPRODUCTION_DIFFICULTY = 3;
-var REPRODUCTION_FACTOR = 5;
-var REPRODUCTION_BASE_COST = 5;
+/**
+ * World difficulty, difficulty level from scale starting at 0. 
+ * Used during Agent Attempt tasks. 
+ */
+var WORLD_DIFFICULTY = 7;
+
+/**
+ * Used in Agents to multiply genome cost, and thus increase energy required for reproduction.
+ * Called in Set reproduction. 
+ */
+var REPRODUCTION_FACTOR = 2;
+
+/**
+ * Used in Agents to add to sum of the genome cost, and thus increase energy required for reproduction.
+ * Also Called in Set reproduction. 
+ */
+var REPRODUCTION_BASE_COST = 2;
+
+/**
+ * Marks the age the agent is capable of reproducing. 
+ * UNUSED...
+ */
+var REPRODUCTION_START_AGE = 12;
+
+/**
+ * Marks the age the agent is no longer capable of reproducing.
+ * UNUSED...
+ */
+var REPRODUCTION_END_AGE = 50; 
+
+/**
+ * Controls the penalty for cell population in multiples of the given value .e.g. -1*CELL_POP/CELLPOP_PENALTY_FACTOR. 
+ * Used in cell calc..penalty function.
+ */
+var CELLPOP_PENALTY_FACTOR = 25;
 
 //Bubble Chart
 var BUBBLE_CHART_WIDTH = 400;
 
 function randomInt(n) {
 	return Math.floor(Math.random() * n);
+}
+
+/**
+ * Function that creates a String from concating 3 parameter strings.
+ * @param {*} s1 
+ * @param {*} s2 
+ * @param {*} s3 
+ */
+function returnString(s1, s2, s3){
+	return s1+s2+s3;
 }
 
 function within(xx, minX, maxX) {

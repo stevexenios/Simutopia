@@ -36,7 +36,7 @@ Cell.prototype.update = function () {
  */
 Cell.prototype.updatePopulationPenalty = function (){
 	// [ 0, 50, 100, 150, 200, 250...] equiv to [0, -1, -2, -3, -4, -5...]
-	this.populationPenalty = -1 * Math.floor(this.agents.length/50);
+	this.populationPenalty = -1 * Math.floor(this.agents.length / CELLPOP_PENALTY_FACTOR);
 };
 
 Cell.prototype.draw = function (ctx) {
