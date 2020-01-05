@@ -1,4 +1,11 @@
-01/03/2020
+Incomplete: 01/04/2020 - 01/10/2020
+- Divide the Layouts into 3 seperate ones:
+	- Buttons
+	- Checkboxes
+	- Input
+- Enable functionality of all the above
+
+Completed: 01/03/2020
 -Combine the 3 files for Genomes into one. 
 -Increase number of parameters during genome construction. 
 -Add labels of the genome for the 3 genome types. 
