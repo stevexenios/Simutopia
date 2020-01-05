@@ -20,12 +20,11 @@ function World(game, ctx) {
 	this.tick = 0;
 	this.day = 0;
 	this.initiate();
-	this.difficulty = REPRODUCTION_DIFFICULTY;
+	this.difficulty = WORLD_DIFFICULTY;
 	this.initializeNormalGeneHistograms();
 	this.initializeIndividualLearningGeneHistograms();
 	this.initializeSocialLearningGeneHistograms();
 	
-
 	// Graph for Population
 	this.agentsNumber = [];
 	this.agentsGraph = new Graph(this.game, 1030,820, this, "Population");
@@ -137,7 +136,6 @@ World.prototype.initiate = function () {
 
 World.prototype.update = function () {
 	this.day++;
-	this.displayData();
 	for (var k = 0; k < this.agents.length; k++) {
 		this.agents[k].update();
 		if (this.agents[k].reproduce) {
@@ -159,10 +157,12 @@ World.prototype.update = function () {
 	}
 	//this.bubbleChart.cells = this.cells;
 	// UPDATE_PERIOD
-	if (this.day % UPDATE_PERIOD === 0) {
+	if (this.day % 1 === 0) {
 		this.updateData();
 		this.updateGeneration();
+		//this.displayData();
 	}
+	
 };
 
 World.prototype.updateData = function () {
@@ -315,7 +315,7 @@ World.prototype.draw = function (ctx) {
 	for (var k = 0; k < this.agents.length; k++) {
 		this.agents[k].draw(ctx);
 	}
-	//this.displayData();
+	this.displayData();
 	//this.bubbleChart.draw(ctx);
 };
 
@@ -360,7 +360,7 @@ World.prototype.addAgent = function (agent) {
 };
 
 World.prototype.displayData = function () {
-	this.ctx.strokeStyle = "#000000";
+	// this.ctx.strokeStyle = "#000000";
 	this.ctx.fillSytle = "#000000";
 	this.ctx.strokeStyle = "black"
 	this.ctx.font = "bold 15px Courier";

@@ -16,7 +16,8 @@ class Genome {
 	constructor (geneCount, genomeLabel, mutationRate) {
 		this.geneCount = geneCount;
 		this.label = genomeLabel;
-		this.mutationRate = mutationRate;
+		this.mutationRate = null;
+		this.setMutationRate(this.label);
 
 		// Initial genome generation is 0, only changes during cloning.
 		this.generation = 0;
@@ -33,6 +34,20 @@ class Genome {
 	}
 
 	/**
+	 * Function that sets mutation rate depending on the label
+	 * @param label that marks biological (0), individual (1) or social learning (2)
+	 */
+	setMutationRate(label){
+		if(label === 0){
+			this.mutationRate = B_GENOME_MUTATION_RATE;
+		} else if(label === 1){
+			this.mutationRate = I_GENOME_MUTATION_RATE;
+		} else {
+			this.mutationRate = S_GENOME_MUTATION_RATE;
+		}
+	}
+
+	/**
 	 * This function is called during reproduction and mutates the genome,
 	 * by calling mutate for each gene in genotype.
 	 * 
@@ -44,15 +59,16 @@ class Genome {
 		for (var i = 0; i < GENE_COUNT; i++) {
 			this.genotype[i].mutate(this.mutationRate);
 		}
+		//console.log("After: " + this.genotype[i].value);
 	}
 
 	/**
 	 * Function to Clone Each Gene
 	 */
 	clone(){
-		var clonedGenome = new Genome(this.geneCount, this.genomeLabel, this.mutationRate);
+		var clonedGenome = new Genome(GENE_COUNT, this.genomeLabel, this.mutationRate);
 		clonedGenome.generation = this.generation + 1;
-		for (var i = 0; i < this.geneCount; i++) {
+		for (var i = 0; i < GENE_COUNT; i++) {
 			var clonedGene = this.genotype[i].clone();
 			clonedGenome.genotype.push(clonedGene);
 		}
