@@ -27,9 +27,9 @@ class Agent{
 		this.width = AGENT_DIMENSION;
 		this.height = AGENT_DIMENSION;
 
-		this.genome = new Genome(GENE_COUNT, BIOLOGICAL_GENOME_LABEL, B_GENOME_MUTATION_RATE);
-		this.individualLearningGenome = new Genome(GENE_COUNT, INDIVIDUAL_LEARNING_LABEL, I_GENOME_MUTATION_RATE);
-		this.socialLearningGenome = new Genome(GENE_COUNT, SOCIAL_LEARNING_LABEL, S_GENOME_MUTATION_RATE);
+		this.bGenome = new Genome(GENE_COUNT, BIOLOGICAL_GENOME_LABEL, B_GENOME_MUTATION_RATE);
+		this.iGenome = new Genome(GENE_COUNT, INDIVIDUAL_LEARNING_LABEL, I_GENOME_MUTATION_RATE);
+		this.sGenome = new Genome(GENE_COUNT, SOCIAL_LEARNING_LABEL, S_GENOME_MUTATION_RATE);
 		this.learningBonus = [];
 		for(var i = 0; i < GENE_COUNT; i++){
 			this.learningBonus.push(0);
@@ -49,9 +49,9 @@ class Agent{
 	 */
 	clone(){
 		var clonedAgent = new Agent(this.game, this.relocationCell(), this.world);
-		clonedAgent.genome = this.genome.clone();
-		clonedAgent.individualLearningGenome = this.individualLearningGenome.clone();
-		clonedAgent.socialLearningGenome = this.socialLearningGenome.clone();
+		clonedAgent.bGenome = this.bGenome.clone();
+		clonedAgent.iGenome = this.iGenome.clone();
+		clonedAgent.sGenome = this.sGenome.clone();
 		clonedAgent.generation = this.generation + 1;
 		return clonedAgent;
 	}
@@ -63,21 +63,24 @@ class Agent{
 		this.age++;
 		this.updateLearningBonus();
 		this.attemptTasks();
-<<<<<<< Updated upstream
 		this.setReproduction();
+		this.updateEnergy();
 		this.checkDeathChance();
-		// Increase death chance for the elderly
-		if(this.age > 75 && this.alive === true){
-			this.checkDeathChance();
-			// if(this.age > 75 && this.alive === true){
-			// 	this.checkDeathChance();
-			// }
-=======
-		if(this.world.day % UPDATE_PERIOD === 0){
-			this.setReproduction();
-			this.checkDeathChance();
->>>>>>> Stashed changes
-		}
+		// console.log(this.bGenome.genotype);
+		// console.log(this.iGenome.genotype);
+		// console.log(this.sGenome.genotype);
+		// // Increase death chance for the elderly
+		// if(this.age > 75 && this.alive === true){
+		// 	this.checkDeathChance();
+		// }
+	}
+
+	/**
+	 * Function to update agent energy
+	 * Soft Cap on Pop
+	 */
+	updateEnergy(){
+		this.energy -= this.cell.cellPopPenalty;
 	}
 
 	/**
@@ -85,13 +88,10 @@ class Agent{
 	 */
 	updateLearningBonus() {
 		var bonus = [];
-		var randomAgent = this.cell.agents[randomInt(this.cell.agents.length)];
 		for(var index = 0; index < GENE_COUNT; index++){
-			var initialSLValue = this.socialLearningGenome.genotype[index].value;
-			bonus.push(this.calculateSociallyLearned(initialSLValue, index, randomAgent));
-		}
-		for(var j = 0; j<GENE_COUNT; j++){
-			this.learningBonus[j] = bonus[j] + this.individualLearningGenome.genotype[j].value;
+			var initialSLValue = this.sGenome.genotype[index].value;
+			var initialIValue = this.iGenome.genotype[index].value;
+			bonus.push(this.calculateSociallyLearned(initialSLValue, initialIValue, index));
 		}
 	}
 	
@@ -101,32 +101,32 @@ class Agent{
 	 * @param index 
 	 * @param randomAgent
 	 */
-	calculateSociallyLearned(initialSLValue, index, randAgent){
+	calculateSociallyLearned(initialSLValue, initialIValue, index){
 		var possibleSociallyLearnedValue = 0;
-		var attempts = initialSLValue;
-		for(var i = 1; i<=attempts; i++){
-			if(randAgent != null) {
-				if(possibleSociallyLearnedValue < randAgent.socialLearningGenome.genotype[index].value){
-					possibleSociallyLearnedValue = randAgent.socialLearningGenome.genotype[index].value;
-				}
+		var attemptss = initialSLValue;
+		var ii = initialIValue;
+		// Individual Learning
+		for(var i = 0; i< ii; i++ ){
+			if(Math.random() < IL_RATE){
+				this.learningBonus[index]++;
 			}
 		}
-		return possibleSociallyLearnedValue > initialSLValue ? possibleSociallyLearnedValue : initialSLValue;
+		for(var i = 0; i < attemptss; i++){
+			var randAgent = this.cell.agents[randomInt(this.cell.agents.length)];
+			if(this.learningBonus[index] < randAgent.learningBonus[index]){
+				this.learningBonus[index] = randAgent.learningBonus[index];
+			}
+		}
 	}
 
 	/**
 	 * Function for simulating Agent attemtpting a task.
+	 * No energy deducted.
 	 */
 	attemptTasks() {
 		for (var i = 0; i < GENE_COUNT; i++) {
-<<<<<<< Updated upstream
-			if (this.genome.genotype[i].value + this.learningBonus[i] + this.cell.bonuses[i] > WORLD_DIFFICULTY) {
-=======
-			if (this.genome.genotype[i].value + this.learningBonus[i] + this.cell.bonuses[i] > REPRODUCTION_DIFFICULTY) {
->>>>>>> Stashed changes
+			if (this.bGenome.genotype[i].value + this.learningBonus[i] + this.cell.bonuses[i] > WORLD_DIFFICULTY) {
 				this.energy++;
-			} else {
-				this.energy--;
 			}
 		}
 	}
@@ -138,20 +138,17 @@ class Agent{
 	 */
 	setReproduction() {
 		var sumGenomeCost = this.genomeCost() + REPRODUCTION_BASE_COST;
-		if (this.energy > (sumGenomeCost * REPRODUCTION_FACTOR)) {
-			this.energy -= sumGenomeCost;
-<<<<<<< Updated upstream
-			this.energy -= this.cell.populationPenalty;
-=======
-			this.energy -= this.cell.populationPenalty * REPRODUCTION_FACTOR;
->>>>>>> Stashed changes
-			/**
-			 * This boolean is checked during each update in the world
-			 * If TRUE, Agent clones itself...then World adds agent to itself. 
-			 * Value is then reset to FALSE.
-			 */
-			this.reproduce = true;
-		}
+		//if(this.age > 18 && this.age < 80){
+			if (this.energy > (sumGenomeCost * REPRODUCTION_FACTOR)) {
+				this.energy -= sumGenomeCost;
+				/**
+				 * This boolean is checked during each update in the world
+				 * If TRUE, Agent clones itself...then World adds agent to itself. 
+				 * Value is then reset to FALSE.
+				 */
+				this.reproduce = true;
+			}
+		//}
 	}
 
 	/**
@@ -172,9 +169,9 @@ class Agent{
 	genomeCost(){
 		var accumulator = 0;
 		for(var i = 0; i < GENE_COUNT; i++){
-			accumulator += this.genome.genotype[i].value;
-			accumulator += this.individualLearningGenome.genotype[i].value;
-			accumulator += this.socialLearningGenome.genotype[i].value;
+			accumulator += this.bGenome.genotype[i].value;
+			accumulator += this.iGenome.genotype[i].value;
+			accumulator += this.sGenome.genotype[i].value;
 		}
 		//console.log(accumulator);
 		return accumulator;
