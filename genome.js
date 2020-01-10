@@ -17,7 +17,11 @@ class Genome {
 		this.geneCount = geneCount;
 		this.label = genomeLabel;
 		this.mutationRate = null;
+<<<<<<< Updated upstream
 		this.setMutationRate(this.label);
+=======
+		setMutationRate(this.label);
+>>>>>>> Stashed changes
 
 		// Initial genome generation is 0, only changes during cloning.
 		this.generation = 0;
@@ -34,16 +38,27 @@ class Genome {
 	}
 
 	/**
+<<<<<<< Updated upstream
 	 * Function that sets mutation rate depending on the label
 	 * @param label that marks biological (0), individual (1) or social learning (2)
+=======
+	 * Sets the mutation rate depending on whether the genome type is
+	 * for Bio, Individual or Social learning.
+	 * @param {*} label 
+>>>>>>> Stashed changes
 	 */
 	setMutationRate(label){
 		if(label === 0){
 			this.mutationRate = B_GENOME_MUTATION_RATE;
 		} else if(label === 1){
 			this.mutationRate = I_GENOME_MUTATION_RATE;
+<<<<<<< Updated upstream
 		} else {
 			this.mutationRate = S_GENOME_MUTATION_RATE;
+=======
+		} else{
+			this.mutationRate = S_GENOME_MUTATION_RATE
+>>>>>>> Stashed changes
 		}
 	}
 
@@ -59,16 +74,25 @@ class Genome {
 		for (var i = 0; i < GENE_COUNT; i++) {
 			this.genotype[i].mutate(this.mutationRate);
 		}
+<<<<<<< Updated upstream
 		//console.log("After: " + this.genotype[i].value);
+=======
+>>>>>>> Stashed changes
 	}
 
 	/**
 	 * Function to Clone Each Gene
 	 */
 	clone(){
+<<<<<<< Updated upstream
 		var clonedGenome = new Genome(GENE_COUNT, this.genomeLabel, this.mutationRate);
 		clonedGenome.generation = this.generation + 1;
 		for (var i = 0; i < GENE_COUNT; i++) {
+=======
+		var clonedGenome = new Genome(this.geneCount, this.genomeLabel, this.mutationRate);
+		clonedGenome.generation = this.generation + 1;
+		for (var i = 0; i < this.geneCount; i++) {
+>>>>>>> Stashed changes
 			var clonedGene = this.genotype[i].clone();
 			clonedGenome.genotype.push(clonedGene);
 		}

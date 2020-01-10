@@ -28,6 +28,7 @@ var SOCIAL_LEARNING_ENVIRONMENT = "cell"
 var SOCIAL_LEARNING = true;
 var SOCIAL_LEARNING_LABEL = 2;
 var S_GENOME_MUTATION_RATE = 0.05;
+<<<<<<< Updated upstream
 
 /**
  * World difficulty, difficulty level from scale starting at 0. 
@@ -64,6 +65,13 @@ var REPRODUCTION_END_AGE = 50;
  * Used in cell calc..penalty function.
  */
 var CELLPOP_PENALTY_FACTOR = 25;
+=======
+
+// Reproduction Control Values
+var REPRODUCTION_DIFFICULTY = 3;
+var REPRODUCTION_FACTOR = 5;
+var REPRODUCTION_BASE_COST = 5;
+>>>>>>> Stashed changes
 
 //Bubble Chart
 var BUBBLE_CHART_WIDTH = 400;

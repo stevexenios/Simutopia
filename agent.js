@@ -63,6 +63,7 @@ class Agent{
 		this.age++;
 		this.updateLearningBonus();
 		this.attemptTasks();
+<<<<<<< Updated upstream
 		this.setReproduction();
 		this.checkDeathChance();
 		// Increase death chance for the elderly
@@ -71,6 +72,11 @@ class Agent{
 			// if(this.age > 75 && this.alive === true){
 			// 	this.checkDeathChance();
 			// }
+=======
+		if(this.world.day % UPDATE_PERIOD === 0){
+			this.setReproduction();
+			this.checkDeathChance();
+>>>>>>> Stashed changes
 		}
 	}
 
@@ -113,7 +119,11 @@ class Agent{
 	 */
 	attemptTasks() {
 		for (var i = 0; i < GENE_COUNT; i++) {
+<<<<<<< Updated upstream
 			if (this.genome.genotype[i].value + this.learningBonus[i] + this.cell.bonuses[i] > WORLD_DIFFICULTY) {
+=======
+			if (this.genome.genotype[i].value + this.learningBonus[i] + this.cell.bonuses[i] > REPRODUCTION_DIFFICULTY) {
+>>>>>>> Stashed changes
 				this.energy++;
 			} else {
 				this.energy--;
@@ -130,7 +140,11 @@ class Agent{
 		var sumGenomeCost = this.genomeCost() + REPRODUCTION_BASE_COST;
 		if (this.energy > (sumGenomeCost * REPRODUCTION_FACTOR)) {
 			this.energy -= sumGenomeCost;
+<<<<<<< Updated upstream
 			this.energy -= this.cell.populationPenalty;
+=======
+			this.energy -= this.cell.populationPenalty * REPRODUCTION_FACTOR;
+>>>>>>> Stashed changes
 			/**
 			 * This boolean is checked during each update in the world
 			 * If TRUE, Agent clones itself...then World adds agent to itself. 

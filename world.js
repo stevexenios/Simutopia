@@ -20,7 +20,7 @@ function World(game, ctx) {
 	this.tick = 0;
 	this.day = 0;
 	this.initiate();
-	this.difficulty = WORLD_DIFFICULTY;
+	this.difficulty = REPRODUCTION_DIFFICULTY;
 	this.initializeNormalGeneHistograms();
 	this.initializeIndividualLearningGeneHistograms();
 	this.initializeSocialLearningGeneHistograms();
@@ -136,6 +136,10 @@ World.prototype.initiate = function () {
 
 World.prototype.update = function () {
 	this.day++;
+<<<<<<< Updated upstream
+=======
+	this.displayData();
+>>>>>>> Stashed changes
 	for (var k = 0; k < this.agents.length; k++) {
 		this.agents[k].update();
 		if (this.agents[k].reproduce) {
@@ -360,7 +364,11 @@ World.prototype.addAgent = function (agent) {
 };
 
 World.prototype.displayData = function () {
+<<<<<<< Updated upstream
 	// this.ctx.strokeStyle = "#000000";
+=======
+	this.ctx.strokeStyle = "#000000";
+>>>>>>> Stashed changes
 	this.ctx.fillSytle = "#000000";
 	this.ctx.strokeStyle = "black"
 	this.ctx.font = "bold 15px Courier";
