@@ -39,13 +39,13 @@ var WORLD_DIFFICULTY = 7;
  * Used in Agents to multiply genome cost, and thus increase energy required for reproduction.
  * Called in Set reproduction. 
  */
-var REPRODUCTION_FACTOR = 2;
+var REPRODUCTION_FACTOR = 6;
 
 /**
  * Used in Agents to add to sum of the genome cost, and thus increase energy required for reproduction.
  * Also Called in Set reproduction. 
  */
-var REPRODUCTION_BASE_COST = 2;
+var REPRODUCTION_BASE_COST = 10;
 
 /**
  * Marks the age the agent is capable of reproducing. 
@@ -60,10 +60,14 @@ var REPRODUCTION_START_AGE = 12;
 var REPRODUCTION_END_AGE = 50; 
 
 /**
+ * Individual Learning Rate
+*/
+var IL_RATE = 1;
+/**
  * Controls the penalty for cell population in multiples of the given value .e.g. -1*CELL_POP/CELLPOP_PENALTY_FACTOR. 
  * Used in cell calc..penalty function.
  */
-var CELLPOP_PENALTY_FACTOR = 25;
+var CELLPOP_PENALTY_FACTOR = 50;
 
 //Bubble Chart
 var BUBBLE_CHART_WIDTH = 400;
