@@ -143,6 +143,8 @@ World.prototype.update = function () {
 		this.agents[k].update();
 		if (!this.agents[k].alive) { // if agent is dead, 'bury'
 			this.agents.splice(k, 1);
+			console.log("world agent deleted");
+		
 		} else if (this.agents[k].reproduce) { // if agent is alive,..
 			var clone = this.agents[k].clone();
 			this.addAgent(clone);

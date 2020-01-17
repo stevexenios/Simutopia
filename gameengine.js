@@ -48,6 +48,7 @@ function GameEngine() {
 
 GameEngine.prototype.init = function (ctx) {
 	this.ctx = ctx;
+	this.setParameters();
 	this.world = new World(this, this.ctx);
 	this.addEntity(this.world);
 	this.setButtons();
@@ -61,10 +62,28 @@ GameEngine.prototype.init = function (ctx) {
 }
 
 GameEngine.prototype.setButtons = function(){
-	this.restart = document.getElementById("restart");
+	//this.restart = document.getElementById("restart");
 	this.pause = document.getElementById("pause");
 	this.play = document.getElementById("play");
 	this.reset = document.getElementById("reload");
+}
+
+GameEngine.prototype.addButtonListeners = function(){
+	var that = this;
+	// Works
+	this.play.addEventListener("click", function (e) {
+		that.playGame();
+	}, false);
+
+	// Works
+	this.pause.addEventListener("click", function (e) {
+		that.pauseGame();
+	}, false);
+
+	// Does not function??
+	// this.restart.addEventListener("click", function (e) {
+	// 	that.restartGame();
+	// }, false);
 }
 
 GameEngine.prototype.start = function () {
@@ -87,13 +106,6 @@ GameEngine.prototype.restartGame = function () {
 	this.ctx.clearRect(0, 0, canvas.width, canvas.height);
 	this.init(this.ctx);
 	this.timer = new Timer();
-}
-
-// ?? Reset button
-GameEngine.prototype.reloadGame = function () {
-	//console.log("Reloading sim");
-	this.setParameters();
-	//this.loop();
 }
 
 GameEngine.prototype.pauseGame = function () {
@@ -137,23 +149,8 @@ GameEngine.prototype.startInput = function () {
         e.preventDefault();
 	}, false);
 
-	this.play.addEventListener("click", function (e) {
-		that.playGame();
-	}, false);
-
-	this.pause.addEventListener("click", function (e) {
-		that.pauseGame();
-	}, false);
-
-	this.reset.addEventListener("click", function (e) {
-		that.reloadGame();
-	}, false);
-
-	this.restart.addEventListener("click", function (e) {
-		that.restartGame();
-	}, false);
-
-    console.log('Input started');
+	this.addButtonListeners();
+    //console.log('Input started');
 }
 
 GameEngine.prototype.addEntity = function (entity) {
@@ -212,19 +209,22 @@ GameEngine.prototype.secondUpdate = function () {
 
 GameEngine.prototype.setParameters = function () {
 	// Text area
-	CELL_DIMENSION = parseInt(document.getElementById("cellDimension").value);
-	AGENT_DIMENSION = parseInt(document.getElementById("agentSize").value);
+	NUMBER_OF_CELLS = parseInt(document.getElementById("numberOfCells").value);
 	SIM_DURATION = parseInt(document.getElementById("simDuration").value);
 	UPDATE_PERIOD = parseInt(document.getElementById("updatePeriod").value);
-	MAX_BONUS = parseInt(document.getElementById("maxBonuses").value);
 	INITIAL_POPULATION = parseInt(document.getElementById("initPop").value);
+	MAX_BONUS = parseInt(document.getElementById("maxBonuses").value);
 	DEATH_CHANCE = parseInt(document.getElementById("mortality").value);
-	MUTATION_RATE = parseInt(document.getElementById("mutationRate").value);
+	AGENT_COLOR = document.getElementById("agentColor").value;
+	B_GENOME_MUTATION_RATE = parseInt(document.getElementById("bMutationRate").value);
+	I_GENOME_MUTATION_RATE = parseInt(document.getElementById("iMutationRate").value);
+	S_GENOME_MUTATION_RATE = parseInt(document.getElementById("sMutationRate").value);
 
-	// Checkbox
+	// Checkbox && Radio Buttons
 	INDIVIDUAL_LEARNING = document.getElementById("il").checked;
 	SOCIAL_LEARNING = document.getElementById("sl").checked;
 	BIOLOGICAL_LEARNING = document.getElementById("pl").checked;
+
 }
 
 download_img = function (el) {

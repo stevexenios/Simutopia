@@ -160,6 +160,7 @@ class Agent{
 	checkDeathChance() {
 		if (Math.random() < DEATH_CHANCE || this.energy < 0) {
 			this.alive = false;
+			console.log("agent dead");
 		}
 	}
 
