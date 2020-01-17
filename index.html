@@ -39,45 +39,90 @@
                 border-radius: 5px">        
         </canvas>
 
-        <div id="parent2">
+        <div id="Eventss">
             <div class="button">
-                <button id="restart">Restart</button>
+                <!--Functionality of restart is defined in main-->
+                <button id="restart" onclick = startGame()>Restart</button>
+                
+                <!--Functionality of Pause is defined in gameEngine-->
                 <button id="pause"> Pause</button>
+                
+                <!--Functionality of Play is defined in gameEngine-->
                 <button id="play"> Play</button>
-                <button id="reload"> Reload</button>
+
                 <!--<button type="button" onclick=setParameters()>Resset</button>-->
             </div>
 
             <a id="download" download="simutopia.jpg" href="" onclick="download_img(this);"> Download to simutopia.jpg</a>
-
+        
             <div id="inputtxt">
-                <label for="cellDimension">Cell Dimensions: </label>
-                <input type="text" id="cellDimension" value="9" /> <br>
-                <label for="agentSize">Agent Dimension: </label>
-                <input type="text" id="agentSize" value="7" /> <br>
-                <label for="simDuration">Simulation Duration:  </label>
-                <input type="text" id="simDuration" value="10000" /><br>
+                <!--All these values are in Utilities and updated by GameEngine-->
+                <label for="numberOfCells">Cells across world: </label>
+                <input type="text" id="numberOfCells" value="20" /> <br>
+
+                <label for="simDuration">Simulation Duration: </label>
+                <input type="text" id="simDuration" value="5000" /> <br>
+
                 <label for="updatePeriod">Update Period: </label>
                 <input type="text" id="updatePeriod" value="100" /><br>
-                <label for="maxBonuses">Maximum Bonus/Cell: </label>
-                <input type="text" id="maxBonuses" value="101" /><br>
+                
                 <label for="initPop">Initial Population:  </label>
                 <input type="text" id="initPop" value="100" /> <br>
+                
+                <label for="maxBonuses">Maximum Bonus in Cell: </label>
+                <input type="text" id="maxBonuses" value="10" /><br>
+
                 <label for="mortality">Death chance:  </label>
                 <input type="text" id="mortality" value="0.01" /><br>
-                <label for="mutationRate">Mutation Rate:  </label>
-                <input type="text" id="mutationRate" value="0.05" /><br>
-            </div>
+                
+                <label for="agentColor">Agent Color:  </label>
+                <input type="text" id="agentColor" value="red" /> <br>
 
+                <label for="bMutationRate">Biological Learning Rate:  </label>
+                <input type="text" id="bMutationRate" value="0.05" /><br>
+
+                <label for="iMutationRate">Individual Learning Rate:  </label>
+                <input type="text" id="iMutationRate" value="0.05" /><br>
+
+                <label for="sMutationRate">Social Learning Rate:  </label>
+                <input type="text" id="sMutationRate" value="0.05" /><br>
+
+                <label for="cellDimension">Cell Dimensions: </label>
+                <input type="text" id="cellDimension" disabled = "disabled" value="1010/Cells Across World" /> <br>
+                
+                <label for="agentSize">Agent Dimension: </label>
+                <input type="text" id="agentSize" disabled = "disabled" value="Cell Dimension/4" /> <br>
+
+                <label for="geneCount">Gene Count:  </label>
+                <input type="text" disabled="disabled" id="geneCount" value="5" /> <br>
+
+                <label for="bgl">Biological Genome Label:  </label>
+                <input type="text" disabled="disabled" id="bgl" value="0" /> <br>
+
+                <label for="igl">Individual Genome Label:  </label>
+                <input type="text" disabled="disabled" id="igl" value="1" /> <br>
+
+                <label for="sgl">Social Genome Label:  </label>
+                <input type="text" disabled="disabled" id="sgl" value="2" /> <br>
+            </div>
+            
             <div id="checkbx">
-                <input type="checkbox" id="il" />
-                <label for="il">Individual Learning</label><br>
-                <input type="checkbox" id="sl" checked />
-                <label for="sl">Social Learning</label><br>
                 <input type="checkbox" id="pl" checked />
                 <label for="pl">Biological Learning</label><br>
-            </div>
-
+                
+                <input type="checkbox" id="il" checked />
+                <label for="il">Individual Learning</label><br>
+                
+                <input type="checkbox" id="sl" checked />
+                <label for="sl">Social Learning</label><br>
+                <form action="">
+                    <input type="radio" name="learningEnvironment" value="SOCIAL_LEARNING_ENVIRONMENT_CELL" checked> Local Social Learning in Cells<br>
+                    <input type="radio" name="learningEnvironment" value="SOCIAL_LEARNING_ENVIRONMENT_WORLD" unchecked> Global Social Learning in World<br>
+            
+                    <input type="radio" name="optimumAgent" value="SOCIAL_LEARNING_OPTIMUM_AGENT" unchecked> Social Learning Optimum Agent<br>
+                    <input type="radio" name="optimumAgent" value="SOCIAL_LEARNING_RAND_AGENT" checked> Social Learning Random Agent<br>
+                </form>
+            </div>       
         </div>
 
         <!----<div id="histograms">
