@@ -27,14 +27,25 @@ class Agent{
 		this.width = AGENT_DIMENSION;
 		this.height = AGENT_DIMENSION;
 
-		this.bGenome = new Genome(GENE_COUNT, BIOLOGICAL_GENOME_LABEL, B_GENOME_MUTATION_RATE);
-		this.iGenome = new Genome(GENE_COUNT, INDIVIDUAL_LEARNING_LABEL, I_GENOME_MUTATION_RATE);
-		this.sGenome = new Genome(GENE_COUNT, SOCIAL_LEARNING_LABEL, S_GENOME_MUTATION_RATE);
+		this.setLearningRateBasedOnCheckBoxes();
+		
 		this.learningBonus = [];
 		for(var i = 0; i < GENE_COUNT; i++){
 			this.learningBonus.push(0);
 		}
 		this.addAgentToCell();
+	}
+
+	setLearningRateBasedOnCheckBoxes(){
+		if(BIOLOGICAL_LEARNING){
+			this.bGenome = new Genome(GENE_COUNT, BIOLOGICAL_GENOME_LABEL, 0.05);
+		}
+		if(INDIVIDUAL_LEARNING){
+			this.iGenome = new Genome(GENE_COUNT, INDIVIDUAL_LEARNING_LABEL, 0.05);
+		}
+		if(SOCIAL_LEARNING){
+			this.sGenome = new Genome(GENE_COUNT, SOCIAL_LEARNING_LABEL, 0.05);
+		}
 	}
 
 	/**
@@ -160,7 +171,7 @@ class Agent{
 	checkDeathChance() {
 		if (Math.random() < DEATH_CHANCE || this.energy < 0) {
 			this.alive = false;
-			console.log("agent dead");
+			//console.log("agent dead");
 		}
 	}
 

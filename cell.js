@@ -50,7 +50,7 @@ Cell.prototype.deleteDeadAgents = function () {
 	for (var i = 0; i < this.agents.length; i++) {
 		if (!this.agents[i].alive) {
 			this.agents.splice(i, 1);
-			console.log("cell agent deleted");
+			//console.log("cell agent deleted");
 		}
 	}
 	
