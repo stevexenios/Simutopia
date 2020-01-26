@@ -9,10 +9,6 @@ function Histogram(game, x, y, label) {
 	this.maxVal = 0;
 };
 
-Histogram.prototype.update = function () {
-
-};
-
 Histogram.prototype.draw = function (ctx) {
 	var length = this.data.length > (this.xSize / 3) ?
 		Math.floor(this.xSize / 3) : this.data.length;
