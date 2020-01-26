@@ -1,8 +1,5 @@
-const newLocal = this.label = 0;
-// JavaScript source code
-// Epoch Master..
-// Code to defibrilate the population, if all agents die,...??
 function World(game, ctx) {
+	this.label = 0;
 	this.ctx = ctx;
 	this.game = game;
 	this.x = 0;
@@ -21,79 +18,85 @@ function World(game, ctx) {
 	this.day = 0;
 	this.initiate();
 	this.difficulty = WORLD_DIFFICULTY;
-	this.initializeNormalGeneHistograms();
-	this.initializeIndividualLearningGeneHistograms();
-	this.initializeSocialLearningGeneHistograms();
-	
-	// Graph for Population
-	this.agentsNumber = [];
-	this.agentsGraph = new Graph(this.game, 1030,820, this, "Population");
-	this.game.addEntity(this.agentsGraph);
 
+	// Visualizations for the data
+	this.initBioGeneHist();
+	this.initIndGeneHist();
+	this.initSocGeneHist();
+	this.initGraph();
 	// Bubble Chart
-	//this.bubbleChart = new BubbleChart(game, 1210, 200 , this);
+	// BoxPlots
 }
 
 World.prototype = new Entity();
 World.prototype.constructor = World;
 
-World.prototype.initializeNormalGeneHistograms = function(){
+/**
+ * Function to initialize the Graph.
+ */
+World.prototype.initGraph = function(){
+	this.agentsNumber = [];
+	this.agentsGraph = new Graph(this.game, 1030,820, this, "Population");
+	this.game.addEntity(this.agentsGraph);
+}
+
+World.prototype.initBioGeneHist = function(){
 	// Histogram
-	this.gene_0_data = [];
-	this.gene_0_Histogram = new Histogram(this.game, 1030, 20, "Gene_0_Histogram");
-	this.game.addEntity(this.gene_0_Histogram);
+	this.bgene_0_data = [];
+	this.bgene_0_Histogram = new Histogram(this.game, 1030, 20, "Gene_0_Histogram");
+	this.game.addEntity(this.bgene_0_Histogram);
 
 	// Histogram
-	this.gene_1_data = [];
-	this.gene_1_Histogram = new Histogram(this.game, 1030, 160, "Gene_1_Histogram");
-	this.game.addEntity(this.gene_1_Histogram);
+	this.bgene_1_data = [];
+	this.bgene_1_Histogram = new Histogram(this.game, 1030, 160, "Gene_1_Histogram");
+	this.game.addEntity(this.bgene_1_Histogram);
 
 	// Histogram
-	this.gene_2_data = [];
-	this.gene_2_Histogram = new Histogram(this.game, 1030, 300, "Gene_2_Histogram");
-	this.game.addEntity(this.gene_2_Histogram);
+	this.bgene_2_data = [];
+	this.bgene_2_Histogram = new Histogram(this.game, 1030, 300, "Gene_2_Histogram");
+	this.game.addEntity(this.bgene_2_Histogram);
 
 	// Histogram
-	this.gene_3_data = [];
-	this.gene_3_Histogram = new Histogram(this.game, 1030, 440, "Gene_3_Histogram");
-	this.game.addEntity(this.gene_3_Histogram);
+	this.bgene_3_data = [];
+	this.bgene_3_Histogram = new Histogram(this.game, 1030, 440, "Gene_3_Histogram");
+	this.game.addEntity(this.bgene_3_Histogram);
 
 	// Histogram
-	this.gene_4_data = [];
-	this.gene_4_Histogram = new Histogram(this.game, 1030, 580, "Gene_4_Histogram");
-	this.game.addEntity(this.gene_4_Histogram);
+	this.bgene_4_data = [];
+	this.bgene_4_Histogram = new Histogram(this.game, 1030, 580, "Gene_4_Histogram");
+	this.game.addEntity(this.bgene_4_Histogram);
 };
 
 // Individual Learning Histograms
-World.prototype.initializeIndividualLearningGeneHistograms = function(){
+World.prototype.initIndGeneHist = function(){
 	// Histogram
-	this.genei_0_data = [];
-	this.genei_0_Histogram = new Histogram(this.game, 1290, 20, "Gene_0_Histogram");
-	this.game.addEntity(this.genei_0_Histogram);
+	this.igene_0_data = [];
+	this.igene_0_Histogram = new Histogram(this.game, 1290, 20, "Gene_0_Histogram");
+	this.game.addEntity(this.igene_0_Histogram);
 
 	// Histogram
-	this.genei_1_data = [];
-	this.genei_1_Histogram = new Histogram(this.game, 1290, 160, "Gene_1_Histogram");
-	this.game.addEntity(this.genei_1_Histogram);
+	this.igene_1_data = [];
+	this.igene_1_Histogram = new Histogram(this.game, 1290, 160, "Gene_1_Histogram");
+	this.game.addEntity(this.igene_1_Histogram);
 
 	// Histogram
-	this.genei_2_data = [];
-	this.genei_2_Histogram = new Histogram(this.game, 1290, 300, "Gene_2_Histogram");
-	this.game.addEntity(this.genei_2_Histogram);
+	this.igene_2_data = [];
+	this.igene_2_Histogram = new Histogram(this.game, 1290, 300, "Gene_2_Histogram");
+	this.game.addEntity(this.igene_2_Histogram);
 
 	// Histogram
-	this.genei_3_data = [];
-	this.genei_3_Histogram = new Histogram(this.game, 1290, 440, "Gene_3_Histogram");
-	this.game.addEntity(this.genei_3_Histogram);
+	this.igene_3_data = [];
+	this.igene_3_Histogram = new Histogram(this.game, 1290, 440, "Gene_3_Histogram");
+	this.game.addEntity(this.igene_3_Histogram);
 
 	// Histogram
-	this.genei_4_data = [];
-	this.genei_4_Histogram = new Histogram(this.game, 1290, 580, "Gene_4_Histogram");
-	this.game.addEntity(this.genei_4_Histogram);
+	this.igene_4_data = [];
+	this.igene_4_Histogram = new Histogram(this.game, 1290, 580, "Gene_4_Histogram");
+	this.game.addEntity(this.igene_4_Histogram);
 };
 
 // Social Learning Histograms
-World.prototype.initializeSocialLearningGeneHistograms = function(){
+World.prototype.initSocGeneHist = function(){
 	// Histogram
 	this.sgene_0_data = [];
 	this.sgene_0_Histogram = new Histogram(this.game, 1550, 20, "Gene_0_Histogram");
@@ -138,14 +141,14 @@ World.prototype.update = function () {
 	this.day++;
 	for (var k = 0; k < this.agents.length; k++) {
 		this.agents[k].update();
-		if (this.agents[k].reproduce) {
+		if (!this.agents[k].alive) { // if agent is dead, 'bury'
+			this.agents.splice(k, 1);
+			console.log("world agent deleted");
+		
+		} else if (this.agents[k].reproduce) { // if agent is alive,..
 			var clone = this.agents[k].clone();
 			this.addAgent(clone);
 			this.agents[k].reproduce = false;
-		}
-		if (!this.agents[k].alive) {
-			// MAP Structure to keep track of the agents, by ID
-			this.agents.splice(k, 1);
 		}
 	}
 	this.worldPopulation = this.agents.length;
@@ -166,140 +169,140 @@ World.prototype.update = function () {
 };
 
 World.prototype.updateData = function () {
-	var gene_0_data = [];
-	var gene_1_data = [];
-	var gene_2_data = [];
-	var gene_3_data = [];
-	var gene_4_data = [];
+	var bbgene_0_data = [];
+	var bbgene_1_data = [];
+	var bbgene_2_data = [];
+	var bbgene_3_data = [];
+	var bbgene_4_data = [];
 
-	var genei_0_data = [];
-	var genei_1_data = [];
-	var genei_2_data = [];
-	var genei_3_data = [];
-	var genei_4_data = [];
+	var iigene_0_data = [];
+	var iigene_1_data = [];
+	var iigene_2_data = [];
+	var iigene_3_data = [];
+	var iigene_4_data = [];
 
-	var sgene_0_data = [];
-	var sgene_1_data = [];
-	var sgene_2_data = [];
-	var sgene_3_data = [];
-	var sgene_4_data = [];
+	var ssgene_0_data = [];
+	var ssgene_1_data = [];
+	var ssgene_2_data = [];
+	var ssgene_3_data = [];
+	var ssgene_4_data = [];
 
 	for (var i = 0; i < 20; i++) {
-		gene_0_data.push(0);
-		gene_1_data.push(0);
-		gene_2_data.push(0);
-		gene_3_data.push(0);
-		gene_4_data.push(0);
+		bbgene_0_data.push(0);
+		bbgene_1_data.push(0);
+		bbgene_2_data.push(0);
+		bbgene_3_data.push(0);
+		bbgene_4_data.push(0);
 
-		genei_0_data.push(0);
-		genei_1_data.push(0);
-		genei_2_data.push(0);
-		genei_3_data.push(0);
-		genei_4_data.push(0);
+		iigene_0_data.push(0);
+		iigene_1_data.push(0);
+		iigene_2_data.push(0);
+		iigene_3_data.push(0);
+		iigene_4_data.push(0);
 
-		sgene_0_data.push(0);
-		sgene_1_data.push(0);
-		sgene_2_data.push(0);
-		sgene_3_data.push(0);
-		sgene_4_data.push(0);
+		ssgene_0_data.push(0);
+		ssgene_1_data.push(0);
+		ssgene_2_data.push(0);
+		ssgene_3_data.push(0);
+		ssgene_4_data.push(0);
 	}
 
 	for (var k = 0; k < this.agents.length; k++) {
 		// Biological Genome
-		var g0 = this.agents[k].genome.genotype[0].value < 20 ? this.agents[k].genome.genotype[0].value : 19;
-		gene_0_data[g0]++;
+		var g0 = this.agents[k].bGenome.genotype[0].value < 20 ? this.agents[k].bGenome.genotype[0].value : 19;
+		bbgene_0_data[g0]++;
 
-		var g1 = this.agents[k].genome.genotype[1].value < 20 ? this.agents[k].genome.genotype[1].value : 19;
-		gene_1_data[g1]++;
+		var g1 = this.agents[k].bGenome.genotype[1].value < 20 ? this.agents[k].bGenome.genotype[1].value : 19;
+		bbgene_1_data[g1]++;
 
-		var g2 = this.agents[k].genome.genotype[2].value < 20 ? this.agents[k].genome.genotype[2].value : 19;
-		gene_2_data[g2]++;
+		var g2 = this.agents[k].bGenome.genotype[2].value < 20 ? this.agents[k].bGenome.genotype[2].value : 19;
+		bbgene_2_data[g2]++;
 
-		var g3 = this.agents[k].genome.genotype[3].value < 20 ? this.agents[k].genome.genotype[3].value : 19;
-		gene_3_data[g3]++;
+		var g3 = this.agents[k].bGenome.genotype[3].value < 20 ? this.agents[k].bGenome.genotype[3].value : 19;
+		bbgene_3_data[g3]++;
 
-		var g4 = this.agents[k].genome.genotype[4].value < 20 ? this.agents[k].genome.genotype[4].value : 19;
-		gene_4_data[g4]++;
+		var g4 = this.agents[k].bGenome.genotype[4].value < 20 ? this.agents[k].bGenome.genotype[4].value : 19;
+		bbgene_4_data[g4]++;
 
 		// Individual Learning Genome
-		var gi0 = this.agents[k].individualLearningGenome.genotype[0].value < 20 ? this.agents[k].individualLearningGenome.genotype[0].value : 19;
-		genei_0_data[gi0]++;
+		var gi0 = this.agents[k].iGenome.genotype[0].value < 20 ? this.agents[k].iGenome.genotype[0].value : 19;
+		iigene_0_data[gi0]++;
 
-		var gi1 = this.agents[k].individualLearningGenome.genotype[1].value < 20 ? this.agents[k].individualLearningGenome.genotype[1].value : 19;
-		genei_1_data[gi1]++;
+		var gi1 = this.agents[k].iGenome.genotype[1].value < 20 ? this.agents[k].iGenome.genotype[1].value : 19;
+		iigene_1_data[gi1]++;
 
-		var gi2 = this.agents[k].individualLearningGenome.genotype[2].value < 20 ? this.agents[k].individualLearningGenome.genotype[2].value : 19;
-		genei_2_data[gi2]++;
+		var gi2 = this.agents[k].iGenome.genotype[2].value < 20 ? this.agents[k].iGenome.genotype[2].value : 19;
+		iigene_2_data[gi2]++;
 
-		var gi3 = this.agents[k].individualLearningGenome.genotype[3].value < 20 ? this.agents[k].individualLearningGenome.genotype[3].value : 19;
-		genei_3_data[gi3]++;
+		var gi3 = this.agents[k].iGenome.genotype[3].value < 20 ? this.agents[k].iGenome.genotype[3].value : 19;
+		iigene_3_data[gi3]++;
 
-		var gi4 = this.agents[k].individualLearningGenome.genotype[4].value < 20 ? this.agents[k].individualLearningGenome.genotype[4].value : 19;
-		genei_4_data[gi4]++;
+		var gi4 = this.agents[k].iGenome.genotype[4].value < 20 ? this.agents[k].iGenome.genotype[4].value : 19;
+		iigene_4_data[gi4]++;
 
 		// Social Learning Genome
-		var sg0 = this.agents[k].socialLearningGenome.genotype[0].value < 20 ? this.agents[k].socialLearningGenome.genotype[0].value : 19;
-		sgene_0_data[sg0]++;
+		var sg0 = this.agents[k].sGenome.genotype[0].value < 20 ? this.agents[k].sGenome.genotype[0].value : 19;
+		ssgene_0_data[sg0]++;
 
-		var sg1 = this.agents[k].socialLearningGenome.genotype[1].value < 20 ? this.agents[k].socialLearningGenome.genotype[1].value : 19;
-		sgene_1_data[sg1]++;
+		var sg1 = this.agents[k].sGenome.genotype[1].value < 20 ? this.agents[k].sGenome.genotype[1].value : 19;
+		ssgene_1_data[sg1]++;
 
-		var sg2 = this.agents[k].socialLearningGenome.genotype[2].value < 20 ? this.agents[k].socialLearningGenome.genotype[2].value : 19;
-		sgene_2_data[sg2]++;
+		var sg2 = this.agents[k].sGenome.genotype[2].value < 20 ? this.agents[k].sGenome.genotype[2].value : 19;
+		ssgene_2_data[sg2]++;
 
-		var sg3 = this.agents[k].socialLearningGenome.genotype[3].value < 20 ? this.agents[k].socialLearningGenome.genotype[3].value : 19;
-		sgene_3_data[sg3]++;
+		var sg3 = this.agents[k].sGenome.genotype[3].value < 20 ? this.agents[k].sGenome.genotype[3].value : 19;
+		ssgene_3_data[sg3]++;
 
-		var sg4 = this.agents[k].socialLearningGenome.genotype[4].value < 20 ? this.agents[k].socialLearningGenome.genotype[4].value : 19;
-		sgene_4_data[sg4]++;
+		var sg4 = this.agents[k].sGenome.genotype[4].value < 20 ? this.agents[k].sGenome.genotype[4].value : 19;
+		ssgene_4_data[sg4]++;
 	}
 
 	// Biological
-	this.gene_0_data.push(gene_0_data);
-	this.gene_0_Histogram.data = this.gene_0_data;
+	this.bgene_0_data.push(bbgene_0_data);
+	this.bgene_0_Histogram.data = this.bgene_0_data;
 
-	this.gene_1_data.push(gene_1_data);
-	this.gene_1_Histogram.data = this.gene_1_data;
+	this.bgene_1_data.push(bbgene_1_data);
+	this.bgene_1_Histogram.data = this.bgene_1_data;
 
-	this.gene_2_data.push(gene_2_data);
-	this.gene_2_Histogram.data = this.gene_2_data;
+	this.bgene_2_data.push(bbgene_2_data);
+	this.bgene_2_Histogram.data = this.bgene_2_data;
 
-	this.gene_3_data.push(gene_3_data);
-	this.gene_3_Histogram.data = this.gene_3_data;
+	this.bgene_3_data.push(bbgene_3_data);
+	this.bgene_3_Histogram.data = this.bgene_3_data;
 
-	this.gene_4_data.push(gene_4_data);
-	this.gene_4_Histogram.data = this.gene_4_data;
+	this.bgene_4_data.push(bbgene_4_data);
+	this.bgene_4_Histogram.data = this.bgene_4_data;
 
 	// Individual
-	this.genei_0_data.push(genei_0_data);
-	this.genei_0_Histogram.data = this.genei_0_data;
+	this.igene_0_data.push(iigene_0_data);
+	this.igene_0_Histogram.data = this.igene_0_data;
 
-	this.genei_1_data.push(genei_1_data);
-	this.genei_1_Histogram.data = this.genei_1_data;
+	this.igene_1_data.push(iigene_1_data);
+	this.igene_1_Histogram.data = this.igene_1_data;
 
-	this.genei_2_data.push(genei_2_data);
-	this.genei_2_Histogram.data = this.genei_2_data;
+	this.igene_2_data.push(iigene_2_data);
+	this.igene_2_Histogram.data = this.igene_2_data;
 
-	this.genei_3_data.push(genei_3_data);
-	this.genei_3_Histogram.data = this.genei_3_data;
+	this.igene_3_data.push(iigene_3_data);
+	this.igene_3_Histogram.data = this.igene_3_data;
 
-	this.genei_4_data.push(genei_4_data);
-	this.genei_4_Histogram.data = this.genei_4_data;
+	this.igene_4_data.push(iigene_4_data);
+	this.igene_4_Histogram.data = this.igene_4_data;
 
 	// Social
-	this.sgene_0_data.push(sgene_0_data);
+	this.sgene_0_data.push(ssgene_0_data);
 	this.sgene_0_Histogram.data = this.sgene_0_data;
 
-	this.sgene_1_data.push(sgene_1_data);
+	this.sgene_1_data.push(ssgene_1_data);
 	this.sgene_1_Histogram.data = this.sgene_1_data;
 
-	this.sgene_2_data.push(sgene_2_data);
+	this.sgene_2_data.push(ssgene_2_data);
 	this.sgene_2_Histogram.data = this.sgene_2_data;
 
-	this.sgene_3_data.push(sgene_3_data);
+	this.sgene_3_data.push(ssgene_3_data);
 	this.sgene_3_Histogram.data = this.sgene_3_data;
 
-	this.sgene_4_data.push(sgene_4_data);
+	this.sgene_4_data.push(ssgene_4_data);
 	this.sgene_4_Histogram.data = this.sgene_4_data;
 
 	// Graph on Population

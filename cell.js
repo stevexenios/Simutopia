@@ -20,7 +20,7 @@ function Cell(game, x, y) {
 	this.worldPopulation = INITIAL_POPULATION;
 	this.colorParameter = Math.floor(((this.sumbonuses / GENE_COUNT) / MAX_BONUS) * 256);
 	this.color = rgb(this.colorParameter, this.colorParameter, this.colorParameter);
-	this.populationPenalty = 0;
+	this.cellPopPenalty = 0;
 }
 
 Cell.prototype.update = function () {
@@ -36,7 +36,8 @@ Cell.prototype.update = function () {
  */
 Cell.prototype.updatePopulationPenalty = function (){
 	// [ 0, 50, 100, 150, 200, 250...] equiv to [0, -1, -2, -3, -4, -5...]
-	this.populationPenalty = -1 * Math.floor(this.agents.length / CELLPOP_PENALTY_FACTOR);
+	this.cellPopPenalty = 1 * Math.floor(this.agents.length / CELLPOP_PENALTY_FACTOR);
+	//console.log(this.cellPopPenalty);
 };
 
 Cell.prototype.draw = function (ctx) {
@@ -49,8 +50,10 @@ Cell.prototype.deleteDeadAgents = function () {
 	for (var i = 0; i < this.agents.length; i++) {
 		if (!this.agents[i].alive) {
 			this.agents.splice(i, 1);
+			console.log("cell agent deleted");
 		}
 	}
+	
 };
 
 Cell.prototype.updateColor = function () {

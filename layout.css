@@ -1,10 +1,11 @@
-#parent2 {
+
+#Eventss {
     position: absolute;
     border: 4px solid black;
     border-radius: 5px;
     width: 500px;
-    height: 500px;
-    background: #2196F3;
+    height: 1000px;
+    background:  rgb(140, 215, 218);
     top: 1080px;
     left: 5px;
 }
@@ -30,16 +31,16 @@
     position: relative;
     width: 390px;
     height: 250px;
-    top: 10px;
+    top: 20px;
     right: 2px;
 }
 
     #checkbx[label] {
         text-align: left;
     }
-
+    
 label {
-    width: 180px;
+    width: 190px;
     display: inline-block;
     text-align: left;
 }
@@ -75,9 +76,4 @@ input[type = "text"] {
         text-align: center;
         padding: 20px 0;
         font-size: 30px;
-<<<<<<< HEAD
     }
-
-=======
-    }
->>>>>>> cf4aaa10aadfb97b74721e9afa5dcbfa6560ed07

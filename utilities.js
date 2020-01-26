@@ -1,6 +1,6 @@
 //World
 var NUMBER_OF_CELLS = 20;
-var SIM_DURATION = 10000;
+var SIM_DURATION = 5000;
 var UPDATE_PERIOD = 5;
 var INITIAL_POPULATION = 100;
 
@@ -8,7 +8,7 @@ var INITIAL_POPULATION = 100;
 var CELL_DIMENSION = 1010 / NUMBER_OF_CELLS;
 var MAX_BONUS = 10;
 //Agent
-var DEATH_CHANCE = 0.01;
+var DEATH_CHANCE = 0.1;
 var AGENT_DIMENSION = CELL_DIMENSION/4;
 var AGENT_COLOR = "red";
 //Gene
@@ -24,7 +24,10 @@ var INDIVIDUAL_LEARNING_LABEL = 1;
 var I_GENOME_MUTATION_RATE = 0.05;
 
 // This could be just a single "cell" or the entire "world"
-var SOCIAL_LEARNING_ENVIRONMENT = "cell"
+var SOCIAL_LEARNING_ENVIRONMENT_CELL = true;
+var SOCIAL_LEARNING_ENVIRONMENT_WORLD = false;
+var SOCIAL_LEARNING_OPTIMUM_AGENT = true;
+var SOCIAL_LEARNING_RAND_AGENT = true;
 var SOCIAL_LEARNING = true;
 var SOCIAL_LEARNING_LABEL = 2;
 var S_GENOME_MUTATION_RATE = 0.05;
@@ -39,13 +42,13 @@ var WORLD_DIFFICULTY = 7;
  * Used in Agents to multiply genome cost, and thus increase energy required for reproduction.
  * Called in Set reproduction. 
  */
-var REPRODUCTION_FACTOR = 2;
+var REPRODUCTION_FACTOR = 6;
 
 /**
  * Used in Agents to add to sum of the genome cost, and thus increase energy required for reproduction.
  * Also Called in Set reproduction. 
  */
-var REPRODUCTION_BASE_COST = 2;
+var REPRODUCTION_BASE_COST = 10;
 
 /**
  * Marks the age the agent is capable of reproducing. 
@@ -60,10 +63,14 @@ var REPRODUCTION_START_AGE = 12;
 var REPRODUCTION_END_AGE = 50; 
 
 /**
+ * Individual Learning Rate
+*/
+var IL_RATE = 1;
+/**
  * Controls the penalty for cell population in multiples of the given value .e.g. -1*CELL_POP/CELLPOP_PENALTY_FACTOR. 
  * Used in cell calc..penalty function.
  */
-var CELLPOP_PENALTY_FACTOR = 25;
+var CELLPOP_PENALTY_FACTOR = 50;
 
 //Bubble Chart
 var BUBBLE_CHART_WIDTH = 400;
