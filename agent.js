@@ -26,26 +26,14 @@ class Agent{
 		this.color = AGENT_COLOR;
 		this.width = AGENT_DIMENSION;
 		this.height = AGENT_DIMENSION;
-
-		this.setLearningRateBasedOnCheckBoxes();
-		
 		this.learningBonus = [];
 		for(var i = 0; i < GENE_COUNT; i++){
 			this.learningBonus.push(0);
 		}
 		this.addAgentToCell();
-	}
-
-	setLearningRateBasedOnCheckBoxes(){
-		if(BIOLOGICAL_LEARNING){
-			this.bGenome = new Genome(GENE_COUNT, BIOLOGICAL_GENOME_LABEL, 0.05);
-		}
-		if(INDIVIDUAL_LEARNING){
-			this.iGenome = new Genome(GENE_COUNT, INDIVIDUAL_LEARNING_LABEL, 0.05);
-		}
-		if(SOCIAL_LEARNING){
-			this.sGenome = new Genome(GENE_COUNT, SOCIAL_LEARNING_LABEL, 0.05);
-		}
+		this.bGenome = new Genome(GENE_COUNT, BIOLOGICAL_GENOME_LABEL, B_GENOME_MUTATION_RATE);
+		this.iGenome = new Genome(GENE_COUNT, INDIVIDUAL_LEARNING_LABEL, I_GENOME_MUTATION_RATE);
+		this.sGenome = new Genome(GENE_COUNT, SOCIAL_LEARNING_LABEL, S_GENOME_MUTATION_RATE);
 	}
 
 	/**
@@ -77,13 +65,6 @@ class Agent{
 		this.setReproduction();
 		this.updateEnergy();
 		this.checkDeathChance();
-		// console.log(this.bGenome.genotype);
-		// console.log(this.iGenome.genotype);
-		// console.log(this.sGenome.genotype);
-		// // Increase death chance for the elderly
-		// if(this.age > 75 && this.alive === true){
-		// 	this.checkDeathChance();
-		// }
 	}
 
 	/**
@@ -113,7 +94,6 @@ class Agent{
 	 * @param randomAgent
 	 */
 	calculateSociallyLearned(initialSLValue, initialIValue, index){
-		var possibleSociallyLearnedValue = 0;
 		var attemptss = initialSLValue;
 		var ii = initialIValue;
 		// Individual Learning

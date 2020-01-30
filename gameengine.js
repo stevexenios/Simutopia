@@ -36,21 +36,19 @@ function GameEngine() {
     this.wheel = null;
     this.surfaceWidth = null;
 	this.surfaceHeight = null;
-	this.world = null;
-	this.updateCounter = 0;
-	this.cellCount = 0;
-	this.agentCount = 0;
+	// this.world = null;
+	// this.updateCounter = 0;
+	// this.cellCount = 0;
+	// this.agentCount = 0;
 	this.play = null;
 	this.pause = null;
-	this.restart = null;
-	this.reset = null;
 }
 
 GameEngine.prototype.init = function (ctx) {
 	this.ctx = ctx;
-	this.setParameters();
-	this.world = new World(this, this.ctx);
-	this.addEntity(this.world);
+	//this.setParameters();
+	//this.world = new World(this, this.ctx);
+	//this.addEntity(this.world);
 	this.setButtons();
     this.surfaceWidth = this.ctx.canvas.width;
 	this.surfaceHeight = this.ctx.canvas.height;
@@ -58,14 +56,14 @@ GameEngine.prototype.init = function (ctx) {
 	this.timer = new Timer();
 	this.start();
 	//this.displayData();
-    //console.log('Game initialized');
+    console.log('Game initialized');
 }
 
 GameEngine.prototype.setButtons = function(){
 	//this.restart = document.getElementById("restart");
-	this.pause = document.getElementById("pause");
 	this.play = document.getElementById("play");
-	this.reset = document.getElementById("reload");
+	this.pause = document.getElementById("pause");
+	this.addButtonListeners();
 }
 
 GameEngine.prototype.addButtonListeners = function(){
@@ -79,11 +77,6 @@ GameEngine.prototype.addButtonListeners = function(){
 	this.pause.addEventListener("click", function (e) {
 		that.pauseGame();
 	}, false);
-
-	// Does not function??
-	// this.restart.addEventListener("click", function (e) {
-	// 	that.restartGame();
-	// }, false);
 }
 
 GameEngine.prototype.start = function () {
@@ -96,17 +89,17 @@ GameEngine.prototype.start = function () {
 }
 
 // ?? Restart button
-GameEngine.prototype.restartGame = function () {
-	//console.log('Game restarting...');
-	for(var i = 0; i < this.entities.length; i++){
-		this.entities.splice(i, 1);
-	}
-	//this.entities.forEach(element=>this.removeEntity(element));
-	var canvas = document.getElementById('gameWorld');
-	this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-	this.init(this.ctx);
-	this.timer = new Timer();
-}
+// GameEngine.prototype.restartGame = function () {
+// 	//console.log('Game restarting...');
+// 	for(var i = 0; i < this.entities.length; i++){
+// 		this.entities.splice(i, 1);
+// 	}
+// 	//this.entities.forEach(element=>this.removeEntity(element));
+// 	var canvas = document.getElementById('gameWorld');
+// 	this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+// 	this.init(this.ctx);
+// 	this.timer = new Timer();
+// }
 
 GameEngine.prototype.pauseGame = function () {
 	this.isPaused = true;
@@ -175,12 +168,12 @@ GameEngine.prototype.draw = function () {
 GameEngine.prototype.update = function () {
 	this.updateCounter++;
 	for (var i = 0; i < this.entities.length; i++) {
+		//console.log(this.entities[i]);
 		this.entities[i].update();
 		if (this.entities[i].removeFromWorld) {
 			this.entities.splice(i, 1);
 		} 
 	}
-	this.world.update();
 }
 
 GameEngine.prototype.loop = function () {
@@ -207,25 +200,14 @@ GameEngine.prototype.secondUpdate = function () {
 	}
 }
 
-GameEngine.prototype.setParameters = function () {
-	// Text area
-	NUMBER_OF_CELLS = parseInt(document.getElementById("numberOfCells").value);
-	SIM_DURATION = parseInt(document.getElementById("simDuration").value);
-	UPDATE_PERIOD = parseInt(document.getElementById("updatePeriod").value);
-	INITIAL_POPULATION = parseInt(document.getElementById("initPop").value);
-	MAX_BONUS = parseInt(document.getElementById("maxBonuses").value);
-	DEATH_CHANCE = parseInt(document.getElementById("mortality").value);
-	AGENT_COLOR = document.getElementById("agentColor").value;
-	B_GENOME_MUTATION_RATE = parseInt(document.getElementById("bMutationRate").value);
-	I_GENOME_MUTATION_RATE = parseInt(document.getElementById("iMutationRate").value);
-	S_GENOME_MUTATION_RATE = parseInt(document.getElementById("sMutationRate").value);
-
-	// Checkbox && Radio Buttons
-	INDIVIDUAL_LEARNING = document.getElementById("il").checked;
-	SOCIAL_LEARNING = document.getElementById("sl").checked;
-	BIOLOGICAL_LEARNING = document.getElementById("pl").checked;
-
-}
+// function setPlayPause(){
+// 	playPause = !playPause;
+// 	if(playPause){
+// 		document.getElementById("playPause").value = "Play";		
+// 	} else {
+// 		document.getElementById("playPause").value = "Pause";
+// 	}
+// }
 
 download_img = function (el) {
 	var image = canvas.toDataURL("image/jpg");

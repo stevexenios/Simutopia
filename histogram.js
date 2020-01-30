@@ -21,8 +21,7 @@ Histogram.prototype.draw = function (ctx) {
 			return acc + x;
 		}, 0);
 		for (var j = 0; j < this.data[i + start].length; j++) {
-			var val = Math.ceil(this.data[i + start][j] / maxVal);
-			this.fill(val, i, 19 - j);
+			this.fill(this.data[i + start][j] / maxVal, i, 19 - j);
 		}
 	}
 	
@@ -50,7 +49,8 @@ Histogram.prototype.fill = function (color, x, y) {
         //c = 255 - c;
         this.ctx.fillStyle = rgb(0, 0, c);
     }
-	var width = Math.floor(this.xSize / 80);
+	var width = 1;
+	//Math.floor(this.xSize / 80);
 	var height = Math.floor(this.ySize / 20);
 	this.ctx.fillRect(this.x + (x * width),
 		this.y + (y * height),

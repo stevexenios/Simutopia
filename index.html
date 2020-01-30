@@ -42,13 +42,14 @@
         <div id="Eventss">
             <div class="button">
                 <!--Functionality of restart is defined in main-->
-                <button id="restart" onclick = startGame()>Restart</button>
+                <button id="restart" type="button" onclick = startGame()>Restart</button>
                 
                 <!--Functionality of Pause is defined in gameEngine-->
-                <button id="pause"> Pause</button>
+                <button id="pause" type="button" onclick = reload() > Reload</button>
                 
                 <!--Functionality of Play is defined in gameEngine-->
-                <button id="play"> Play</button>
+                <button id="play" type="button">Play</button>
+                <button id="pause" type="button">Pause</button>
 
                 <!--<button type="button" onclick=setParameters()>Resset</button>-->
             </div>

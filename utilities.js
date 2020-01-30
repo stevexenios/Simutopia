@@ -107,3 +107,30 @@ download_img = function (el) {
 	var image = canvas.toDataURL("image/jpg");
 	el.href = image;
 };
+
+function setParameters () {
+	// Text area
+	NUMBER_OF_CELLS = parseInt(document.getElementById("numberOfCells").value);
+	SIM_DURATION = parseInt(document.getElementById("simDuration").value);
+	UPDATE_PERIOD = parseInt(document.getElementById("updatePeriod").value);
+	INITIAL_POPULATION = parseInt(document.getElementById("initPop").value);
+	MAX_BONUS = parseInt(document.getElementById("maxBonuses").value);
+	DEATH_CHANCE = parseInt(document.getElementById("mortality").value);
+	AGENT_COLOR = document.getElementById("agentColor").value;
+
+	// Checkbox && Radio Buttons
+	INDIVIDUAL_LEARNING = document.getElementById("il").checked;
+	SOCIAL_LEARNING = document.getElementById("sl").checked;
+	BIOLOGICAL_LEARNING = document.getElementById("pl").checked;
+	// Evaluating the checkboxes
+	if(BIOLOGICAL_LEARNING){
+		B_GENOME_MUTATION_RATE = parseInt(document.getElementById("bMutationRate").value);
+	} else{B_GENOME_MUTATION_RATE = 0;}
+	if(INDIVIDUAL_LEARNING){
+		I_GENOME_MUTATION_RATE = parseInt(document.getElementById("iMutationRate").value);
+	} else{I_GENOME_MUTATION_RATE = 0;}
+	if(SOCIAL_LEARNING){
+		S_GENOME_MUTATION_RATE = parseInt(document.getElementById("sMutationRate").value);
+	}else{S_GENOME_MUTATION_RATE = 0;}
+}
+
