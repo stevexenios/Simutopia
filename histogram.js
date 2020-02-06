@@ -49,8 +49,7 @@ Histogram.prototype.fill = function (color, x, y) {
         //c = 255 - c;
         this.ctx.fillStyle = rgb(0, 0, c);
     }
-	var width = 1;
-	//Math.floor(this.xSize / 80);
+	var width = Math.floor(this.xSize / 80);
 	var height = Math.floor(this.ySize / 20);
 	this.ctx.fillRect(this.x + (x * width),
 		this.y + (y * height),

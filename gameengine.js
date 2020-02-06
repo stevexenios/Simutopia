@@ -66,19 +66,6 @@ GameEngine.prototype.setButtons = function(){
 	this.addButtonListeners();
 }
 
-GameEngine.prototype.addButtonListeners = function(){
-	var that = this;
-	// Works
-	this.play.addEventListener("click", function (e) {
-		that.playGame();
-	}, false);
-
-	// Works
-	this.pause.addEventListener("click", function (e) {
-		that.pauseGame();
-	}, false);
-}
-
 GameEngine.prototype.start = function () {
 	//console.log("Starting game");
     var that = this;
@@ -107,6 +94,19 @@ GameEngine.prototype.pauseGame = function () {
 
 GameEngine.prototype.playGame = function () {
 	this.isPaused = false;
+}
+
+GameEngine.prototype.addButtonListeners = function(){
+	var that = this;
+	// Works
+	this.play.addEventListener("click", function (e) {
+		that.playGame();
+	}, false);
+
+	// Works
+	this.pause.addEventListener("click", function (e) {
+		that.pauseGame();
+	}, false);
 }
 
 GameEngine.prototype.startInput = function () {

@@ -8,7 +8,7 @@ var INITIAL_POPULATION = 100;
 var CELL_DIMENSION = 1010 / NUMBER_OF_CELLS;
 var MAX_BONUS = 10;
 //Agent
-var DEATH_CHANCE = 0.1;
+var DEATH_CHANCE = 0.01;
 var AGENT_DIMENSION = CELL_DIMENSION/4;
 var AGENT_COLOR = "red";
 //Gene
@@ -36,7 +36,7 @@ var S_GENOME_MUTATION_RATE = 0.05;
  * World difficulty, difficulty level from scale starting at 0. 
  * Used during Agent Attempt tasks. 
  */
-var WORLD_DIFFICULTY = 7;
+var WORLD_DIFFICULTY = 8;
 
 /**
  * Used in Agents to multiply genome cost, and thus increase energy required for reproduction.
@@ -60,19 +60,27 @@ var REPRODUCTION_START_AGE = 12;
  * Marks the age the agent is no longer capable of reproducing.
  * UNUSED...
  */
-var REPRODUCTION_END_AGE = 50; 
+var REPRODUCTION_END_AGE = 25; 
 
 /**
  * Individual Learning Rate
 */
 var IL_RATE = 1;
+
+/**
+ * Social Learning Rate
+ */
+var SL_RATE = 1;
+
 /**
  * Controls the penalty for cell population in multiples of the given value .e.g. -1*CELL_POP/CELLPOP_PENALTY_FACTOR. 
  * Used in cell calc..penalty function.
  */
-var CELLPOP_PENALTY_FACTOR = 50;
+var CELLPOP_PENALTY_FACTOR = 25;
 
-//Bubble Chart
+/**
+ * Bubble Chart 
+ */
 var BUBBLE_CHART_WIDTH = 400;
 
 function randomInt(n) {

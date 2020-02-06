@@ -13,9 +13,7 @@ function startGame(){
 
 function reload(){
 	setParameters();
-	gameEngine.entities = [];
-	var world = new World(gameEngine, gameEngine.ctx);
-	gameEngine.addEntity(world);
+	startGame();
 }
 
 ASSET_MANAGER.queueDownload();
