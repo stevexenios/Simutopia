@@ -21,8 +21,7 @@ Histogram.prototype.draw = function (ctx) {
 			return acc + x;
 		}, 0);
 		for (var j = 0; j < this.data[i + start].length; j++) {
-			var val = Math.ceil(this.data[i + start][j] / maxVal);
-			this.fill(val, i, 19 - j);
+			this.fill(this.data[i + start][j] / maxVal, i, 19 - j);
 		}
 	}
 	

@@ -1,11 +1,12 @@
 // JavaScript source code
-function Cell(game, x, y) {
+function Cell(game, world, x, y) {
 	this.ID = null;
 	this.ctx = game.ctx;
 	this.label = 1;
 	this.x = x;
 	this.y = y;
 	this.game = game;
+	this.world = world;
 	this.width = CELL_DIMENSION;
 	this.height = CELL_DIMENSION;
 	this.agents = [];
@@ -59,5 +60,5 @@ Cell.prototype.deleteDeadAgents = function () {
 Cell.prototype.updateColor = function () {
 	var c = this.agents.length + this.colorParameter > 255 ? 255 : this.agents.length + this.colorParameter;
 	this.color = rgb(c, this.colorParameter, this.colorParameter);
-	this.worldPopulation = this.game.world.worldPopulation;
+	this.worldPopulation = this.world.worldPopulation;
 };

@@ -8,7 +8,7 @@ var INITIAL_POPULATION = 100;
 var CELL_DIMENSION = 1010 / NUMBER_OF_CELLS;
 var MAX_BONUS = 10;
 //Agent
-var DEATH_CHANCE = 0.1;
+var DEATH_CHANCE = 0.01;
 var AGENT_DIMENSION = CELL_DIMENSION/4;
 var AGENT_COLOR = "red";
 //Gene
@@ -36,7 +36,7 @@ var S_GENOME_MUTATION_RATE = 0.05;
  * World difficulty, difficulty level from scale starting at 0. 
  * Used during Agent Attempt tasks. 
  */
-var WORLD_DIFFICULTY = 7;
+var WORLD_DIFFICULTY = 8;
 
 /**
  * Used in Agents to multiply genome cost, and thus increase energy required for reproduction.
@@ -60,19 +60,27 @@ var REPRODUCTION_START_AGE = 12;
  * Marks the age the agent is no longer capable of reproducing.
  * UNUSED...
  */
-var REPRODUCTION_END_AGE = 50; 
+var REPRODUCTION_END_AGE = 25; 
 
 /**
  * Individual Learning Rate
 */
 var IL_RATE = 1;
+
+/**
+ * Social Learning Rate
+ */
+var SL_RATE = 1;
+
 /**
  * Controls the penalty for cell population in multiples of the given value .e.g. -1*CELL_POP/CELLPOP_PENALTY_FACTOR. 
  * Used in cell calc..penalty function.
  */
-var CELLPOP_PENALTY_FACTOR = 50;
+var CELLPOP_PENALTY_FACTOR = 25;
 
-//Bubble Chart
+/**
+ * Bubble Chart 
+ */
 var BUBBLE_CHART_WIDTH = 400;
 
 function randomInt(n) {
@@ -107,3 +115,30 @@ download_img = function (el) {
 	var image = canvas.toDataURL("image/jpg");
 	el.href = image;
 };
+
+function setParameters () {
+	// Text area
+	NUMBER_OF_CELLS = parseInt(document.getElementById("numberOfCells").value);
+	SIM_DURATION = parseInt(document.getElementById("simDuration").value);
+	UPDATE_PERIOD = parseInt(document.getElementById("updatePeriod").value);
+	INITIAL_POPULATION = parseInt(document.getElementById("initPop").value);
+	MAX_BONUS = parseInt(document.getElementById("maxBonuses").value);
+	DEATH_CHANCE = parseInt(document.getElementById("mortality").value);
+	AGENT_COLOR = document.getElementById("agentColor").value;
+
+	// Checkbox && Radio Buttons
+	INDIVIDUAL_LEARNING = document.getElementById("il").checked;
+	SOCIAL_LEARNING = document.getElementById("sl").checked;
+	BIOLOGICAL_LEARNING = document.getElementById("pl").checked;
+	// Evaluating the checkboxes
+	if(BIOLOGICAL_LEARNING){
+		B_GENOME_MUTATION_RATE = parseInt(document.getElementById("bMutationRate").value);
+	} else{B_GENOME_MUTATION_RATE = 0;}
+	if(INDIVIDUAL_LEARNING){
+		I_GENOME_MUTATION_RATE = parseInt(document.getElementById("iMutationRate").value);
+	} else{I_GENOME_MUTATION_RATE = 0;}
+	if(SOCIAL_LEARNING){
+		S_GENOME_MUTATION_RATE = parseInt(document.getElementById("sMutationRate").value);
+	}else{S_GENOME_MUTATION_RATE = 0;}
+}
+

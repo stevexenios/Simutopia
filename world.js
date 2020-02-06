@@ -128,7 +128,7 @@ World.prototype.initiate = function () {
 	for (var i = 0; i < NUMBER_OF_CELLS; i++) {
 		this.cells.push([]);
 		for (var j = 0; j < NUMBER_OF_CELLS; j++) {
-			this.cells[i].push(new Cell(this.game, i, j));
+			this.cells[i].push(new Cell(this.game, this, i, j));
 		}
 	}
 	for (var z = 0; z < this.worldPopulation; z++) {
