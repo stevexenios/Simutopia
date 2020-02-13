@@ -93,7 +93,7 @@ class Gene {
 		return new Gene(this.value);
 	}
 	mutate(mutationRate) {
-		if (mutationRate > Math.random()) {
+		if (mutationRate > randomInt(100)) {
 			if (Math.random() > 0.5) {
 				this.value++;
 			}

@@ -1,4 +1,3 @@
-
 function Entity(game, x, y) {
 	this.game = game;
 	this.x = x;

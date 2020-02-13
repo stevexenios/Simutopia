@@ -58,12 +58,6 @@
         
             <div id="inputtxt">
                 <!--All these values are in Utilities and updated by GameEngine-->
-                <label for="numberOfCells">Cells across world: </label>
-                <input type="text" id="numberOfCells" value="20" /> <br>
-
-                <label for="simDuration">Simulation Duration: </label>
-                <input type="text" id="simDuration" value="5000" /> <br>
-
                 <label for="updatePeriod">Update Period: </label>
                 <input type="text" id="updatePeriod" value="100" /><br>
                 
@@ -75,18 +69,39 @@
 
                 <label for="mortality">Death chance:  </label>
                 <input type="text" id="mortality" value="0.01" /><br>
-                
+
+                <label for="difficulty">World Difficulty:  </label>
+                <input type="text" id="difficulty" value="8" /><br>
+
+                <label for="factor">Reproduction Base Factor:  </label>
+                <input type="text" id="factor" value="6" /><br>
+
+                <label for="cost">Reproduction Base Cost:  </label>
+                <input type="text" id="cost" value="10" /><br>
+
+                <label for="IL_Rate">IL Rate:  </label>
+                <input type="text" id="IL_Rate" value="100" /><br>
+
+                <label for="SL_Rate">SL Rate:  </label>
+                <input type="text" id="SL_Rate" value="100" /><br>
+
+                <label for="bMutationRate">B Genome Mutation Rate:  </label>
+                <input type="text" id="bMutationRate" value="5" /><br>
+
+                <label for="iMutationRate">I Genome Mutation Rate:  </label>
+                <input type="text" id="iMutationRate" value="5" /><br>
+
+                <label for="sMutationRate">S Genome Mutation Rate:  </label>
+                <input type="text" id="sMutationRate" value="5" /><br>
+
+                <label for="simDuration">Simulation Duration: </label>
+                <input type="text" id="simDuration" value="5000" disabled = "disabled"/> <br>
+
+                <label for="numberOfCells">Cells across world: </label>
+                <input type="text" id="numberOfCells" value="20" disabled = "disabled" /> <br>
+
                 <label for="agentColor">Agent Color:  </label>
-                <input type="text" id="agentColor" value="red" /> <br>
-
-                <label for="bMutationRate">Biological Learning Rate:  </label>
-                <input type="text" id="bMutationRate" value="0.05" /><br>
-
-                <label for="iMutationRate">Individual Learning Rate:  </label>
-                <input type="text" id="iMutationRate" value="0.05" /><br>
-
-                <label for="sMutationRate">Social Learning Rate:  </label>
-                <input type="text" id="sMutationRate" value="0.05" /><br>
+                <input type="text" id="agentColor" value="red" disabled = "disabled" /> <br>
 
                 <label for="cellDimension">Cell Dimensions: </label>
                 <input type="text" id="cellDimension" disabled = "disabled" value="1010/Cells Across World" /> <br>
@@ -116,26 +131,22 @@
                 
                 <input type="checkbox" id="sl" checked />
                 <label for="sl">Social Learning</label><br>
-                <form action="">
+                <form action="" name = "otherCheckboxes">
+                    <!---LEARNING_ENVIRONMENT---->
                     <input type="radio" name="learningEnvironment" value="SOCIAL_LEARNING_ENVIRONMENT_CELL" checked> Local Social Learning in Cells<br>
                     <input type="radio" name="learningEnvironment" value="SOCIAL_LEARNING_ENVIRONMENT_WORLD" unchecked> Global Social Learning in World<br>
             
+                    <!---SOCIAL_LEARNING_LEVEL---->
                     <input type="radio" name="optimumAgent" value="SOCIAL_LEARNING_OPTIMUM_AGENT" unchecked> Social Learning Optimum Agent<br>
                     <input type="radio" name="optimumAgent" value="SOCIAL_LEARNING_RAND_AGENT" checked> Social Learning Random Agent<br>
 
-                    <!---BONUS_DISTRIBUTION_RANDOM: true,
-BONUS_DISTRIBUTION_INCREASE_LEFT: false,
-BONUS_DISTRIBUTION_INCREASE_RIGHT: false,
-BONUS_DISTRIBUTION_INCREASE_CENTER: false,
-BONUS_DISTRIBUTION_DECREASE_CENTER: false,
-BONUS_DISTRIBUTION_PLATEAU: false,
-BONUS_DISTRIBUTION_PEAKS_AND_TROUGHS: false,---->
-                    <input type="radio" name="optimumAgent" value="SOCIAL_LEARNING_OPTIMUM_AGENT" unchecked> Random Bonus Distribution<br>
-                    <input type="radio" name="optimumAgent" value="SOCIAL_LEARNING_RAND_AGENT" checked> Social Learning Random Agent<br>
-                    <input type="radio" name="optimumAgent" value="SOCIAL_LEARNING_OPTIMUM_AGENT" unchecked> Social Learning Optimum Agent<br>
-                    <input type="radio" name="optimumAgent" value="SOCIAL_LEARNING_RAND_AGENT" checked> Social Learning Random Agent<br>
-                    <input type="radio" name="optimumAgent" value="SOCIAL_LEARNING_OPTIMUM_AGENT" unchecked> Social Learning Optimum Agent<br>
-                    <input type="radio" name="optimumAgent" value="SOCIAL_LEARNING_RAND_AGENT" checked> Social Learning Random Agent<br>
+                    <!---BONUS_DISTRIBUTION---->
+                    <input type="radio" name="bonusDistribution" value="BONUS_DISTRIBUTION_RANDOM" checked> Random Bonus Distribution<br>
+                    <input type="radio" name="bonusDistribution" value="BONUS_DISTRIBUTION_INCREASE_LEFT" unchecked> Bonus Distribution Increasing Left<br>
+                    <input type="radio" name="bonusDistribution" value="BONUS_DISTRIBUTION_INCREASE_RIGHT" unchecked> Bonus Distribution Increasing Right<br>
+                    <input type="radio" name="bonusDistribution" value="BONUS_DISTRIBUTION_INCREASE_CENTER" unchecked> Bonus Distribution Increasing Center<br>
+                    <input type="radio" name="bonusDistribution" value="BONUS_DISTRIBUTION_DECREASE_CENTER" unchecked> Bonus Distribution Decreasing Center<br>
+                    <input type="radio" name="bonusDistribution" value="BONUS_DISTRIBUTION_PLATEAU" unchecked> Bonus Distribution Plateau<br>
                 </form>
             </div>       
         </div>

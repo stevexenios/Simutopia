@@ -11,17 +11,67 @@ function Cell(game, world, x, y) {
 	this.height = CELL_DIMENSION;
 	this.agents = [];
 	this.bonuses = [];
-
-	for (var b = 0; b < GENE_COUNT; b++) {
-		this.bonuses.push(randomInt(MAX_BONUS));
-	}
-
+	this.setBonusDistribution();
+	
 	this.tasks = [];
 	this.sumbonuses = this.bonuses.reduce(function (acc, x) { return acc + x; });
 	this.worldPopulation = INITIAL_POPULATION;
 	this.colorParameter = Math.floor(((this.sumbonuses / GENE_COUNT) / MAX_BONUS) * 256);
 	this.color = rgb(this.colorParameter, this.colorParameter, this.colorParameter);
 	this.cellPopPenalty = 0;
+}
+
+/**
+ * Function to set the bonus distribution in the cells.
+ * Used with the checkBoxes.
+ */
+Cell.prototype.setBonusDistribution = function() {
+	if(BONUS_DISTRIBUTION_RANDOM){
+		for (var b = 0; b < GENE_COUNT; b++) {
+			this.bonuses.push(randomInt(MAX_BONUS));
+		}
+	} else if(BONUS_DISTRIBUTION_INCREASE_LEFT){
+		var change = Math.floor(MAX_BONUS/GENE_COUNT);
+		var temp = MAX_BONUS;
+		for (var b = 0; b < GENE_COUNT; b++) {
+			this.bonuses.push(temp);
+			temp -= change;
+		}
+	} else if(BONUS_DISTRIBUTION_INCREASE_RIGHT){
+		var change = Math.floor(MAX_BONUS/GENE_COUNT);
+		var temp = change;
+		for (var b = 0; b < GENE_COUNT; b++) {
+			this.bonuses.push(temp);
+			temp += change;
+		}
+	} else if(BONUS_DISTRIBUTION_INCREASE_CENTER){
+		var change = Math.floor(MAX_BONUS/GENE_COUNT);
+		var temp = change;
+		for (var b = 0; b < GENE_COUNT; b++) {
+			this.bonuses.push(temp);
+			if(b<3){
+				temp += 2*change;
+			} else{
+				temp -= 2*change;
+			}
+		}
+	} else if(BONUS_DISTRIBUTION_DECREASE_CENTER){
+		var change = Math.floor(MAX_BONUS/GENE_COUNT);
+		var temp = MAX_BONUS;
+		for (var b = 0; b < GENE_COUNT; b++) {
+			this.bonuses.push(temp);
+			if(b<3){
+				temp -= 2*change;
+			} else{
+				temp += 2*change;
+			}
+		}
+	} else if(BONUS_DISTRIBUTION_PLATEAU){ // Plateau at the median of the max bonus value
+		var temp = Math.floor(MAX_BONUS/2);
+		for (var b = 0; b < GENE_COUNT; b++) {
+			this.bonuses.push(temp);
+		}
+	}
 }
 
 Cell.prototype.update = function () {

@@ -27,6 +27,7 @@ class Agent{
 		this.width = AGENT_DIMENSION;
 		this.height = AGENT_DIMENSION;
 		this.learningBonus = [];
+		this.learningBonusWeight;
 		for(var i = 0; i < GENE_COUNT; i++){
 			this.learningBonus.push(0);
 		}
@@ -61,10 +62,24 @@ class Agent{
 	update(){
 		this.age++;
 		this.updateLearningBonus();
+		this.setLearningBonusWeight();
 		this.attemptTasks();
 		this.setReproduction();
 		this.updateEnergy();
 		this.checkDeathChance();
+	}
+
+	/**
+	 * This function sets the learning bonus weight for the agent.
+	 * To be used in determining optimum socially learning agent.
+	 */
+	setLearningBonusWeight(){
+		this.learningBonusWeight = 0;
+		this.learningBonus.forEach(
+			bonus => {
+				this.learningBonusWeight +=bonus;
+			}
+		);
 	}
 
 	/**
@@ -88,24 +103,56 @@ class Agent{
 	}
 	
 	/**
-	 * Social Learning is set to occur just within the same cell.
-	 * @param initialSLValue 
-	 * @param index 
-	 * @param randomAgent
+	 * This function returns the social learning agent we are going to use
+	 * depending on the Social Learning Environment and the Social Learning
+	 * Level.
+	 */
+	getLearningScopeAndAgent(){
+		var env, agent;
+		if(SOCIAL_LEARNING_ENVIRONMENT_CELL){
+			env = this.cell.agents;
+		} else { // SOCIAL_LEARNING_ENVIRONMENT_WORLD
+			env = this.world.agents
+		}
+		if(SOCIAL_LEARNING_OPTIMUM_AGENT){
+			let max = -Infinity;
+			env.forEach(
+				maxAgent=>{
+					if(maxAgent.learningBonusWeight > max){
+						agent = maxAgent;
+					}
+				}
+			);
+
+		} else { // SOCIAL_LEARNING_RAND_AGENT
+			var ind = randomInt(env.length);
+			agent = env[ind];
+		}
+		return agent;
+	}
+
+	/**
+	 *  Social Learning is set to occur depending on the checkBoxes.
+	 * @param {*} initialSLValue 
+	 * @param {*} initialIValue 
+	 * @param {*} index 
 	 */
 	calculateSociallyLearned(initialSLValue, initialIValue, index){
 		var attemptss = initialSLValue;
 		var ii = initialIValue;
 		// Individual Learning
 		for(var i = 0; i< ii; i++ ){
-			if(Math.random() < IL_RATE){
+			if(randomInt(100) < IL_RATE){
 				this.learningBonus[index]++;
 			}
 		}
+
 		for(var i = 0; i < attemptss; i++){
-			var randAgent = this.cell.agents[randomInt(this.cell.agents.length)];
-			if(this.learningBonus[index] < randAgent.learningBonus[index]){
-				this.learningBonus[index] = randAgent.learningBonus[index];
+			if(randomInt(100) < SL_RATE){
+				var learningAgent = this.getLearningScopeAndAgent();
+				if(this.learningBonus[index] < learningAgent.learningBonus[index]){
+					this.learningBonus[index] = learningAgent.learningBonus[index];
+				}
 			}
 		}
 	}
