@@ -56,9 +56,5 @@ SL_RATE: 1
 }
 
 
-// - env. bonus
-// -learning rates
-// -social learning range
-// -reproduction cost 
 
 

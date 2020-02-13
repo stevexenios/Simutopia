@@ -23,6 +23,7 @@ function World(game, ctx) {
 	this.initBioGeneHist();
 	this.initIndGeneHist();
 	this.initSocGeneHist();
+	// this.initBonusHist();
 	this.initGraph();
 	// Bubble Chart
 	// BoxPlots
@@ -66,6 +67,34 @@ World.prototype.initBioGeneHist = function(){
 	this.bgene_4_Histogram = new Histogram(this.game, 1030, 580, "Gene_4_Histogram");
 	this.game.addEntity(this.bgene_4_Histogram);
 };
+
+// // Init bonus histograms
+// World.prototype.initBonusHist = function(){
+// 	// Histogram
+// 	this.bgene_0_data = [];
+// 	this.bgene_0_Histogram = new Histogram(this.game, 1030, 20, "Gene_0_Histogram");
+// 	this.game.addEntity(this.bgene_0_Histogram);
+
+// 	// Histogram
+// 	this.bgene_1_data = [];
+// 	this.bgene_1_Histogram = new Histogram(this.game, 1030, 160, "Gene_1_Histogram");
+// 	this.game.addEntity(this.bgene_1_Histogram);
+
+// 	// Histogram
+// 	this.bgene_2_data = [];
+// 	this.bgene_2_Histogram = new Histogram(this.game, 1030, 300, "Gene_2_Histogram");
+// 	this.game.addEntity(this.bgene_2_Histogram);
+
+// 	// Histogram
+// 	this.bgene_3_data = [];
+// 	this.bgene_3_Histogram = new Histogram(this.game, 1030, 440, "Gene_3_Histogram");
+// 	this.game.addEntity(this.bgene_3_Histogram);
+
+// 	// Histogram
+// 	this.bgene_4_data = [];
+// 	this.bgene_4_Histogram = new Histogram(this.game, 1030, 580, "Gene_4_Histogram");
+// 	this.game.addEntity(this.bgene_4_Histogram);
+// };
 
 // Individual Learning Histograms
 World.prototype.initIndGeneHist = function(){
@@ -374,11 +403,11 @@ World.prototype.displayData = function () {
 	this.ctx.fillText("Population: " + this.worldPopulation, 1100, 755);
 	this.ctx.fillText("Min Gen: " + this.minGen, 1100, 770);
 
-	this.ctx.fillText("Individual Learning Genes", 1590, 15);
+	this.ctx.fillText("Social Learning Genes", 1590, 15);
 	this.ctx.fillText("Average Gen: " + this.averageGen, 1620, 740);
 	this.ctx.fillText("Max Gen: " + this.maxGen, 1650, 755);
 
-	this.ctx.fillText("Social Learning Genes", 1330, 15);
+	this.ctx.fillText("Individual Learning Genes", 1330, 15);
 	this.ctx.fillText("Min Age: " + this.minAge, 1390, 770);
 	this.ctx.fillText("Average Age: " + this.averageAge, 1390, 740);
 	this.ctx.fillText("Max Age: " + this.maxAge, 1390, 755);
