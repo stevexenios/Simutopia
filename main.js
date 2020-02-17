@@ -9,11 +9,11 @@ function startGame(){
 }
 
 function reload(){
-	console.log("\n\n"+"First Print"+"\n\n");
-	printParameters();
+	// console.log("\n\n"+"First Print"+"\n\n");
+	// printParameters();
 	setParameters();
-	console.log("\n\n"+"Second Print"+"\n\n");
-	printParameters();
+	// console.log("\n\n"+"Second Print"+"\n\n");
+	// printParameters();
 	startGame();
 }
 
