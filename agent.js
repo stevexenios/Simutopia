@@ -77,7 +77,9 @@ class Agent{
 		this.learningBonusWeight = 0;
 		this.learningBonus.forEach(
 			bonus => {
-				this.learningBonusWeight +=bonus;
+				if(this.learningBonusWeight < bonus){
+					this.learningBonusWeight = bonus;
+				}
 			}
 		);
 	}
