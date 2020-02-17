@@ -22,9 +22,9 @@ var INDIVIDUAL_LEARNING = true;
 var INDIVIDUAL_LEARNING_LABEL = 1;
 
 // Mutation Rates for all three Genomes
-var B_GENOME_MUTATION_RATE = 5;
-var I_GENOME_MUTATION_RATE = 5;
-var S_GENOME_MUTATION_RATE = 5;
+var B_GENOME_MUTATION_RATE = 0.05;
+var I_GENOME_MUTATION_RATE = 0.05;
+var S_GENOME_MUTATION_RATE = 0.05;
 
 // This could be just a single "cell" or the entire "world"
 var SOCIAL_LEARNING_ENVIRONMENT_CELL = true;
@@ -66,12 +66,12 @@ var REPRODUCTION_BASE_COST = 10;
 /**
  * Individual Learning Rate
 */
-var IL_RATE = 100;
+var IL_RATE = 1.00;
 
 /**
  * Social Learning Rate
  */
-var SL_RATE = 100;
+var SL_RATE = 1.00;
 
 /**
  * Controls the penalty for cell population in multiples of the given value .e.g. -1*CELL_POP/CELLPOP_PENALTY_FACTOR. 
@@ -119,25 +119,25 @@ function setParameters () {
 	UPDATE_PERIOD = parseInt(document.getElementById("updatePeriod").value);
 	INITIAL_POPULATION = parseInt(document.getElementById("initPop").value);
 	MAX_BONUS = parseInt(document.getElementById("maxBonuses").value);
-	DEATH_CHANCE = parseInt(document.getElementById("mortality").value);
+	DEATH_CHANCE = parseFloat(document.getElementById("mortality").value);
 	WORLD_DIFFICULTY = parseInt(document.getElementById("difficulty").value);
 	REPRODUCTION_FACTOR = parseInt(document.getElementById("factor").value);
 	REPRODUCTION_BASE_COST = parseInt(document.getElementById("cost").value);
 	AGENT_COLOR = document.getElementById("agentColor").value;
 
 	// Setting the Mutation Rate for the Genomes
-	var temp1 = parseInt(document.getElementById("bMutationRate").value);
-	var temp2 = parseInt(document.getElementById("iMutationRate").value);
-	var temp3 = parseInt(document.getElementById("sMutationRate").value);
-	if(temp1<=100 && temp1>=0){B_GENOME_MUTATION_RATE = temp1;}
-	if(temp2<=100 && temp2>=0){I_GENOME_MUTATION_RATE = temp2;}
-	if(temp3<=100 && temp3>=0){S_GENOME_MUTATION_RATE = temp3;}
+	var temp1 = parseFloat(document.getElementById("bMutationRate").value);
+	var temp2 = parseFloat(document.getElementById("iMutationRate").value);
+	var temp3 = parseFloat(document.getElementById("sMutationRate").value);
+	if(temp1<=1.00 && temp1>=0.00){B_GENOME_MUTATION_RATE = temp1;}
+	if(temp2<=1.00 && temp2>=0.00){I_GENOME_MUTATION_RATE = temp2;}
+	if(temp3<=1.00 && temp3>=0.00){S_GENOME_MUTATION_RATE = temp3;}
 
 	// Setting the Learning Rate for Associated Learning
-	var tempIL = parseInt(document.getElementById("IL_Rate").value);
-	var tempSL = parseInt(document.getElementById("SL_Rate").value);
-	if(tempIL<=100 && tempIL>=0){IL_RATE = tempIL;}
-	if(tempSL<=100 && tempSL>=0){SL_RATE = tempSL;}
+	var tempIL = parseFloat(document.getElementById("IL_Rate").value);
+	var tempSL = parseFloat(document.getElementById("SL_Rate").value);
+	if(tempIL<=1.00 && tempIL>=0.00){IL_RATE = tempIL;}
+	if(tempSL<=1.00 && tempSL>=0.00){SL_RATE = tempSL;}
 
 	// Checkbox && Radio Buttons
 	INDIVIDUAL_LEARNING = document.getElementById("il").checked;
@@ -162,17 +162,17 @@ function setParameters () {
 
 	// Evaluating the checkboxes
 	if(BIOLOGICAL_LEARNING){
-		B_GENOME_MUTATION_RATE = parseInt(document.getElementById("bMutationRate").value);
+		B_GENOME_MUTATION_RATE = parseFloat(document.getElementById("bMutationRate").value);
 	} else {
 		B_GENOME_MUTATION_RATE = 0;
 	}
 	if(INDIVIDUAL_LEARNING) {
-		I_GENOME_MUTATION_RATE = parseInt(document.getElementById("iMutationRate").value);
+		I_GENOME_MUTATION_RATE = parseFloat(document.getElementById("iMutationRate").value);
 	} else {
 		I_GENOME_MUTATION_RATE = 0;
 	}
 	if(SOCIAL_LEARNING){
-		S_GENOME_MUTATION_RATE = parseInt(document.getElementById("sMutationRate").value);
+		S_GENOME_MUTATION_RATE = parseFloat(document.getElementById("sMutationRate").value);
 	}else {
 		S_GENOME_MUTATION_RATE = 0;
 	}

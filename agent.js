@@ -106,20 +106,23 @@ class Agent{
 	 * This function returns the social learning agent we are going to use
 	 * depending on the Social Learning Environment and the Social Learning
 	 * Level.
+	 * @param {*} index 
 	 */
-	getLearningScopeAndAgent(){
+	getLearningScopeAndAgent(index){
 		var env, agent;
+		let max = -Infinity;
 		if(SOCIAL_LEARNING_ENVIRONMENT_CELL){
 			env = this.cell.agents;
 		} else { // SOCIAL_LEARNING_ENVIRONMENT_WORLD
 			env = this.world.agents
 		}
 		if(SOCIAL_LEARNING_OPTIMUM_AGENT){
-			let max = -Infinity;
 			env.forEach(
 				maxAgent=>{
-					if(maxAgent.learningBonusWeight > max){
+					if(maxAgent.learningBonus[index] > max){
+						console.log(maxAgent.learningBonus);
 						agent = maxAgent;
+						max = maxAgent.learningBonus[index];
 					}
 				}
 			);
@@ -142,14 +145,14 @@ class Agent{
 		var ii = initialIValue;
 		// Individual Learning
 		for(var i = 0; i< ii; i++ ){
-			if(randomInt(100) < IL_RATE){
+			if(Math.random() < IL_RATE){
 				this.learningBonus[index]++;
 			}
 		}
 
 		for(var i = 0; i < attemptss; i++){
-			if(randomInt(100) < SL_RATE){
-				var learningAgent = this.getLearningScopeAndAgent();
+			if(Math.random() < SL_RATE){
+				var learningAgent = this.getLearningScopeAndAgent(index);
 				if(this.learningBonus[index] < learningAgent.learningBonus[index]){
 					this.learningBonus[index] = learningAgent.learningBonus[index];
 				}
