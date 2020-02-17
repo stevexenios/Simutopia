@@ -13,7 +13,7 @@ function reload(){
 	printParameters();
 	setParameters();
 	console.log("\n\n"+"Second Print"+"\n\n");
-	printParameters();
+	// printParameters();
 	startGame();
 }
 
