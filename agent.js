@@ -120,7 +120,7 @@ class Agent{
 			env.forEach(
 				maxAgent=>{
 					if(maxAgent.learningBonus[index] > max){
-						console.log(maxAgent.learningBonus);
+						// console.log(maxAgent.learningBonus);
 						agent = maxAgent;
 						max = maxAgent.learningBonus[index];
 					}
