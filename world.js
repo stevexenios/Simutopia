@@ -168,7 +168,7 @@ World.prototype.initiate = function () {
 
 World.prototype.update = function () {
 	this.day++;
-	for (var k = 0; k < this.agents.length; k++) {
+	for (var k = this.agents.length-1; k >=0 ; k--) {
 		this.agents[k].update();
 		if (!this.agents[k].alive) { // if agent is dead, 'bury'
 			this.agents.splice(k, 1);
@@ -180,6 +180,8 @@ World.prototype.update = function () {
 			this.agents[k].reproduce = false;
 		}
 	}
+
+	
 	this.worldPopulation = this.agents.length;
 
 	for (var g = 0; g < this.cells.length; g++) {
@@ -298,25 +300,26 @@ World.prototype.updateData = function () {
 		ssgene_4_data[sg4]++;
 
 		// For Scaling Learning Bonus
-		var scalingMaxBonus = findMaximumLearningBonusWeight(this.agents);
-		if(scalingMaxBonus === 0){
-			scalingMaxBonus = 1;
-		}
+		// var scalingMaxBonus = 1
+		// indMaximumLearningBonusWeight(this.agents);
+		// if(scalingMaxBonus === 0){
+		// 	scalingMaxBonus = 1;
+		// }
 
 		// Learning Bonus List
-		var b0 = (this.agents[k].learningBonus[0] / scalingMaxBonus) * 20 < 20 ? (this.agents[k].learningBonus[0] / scalingMaxBonus) * 20 : 19;
+		var b0 = this.agents[k].learningBonus[0] < 20 ? this.agents[k].learningBonus[0]: 19;
 		bonus_0_data[b0]++;
 		// console.log(this.agents[k].learningBonus[0]);
-		var b1 = (this.agents[k].learningBonus[1] / scalingMaxBonus) * 20 < 20  ? (this.agents[k].learningBonus[1] / scalingMaxBonus) * 20 : 19;
+		var b1 = this.agents[k].learningBonus[1] < 20  ? this.agents[k].learningBonus[1]: 19;
 		bonus_1_data[b1]++;
 
-		var b2 = (this.agents[k].learningBonus[2] / scalingMaxBonus) * 20 < 20 ? (this.agents[k].learningBonus[2] / scalingMaxBonus) * 20 : 19;
+		var b2 = this.agents[k].learningBonus[2] < 20 ? this.agents[k].learningBonus[2]: 19;
 		bonus_2_data[b2]++;
 
-		var b3 = (this.agents[k].learningBonus[3] / scalingMaxBonus) * 20 < 20 ? (this.agents[k].learningBonus[3] / scalingMaxBonus) * 20 : 19;
+		var b3 = this.agents[k].learningBonus[3] < 20 ? this.agents[k].learningBonus[3]: 19;
 		bonus_3_data[b3]++;
 
-		var b4 = (this.agents[k].learningBonus[4] / scalingMaxBonus) * 20 < 20 ? (this.agents[k].learningBonus[4] / scalingMaxBonus) * 20 : 19;
+		var b4 = this.agents[k].learningBonus[4] < 20 ? this.agents[k].learningBonus[4]: 19;
 		bonus_4_data[b4]++;
 
 	}
