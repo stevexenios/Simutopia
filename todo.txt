@@ -1,3 +1,17 @@
+Motherhood state:
+	- Allow the use of randomized gene.value;
+	-random: boolean [radio]
+		- maxBonusForGene
+	-Costlier learning Bonus
+		- 
+	-Cycles of 10000, 
+		-individualStart
+		-socialStart
+		
+	-Difficulty for different cells..
+
+	-Bug on reproduction not working
+
 Working on:
 1. Experiment Manager
 2. Learning Bonus Histograms
@@ -9,8 +23,6 @@ Experiment Manager: 01/30/2020 - Present
 2. Updated So that UI can change social learning scope and agents selection
 3. Updated so that they can be changed on UI: World Difficulty, Reproduction cost, and Repro Base Factor 
 4. Learnign Rates Updated
-
-
 
 Incomplete: 01/04/2020 - 01/10/2020
 - Divide the Layouts into 3 seperate ones:

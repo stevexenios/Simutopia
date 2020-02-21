@@ -180,9 +180,9 @@ class Agent{
 	 * ...otherwise always false.
 	 */
 	setReproduction() {
-		var sumGenomeCost = this.genomeCost() + REPRODUCTION_BASE_COST;
+		var sumGenomeCost = this.genomeCost()* REPRODUCTION_FACTOR + REPRODUCTION_BASE_COST;
 		//if(this.age > 18 && this.age < 80){
-			if (this.energy > (sumGenomeCost * REPRODUCTION_FACTOR)) {
+			if (this.energy > sumGenomeCost) {
 				this.energy -= sumGenomeCost;
 				/**
 				 * This boolean is checked during each update in the world
