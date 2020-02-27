@@ -17,7 +17,7 @@ function World(game, ctx) {
 	this.tick = 0;
 	this.day = 0;
 	this.initiate();
-	this.difficulty = WORLD_DIFFICULTY;
+	this.difficulty = MAX_WORLD_DIFFICULTY;
 
 	// Visualizations for the data
 	this.initBioGeneHist();

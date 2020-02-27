@@ -70,7 +70,7 @@
                 <label for="mortality">Death chance:  </label>
                 <input type="text" id="mortality" value="0.01" /><br>
 
-                <label for="difficulty">World Difficulty:  </label>
+                <label for="difficulty">Maximum World Difficulty:  </label>
                 <input type="text" id="difficulty" value="8" /><br>
 
                 <label for="factor">Reproduction Base Factor:  </label>
@@ -147,6 +147,10 @@
                     <input type="radio" name="bonusDistribution" value="BONUS_DISTRIBUTION_INCREASE_CENTER" unchecked> Bonus Distribution Increasing Center<br>
                     <input type="radio" name="bonusDistribution" value="BONUS_DISTRIBUTION_DECREASE_CENTER" unchecked> Bonus Distribution Decreasing Center<br>
                     <input type="radio" name="bonusDistribution" value="BONUS_DISTRIBUTION_PLATEAU" unchecked> Bonus Distribution Plateau<br>
+                    
+                    <!---DIFFICULTY_DISTRIBUTION_RANDOM---->
+                    <input type="radio" name="difficultyDistribution" value="DIFFICULTY_DISTRIBUTION_RANDOM" checked> Random Cell Difficulty Distribution<br>
+                    <input type="radio" name="difficultyDistribution" value="DIFFICULTY_DISTRIBUTION_CONSTANT" checked> Constant Cell Difficulty Distribution<br>
                 </form>
             </div>       
         </div>

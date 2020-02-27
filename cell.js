@@ -12,6 +12,12 @@ function Cell(game, world, x, y) {
 	this.agents = [];
 	this.bonuses = [];
 	this.setBonusDistribution();
+
+	if(DIFFICULTY_DISTRIBUTION_CONSTANT && !DIFFICULTY_DISTRIBUTION_RANDOM){ // CONSTANT DIFFICULTY
+		this.cellDifficulty = MAX_WORLD_DIFFICULTY;
+	} else { // RANDOM difficulty
+		this.cellDifficulty = randomInt(MAX_WORLD_DIFFICULTY);
+	}
 	
 	this.tasks = [];
 	this.sumbonuses = this.bonuses.reduce(function (acc, x) { return acc + x; });

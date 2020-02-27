@@ -46,10 +46,20 @@ var	BONUS_DISTRIBUTION_DECREASE_CENTER = false;
 var	BONUS_DISTRIBUTION_PLATEAU = false;
 
 /**
- * World difficulty, difficulty level from scale starting at 0. 
- * Used during Agent Attempt tasks. 
+ * Difficulty Distribution in Cell Random or Constant
  */
-var WORLD_DIFFICULTY = 8;
+var DIFFICULTY_DISTRIBUTION_RANDOM = true;
+var DIFFICULTY_DISTRIBUTION_CONSTANT = false;
+
+/**
+ * World difficulty, difficulty level from scale starting at 0. 
+ * Used during Agent Attempt tasks.
+ * 
+ * Changed this so that the it is the maximum difficulty for the
+ * entire world. Cell difficulty is distributed randomly upto this
+ * difficulty or can be the constant value of World Difficulty.
+ */
+var MAX_WORLD_DIFFICULTY = 8;
 
 /**
  * Used in Agents to multiply genome cost, and thus increase energy required for reproduction.
@@ -120,7 +130,7 @@ function setParameters () {
 	INITIAL_POPULATION = parseInt(document.getElementById("initPop").value);
 	MAX_BONUS = parseInt(document.getElementById("maxBonuses").value);
 	DEATH_CHANCE = parseFloat(document.getElementById("mortality").value);
-	WORLD_DIFFICULTY = parseInt(document.getElementById("difficulty").value);
+	MAX_WORLD_DIFFICULTY = parseInt(document.getElementById("difficulty").value);
 	REPRODUCTION_FACTOR = parseInt(document.getElementById("factor").value);
 	REPRODUCTION_BASE_COST = parseInt(document.getElementById("cost").value);
 	AGENT_COLOR = document.getElementById("agentColor").value;
@@ -159,6 +169,10 @@ function setParameters () {
 	BONUS_DISTRIBUTION_INCREASE_CENTER = document.otherCheckboxes.bonusDistribution[3].checked;
 	BONUS_DISTRIBUTION_DECREASE_CENTER = document.otherCheckboxes.bonusDistribution[4].checked;
 	BONUS_DISTRIBUTION_PLATEAU = document.otherCheckboxes.bonusDistribution[5].checked;
+
+	// Setting up Difficulty Distribution
+	DIFFICULTY_DISTRIBUTION_RANDOM = document.otherCheckboxes.bonusDistribution[0].checked;
+	DIFFICULTY_DISTRIBUTION_CONSTANT = document.otherCheckboxes.bonusDistribution[1].checked;
 
 	// Evaluating the checkboxes
 	if(BIOLOGICAL_LEARNING){

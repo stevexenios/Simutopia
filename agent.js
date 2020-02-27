@@ -168,7 +168,7 @@ class Agent{
 	 */
 	attemptTasks() {
 		for (var i = 0; i < GENE_COUNT; i++) {
-			if (this.bGenome.genotype[i].value + this.learningBonus[i] + this.cell.bonuses[i] > WORLD_DIFFICULTY) {
+			if (this.bGenome.genotype[i].value + this.learningBonus[i] + this.cell.bonuses[i] > this.cell.cellDifficulty) {
 				this.energy++;
 			}
 		}
