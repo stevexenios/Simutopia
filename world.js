@@ -168,6 +168,15 @@ World.prototype.initiate = function () {
 
 World.prototype.update = function () {
 	this.day++;
+	
+	if(this.day >= INDIVIDUAL_LEARNING_DAY){
+		INDIVIDUAL_LEARNING = true;
+	}
+
+	if(this.day >= SOCIAL_LEARNING_DAY){
+		SOCIAL_LEARNING = true;
+	}
+
 	for (var k = this.agents.length-1; k >=0 ; k--) {
 		this.agents[k].update();
 		if (!this.agents[k].alive) { // if agent is dead, 'bury'

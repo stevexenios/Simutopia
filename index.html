@@ -58,6 +58,15 @@
         
             <div id="inputtxt">
                 <!--All these values are in Utilities and updated by GameEngine-->
+                <label for="individualDay">Individual Learning Start Day: </label>
+                <input type="text" id="individualDay" value="0" /><br>
+
+                <label for="socialDay">Social Learning Start Day: </label>
+                <input type="text" id="socialDay" value="500" /><br>
+
+                <label for="energyFactor">Energy Factor for Successful Tasks: </label>
+                <input type="text" id="energyFactor" value="3" /><br>
+
                 <label for="updatePeriod">Update Period: </label>
                 <input type="text" id="updatePeriod" value="100" /><br>
                 
@@ -67,11 +76,14 @@
                 <label for="maxBonuses">Maximum Bonus in Cell: </label>
                 <input type="text" id="maxBonuses" value="10" /><br>
 
-                <label for="mortality">Death chance:  </label>
-                <input type="text" id="mortality" value="0.01" /><br>
+                <label for="maxGeneValue">Maximum Gene Value in Genome: </label>
+                <input type="text" id="maxGeneValue" value="5" /><br>
 
                 <label for="difficulty">Maximum World Difficulty:  </label>
                 <input type="text" id="difficulty" value="8" /><br>
+
+                <label for="mortality">Death chance:  </label>
+                <input type="text" id="mortality" value="0.01" /><br>
 
                 <label for="factor">Reproduction Base Factor:  </label>
                 <input type="text" id="factor" value="6" /><br>
@@ -123,6 +135,7 @@
             </div>
             
             <div id="checkbx">
+                <!---
                 <input type="checkbox" id="pl" checked />
                 <label for="pl">Biological Learning</label><br>
                 
@@ -132,6 +145,7 @@
                 <input type="checkbox" id="sl" checked />
                 <label for="sl">Social Learning</label><br>
                 <form action="" name = "otherCheckboxes">
+                ---->
                     <!---LEARNING_ENVIRONMENT---->
                     <input type="radio" name="learningEnvironment" value="SOCIAL_LEARNING_ENVIRONMENT_CELL" checked> Local Social Learning in Cells<br>
                     <input type="radio" name="learningEnvironment" value="SOCIAL_LEARNING_ENVIRONMENT_WORLD" unchecked> Global Social Learning in World<br>
@@ -151,6 +165,10 @@
                     <!---DIFFICULTY_DISTRIBUTION_RANDOM---->
                     <input type="radio" name="difficultyDistribution" value="DIFFICULTY_DISTRIBUTION_RANDOM" checked> Random Cell Difficulty Distribution<br>
                     <input type="radio" name="difficultyDistribution" value="DIFFICULTY_DISTRIBUTION_CONSTANT" checked> Constant Cell Difficulty Distribution<br>
+
+                    <!---GENE_VALUE_DISTRIBUTION_RANDOM---->
+                    <input type="radio" name="geneValueDistribution" value="GENE_VALUE_DISTRIBUTION_RANDOM" checked> Random Gene Value Distribution<br>
+                    <input type="radio" name="geneValueDistribution" value="GENE_VALUE_DISTRIBUTION_CONSTANT" checked> Constant Gene Value Distribution<br>
                 </form>
             </div>       
         </div>

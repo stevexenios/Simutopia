@@ -8,15 +8,19 @@ Motherhood state:
 		-individualStart
 		-socialStart
 		
-	-Difficulty for different cells..
-
 	-Bug on reproduction not working
 
 Working on:
 1. Experiment Manager
-2. Learning Bonus Histograms
-3. Social Learning Optimum, pick the agent with the highest value in the learning bonus array
-4. Mean on histogram
+2. Mean on histogram
+
+
+02/27:
+1. Difficulty for different cells implemented
+
+02/15:
+1. Learning Bonus Histograms
+2. Social Learning Optimum, pick the agent with the highest value in the learning bonus array
 
 Experiment Manager: 01/30/2020 - Present
 1. Updated so that UI can change env. bonus pattern
@@ -24,7 +28,7 @@ Experiment Manager: 01/30/2020 - Present
 3. Updated so that they can be changed on UI: World Difficulty, Reproduction cost, and Repro Base Factor 
 4. Learnign Rates Updated
 
-Incomplete: 01/04/2020 - 01/10/2020
+Completed: 01/04/2020 - 01/10/2020
 - Divide the Layouts into 3 seperate ones:
 	- Buttons
 	- Checkboxes
