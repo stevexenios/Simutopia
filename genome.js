@@ -22,12 +22,19 @@ class Genome {
 		
 		// Initial genome generation is 0, only changes during cloning.
 		this.generation = 0;
-		
-		// Genome cost (=sum of genes in genotype array) is dynamic generationally, but static for each generation.
-		this.cost = 0;
+
+		if(this.label === 0){ // Bio
+			this.costReproFactor = B_REPRODUCTION_FACTOR; // Default is 1
+		} else if(this.label === 1){ // Indi
+			this.costReproFactor = I_REPRODUCTION_FACTOR;
+		} else if( this.label === 2){ // Soci
+			this.costReproFactor = S_REPRODUCTION_FACTOR;
+		}
 		
 		// Array containing the genes
 		this.genotype = [];
+		// Genome cost (=sum of genes in genotype array) is dynamic generationally, but static for each generation.
+		this.cost = 0; // Set in initGenoType
 		this.initGenoType();
 	}
 
@@ -36,8 +43,17 @@ class Genome {
 	 */
 	initGenoType(){
 		for (var i = 0; i < this.geneCount; i++) {
-			this.genotype.push(new Gene(0));
+			if(this.label === 0){ // Bio
+				if(GENE_VALUE_DISTRIBUTION_CONSTANT){
+					this.genotype.push(new Gene(0));
+				} else if(GENE_VALUE_DISTRIBUTION_RANDOM){
+					this.genotype.push(new Gene(randomInt(MAX_GENE_VALUE)));
+				}
+			} else {
+				this.genotype.push(new Gene(0));
+			}
 		}
+		this.cost = this.genomeCost(this);
 	}
 	
 	/**

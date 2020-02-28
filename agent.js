@@ -1,5 +1,4 @@
 // JavaScript source code
-
 /**
  * Agent class.
  * 
@@ -98,8 +97,8 @@ class Agent{
 	updateLearningBonus() {
 		var bonus = [];
 		for(var index = 0; index < GENE_COUNT; index++){
-			var initialSLValue = this.sGenome.genotype[index].value;
 			var initialIValue = this.iGenome.genotype[index].value;
+			var initialSLValue = this.sGenome.genotype[index].value;
 			bonus.push(this.calculateSociallyLearned(initialSLValue, initialIValue, index));
 		}
 	}
@@ -145,18 +144,21 @@ class Agent{
 	calculateSociallyLearned(initialSLValue, initialIValue, index){
 		var attemptss = initialSLValue;
 		var ii = initialIValue;
-		// Individual Learning
-		for(var i = 0; i< ii; i++ ){
-			if(Math.random() < IL_RATE){
-				this.learningBonus[index]++;
+		if(INDIVIDUAL_LEARNING){
+			for(var i = 0; i< ii; i++ ){
+				if(Math.random() < IL_RATE){
+					this.learningBonus[index]++;
+				}
 			}
 		}
 
-		for(var i = 0; i < attemptss; i++){
-			if(Math.random() < SL_RATE){
-				var learningAgent = this.getLearningScopeAndAgent(index);
-				if(this.learningBonus[index] < learningAgent.learningBonus[index]){
-					this.learningBonus[index] = learningAgent.learningBonus[index];
+		if(SOCIAL_LEARNING){
+			for(var i = 0; i < attemptss; i++){
+				if(Math.random() < SL_RATE){
+					var learningAgent = this.getLearningScopeAndAgent(index);
+					if(this.learningBonus[index] < learningAgent.learningBonus[index]){
+						this.learningBonus[index] = learningAgent.learningBonus[index];
+					}
 				}
 			}
 		}
@@ -168,8 +170,8 @@ class Agent{
 	 */
 	attemptTasks() {
 		for (var i = 0; i < GENE_COUNT; i++) {
-			if (this.bGenome.genotype[i].value + this.learningBonus[i] + this.cell.bonuses[i] > WORLD_DIFFICULTY) {
-				this.energy++;
+			if (this.bGenome.genotype[i].value + this.learningBonus[i] + this.cell.bonuses[i] > this.cell.cellDifficulty) {
+				this.energy += ENERGY_FACTOR;
 			}
 		}
 	}
@@ -180,6 +182,7 @@ class Agent{
 	 * ...otherwise always false.
 	 */
 	setReproduction() {
+
 		var sumGenomeCost = this.genomeCost()* REPRODUCTION_FACTOR + REPRODUCTION_BASE_COST;
 		//if(this.age > 18 && this.age < 80){
 			if (this.energy > sumGenomeCost) {
@@ -208,15 +211,13 @@ class Agent{
 	}
 
 	/**
-	 * Function to calculate the cost of the given genome.
+	 * Function to calculate cost of Agent to reproduce.
 	 */
 	genomeCost(){
-		var accumulator = 0;
-		for(var i = 0; i < GENE_COUNT; i++){
-			accumulator += this.bGenome.genotype[i].value;
-			accumulator += this.iGenome.genotype[i].value;
-			accumulator += this.sGenome.genotype[i].value;
-		}
+		var accumulator = BASE_REPRODUCTION_COST; // Incorporated here, compare to earlier
+		accumulator += this.bGenome.genomeCost(this.bGenome) * this.bGenome.costReproFactor;
+		accumulator += this.iGenome.genomeCost(this.iGenome) * this.iGenome.costReproFactor;
+		accumulator += this.sGenome.genomeCost(this.sGenome) * this.sGenome.costReproFactor;
 		//console.log(accumulator);
 		return accumulator;
 	}
