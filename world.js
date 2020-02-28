@@ -168,8 +168,8 @@ World.prototype.initiate = function () {
 
 World.prototype.update = function () {
 	this.day++;
-	
-	if(this.day >= INDIVIDUAL_LEARNING_DAY){
+
+  if(this.day >= INDIVIDUAL_LEARNING_DAY){
 		INDIVIDUAL_LEARNING = true;
 	}
 

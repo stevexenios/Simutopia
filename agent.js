@@ -182,7 +182,8 @@ class Agent{
 	 * ...otherwise always false.
 	 */
 	setReproduction() {
-		var sumGenomeCost = this.genomeCost();
+
+		var sumGenomeCost = this.genomeCost()* REPRODUCTION_FACTOR + REPRODUCTION_BASE_COST;
 		//if(this.age > 18 && this.age < 80){
 			if (this.energy > sumGenomeCost) {
 				this.energy -= sumGenomeCost;
