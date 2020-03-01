@@ -27,7 +27,7 @@ var DEATH_CHANCE = 0.01;
 var AGENT_DIMENSION = CELL_DIMENSION/4;
 var AGENT_COLOR = "red";
 var BASE_REPRODUCTION_COST = 1;
-var ENERGY_FACTOR = 5; // New addition
+var ENERGY_FACTOR = 3; // New addition
 
 //Gene
 var GENE_COUNT = 5;
