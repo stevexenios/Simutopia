@@ -26,7 +26,7 @@ var DIFFICULTY_DISTRIBUTION_CONSTANT = false; // Cells with Constant = Max World
 var DEATH_CHANCE = 0.01;
 var AGENT_DIMENSION = CELL_DIMENSION/4;
 var AGENT_COLOR = "red";
-var BASE_REPRODUCTION_COST = 10;
+var BASE_REPRODUCTION_COST = 1;
 var ENERGY_FACTOR = 3; // New addition
 
 //Gene
