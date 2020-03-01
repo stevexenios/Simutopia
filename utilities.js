@@ -44,7 +44,7 @@ var INDIVIDUAL_LEARNING_DAY = 0; // Start Day of Individual Learning Day
 var INDIVIDUAL_LEARNING = false; // Starts false, changed by world, depending on Indi..Day>=actual day
 var INDIVIDUAL_LEARNING_LABEL = 1;
 var I_GENOME_MUTATION_RATE = 0.05;
-var I_REPRODUCTION_FACTOR = 1;
+var I_REPRODUCTION_FACTOR = 6;
 var IL_RATE = 1.00;
 
 // Social Learning
@@ -56,7 +56,7 @@ var SOCIAL_LEARNING_RAND_AGENT = true; // SL Rand Agent
 var SOCIAL_LEARNING_DAY = 500; // Sets social learning to start at, or after this day
 var SOCIAL_LEARNING = false; // Starts false, changed by world, depending on Soci..Day>=actual day
 var SOCIAL_LEARNING_LABEL = 2;
-var S_REPRODUCTION_FACTOR = 1;
+var S_REPRODUCTION_FACTOR = 6;
 var SL_RATE = 1.00;
 
 // Bonus Distribution
