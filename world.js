@@ -19,6 +19,19 @@ function World(game, ctx) {
 	this.initiate();
 	this.difficulty = MAX_WORLD_DIFFICULTY;
 
+	this.avgBb = 0;
+	this.avgIi = 0;
+	this.avgSs = 0;
+
+	this.maxBb = 0;
+	this.minBb = 0;
+
+	this.maxIi = 0;
+	this.minIi = 0;
+
+	this.maxSs = 0;
+	this.minSs = 0;
+
 	// Visualizations for the data
 	this.initBioGeneHist();
 	this.initIndGeneHist();
@@ -177,8 +190,48 @@ World.prototype.update = function () {
 		SOCIAL_LEARNING = true;
 	}
 
+	var maxBGenomeCost = -Infinity;
+	var minBGenomeCost = Infinity;
+	var avgBGenomeCost = 0;
+
+	var maxIGenomeCost = -Infinity;
+	var minIGenomeCost = Infinity;
+	var avgIGenomeCost = 0;
+
+	var maxSGenomeCost = -Infinity;
+	var minSGenomeCost = Infinity;
+	var avgSGenomeCost = 0;
+
 	for (var k = this.agents.length-1; k >=0 ; k--) {
 		this.agents[k].update();
+		avgBGenomeCost += this.agents[k].bGenome.cost;
+		avgIGenomeCost += this.agents[k].iGenome.cost;
+		avgSGenomeCost += this.agents[k].sGenome.cost;
+
+		// Bio
+		if(this.agents[k].bGenome.cost > maxBGenomeCost){
+			maxBGenomeCost = this.agents[k].bGenome.cost;
+		}
+		if(this.agents[k].bGenome.cost < minBGenomeCost){
+			minBGenomeCost = this.agents[k].bGenome.cost;
+		}
+
+		// Ind
+		if(this.agents[k].iGenome.cost > maxIGenomeCost){
+			maxIGenomeCost = this.agents[k].iGenome.cost;
+		}
+		if(this.agents[k].iGenome.cost < minIGenomeCost){
+			minIGenomeCost = this.agents[k].iGenome.cost;
+		}
+
+		// Soc
+		if(this.agents[k].sGenome.cost > maxSGenomeCost){
+			maxSGenomeCost = this.agents[k].sGenome.cost;
+		}
+		if(this.agents[k].sGenome.cost < minSGenomeCost){
+			minSGenomeCost = this.agents[k].sGenome.cost;
+		}
+
 		if (!this.agents[k].alive) { // if agent is dead, 'bury'
 			this.agents.splice(k, 1);
 			//console.log("world agent deleted");
@@ -190,8 +243,20 @@ World.prototype.update = function () {
 		}
 	}
 
-	
 	this.worldPopulation = this.agents.length;
+	
+	this.avgBb = avgBGenomeCost / this.worldPopulation;
+	this.avgIi = avgIGenomeCost / this.worldPopulation;
+	this.avgSs = avgSGenomeCost / this.worldPopulation;
+
+	this.maxBb = maxBGenomeCost;
+	this.minBb = minBGenomeCost;
+
+	this.maxIi = maxIGenomeCost;
+	this.minIi = minIGenomeCost;
+
+	this.maxSs = maxSGenomeCost;
+	this.minSs = minSGenomeCost;
 
 	for (var g = 0; g < this.cells.length; g++) {
 		for (var h = 0; h < this.cells[g].length; h++) {
@@ -474,6 +539,10 @@ World.prototype.displayData = function () {
 	this.ctx.fillText("Min Age: " + this.minAge, 1390, 770);
 	this.ctx.fillText("Average Age: " + this.averageAge, 1390, 740);
 	this.ctx.fillText("Max Age: " + this.maxAge, 1390, 755);
+
+	this.ctx.fillText("Biological Genome Cost| Max: " + this.maxBb + " | Min: " + this.minBb + " | Avg: " + this.avgBb, 1650, 800);
+	this.ctx.fillText("Individual Genome Cost| Max: " + this.maxIi + " | Min: " + this.minIi  + " | Avg: " + this.avgIi, 1650, 810);
+	this.ctx.fillText("Social Genome Cost| Max: " + this.maxSs + " | Min: " + this.minSs  + " | Avg: " + this.avgSs, 1650, 820);
 };
 
 function findMaximumLearningBonusWeight(worldAgents){

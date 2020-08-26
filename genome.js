@@ -23,13 +23,13 @@ class Genome {
 		// Initial genome generation is 0, only changes during cloning.
 		this.generation = 0;
 
-		if(this.label === 0){ // Bio
-			this.costReproFactor = B_REPRODUCTION_FACTOR; // Default is 1
-		} else if(this.label === 1){ // Indi
-			this.costReproFactor = I_REPRODUCTION_FACTOR;
-		} else if( this.label === 2){ // Soci
-			this.costReproFactor = S_REPRODUCTION_FACTOR;
-		}
+		// if(this.label === 0){ // Bio
+		// 	this.costReproFactor = B_REPRODUCTION_FACTOR; // Default is 1
+		// } else if(this.label === 1){ // Indi
+		// 	this.costReproFactor = I_REPRODUCTION_FACTOR;
+		// } else if( this.label === 2){ // Soci
+		// 	this.costReproFactor = S_REPRODUCTION_FACTOR;
+		// }
 		
 		// Array containing the genes
 		this.genotype = [];
@@ -47,12 +47,17 @@ class Genome {
 				if(GENE_VALUE_DISTRIBUTION_CONSTANT){
 					this.genotype.push(new Gene(0));
 				} else if(GENE_VALUE_DISTRIBUTION_RANDOM){
-					this.genotype.push(new Gene(randomInt(MAX_GENE_VALUE)));
+					var val = randomInt(MAX_GENE_VALUE);
+					this.genotype.push(new Gene(val));
+					// console.log(val);
 				}
 			} else {
 				this.genotype.push(new Gene(0));
 			}
 		}
+		// console.log("0 :" + MAX_GENE_VALUE);
+		// console.log("1 :" + GENE_VALUE_DISTRIBUTION_RANDOM);
+		// console.log("2 :" + GENE_VALUE_DISTRIBUTION_CONSTANT);
 		this.cost = this.genomeCost(this);
 	}
 	
@@ -66,7 +71,9 @@ class Genome {
 	mutate(){
 		this.generation++;
 		for (var i = 0; i < GENE_COUNT; i++) {
+			// console.log("Before Mutatetd: " + this.genotype[i].value);
 			this.genotype[i].mutate(this.mutationRate);
+			// console.log("Mutatetd: " + this.genotype[i].value);
 		}
 		//console.log(this.genotype);
 	}
@@ -75,11 +82,12 @@ class Genome {
 	 * Function to Clone Each Gene
 	 */
 	clone(){
-		var clonedGenome = new Genome(GENE_COUNT, this.genomeLabel, this.mutationRate);
+		var clonedGenome = new Genome(GENE_COUNT, this.label, this.mutationRate);
 		clonedGenome.generation = this.generation + 1;
 		clonedGenome.genotype = [];
 		for (var i = 0; i < GENE_COUNT; i++) {
 			var clonedGene = this.genotype[i].clone();
+			// console.log(clonedGene.value);
 			clonedGenome.genotype.push(clonedGene);
 		}
 		clonedGenome.mutate();
@@ -92,7 +100,7 @@ class Genome {
 	 * @param genome 
 	 */
 	genomeCost(genome){
-		return genome.genotype.reduce(function(accumulator, i){return accumulator + i}, 0);
+		return genome.genotype.reduce(function(accumulator, i){return accumulator + i.value}, 0);
 	}
 };
 

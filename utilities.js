@@ -27,12 +27,12 @@ var DEATH_CHANCE = 0.01;
 var AGENT_DIMENSION = CELL_DIMENSION/4;
 var AGENT_COLOR = "red";
 var BASE_REPRODUCTION_COST = 1;
-var ENERGY_FACTOR = 3; // New addition
+var ENERGY_FACTOR = 1; // New addition
 
 //Gene
 var GENE_COUNT = 5;
-var GENE_VALUE_DISTRIBUTION_RANDOM = true; // Random Normal/Bio. Gene Value Distribution
-var GENE_VALUE_DISTRIBUTION_CONSTANT = false; // Constant Normal/Bio. Gene Value Distribution
+var GENE_VALUE_DISTRIBUTION_RANDOM = false; // Random Normal/Bio. Gene Value Distribution
+var GENE_VALUE_DISTRIBUTION_CONSTANT = true; // Constant Normal/Bio. Gene Value Distribution
 var MAX_GENE_VALUE = 5; 
 
 //Genome
@@ -106,6 +106,11 @@ function setParameters () {
 	SIM_DURATION = parseInt(document.getElementById("simDuration").value);
 	ENERGY_FACTOR = parseInt(document.getElementById("energyFactor").value);
 
+	// Reproduction Factors
+	B_REPRODUCTION_FACTOR = parseInt(document.getElementById("reproductionFactor0").value);
+	I_REPRODUCTION_FACTOR = parseInt(document.getElementById("reproductionFactor1").value);
+	S_REPRODUCTION_FACTOR = parseInt(document.getElementById("reproductionFactor2").value);
+
 	// Implentation of learning day
 	INDIVIDUAL_LEARNING_DAY = parseInt(document.getElementById("individualDay").value);
 	SOCIAL_LEARNING_DAY = parseInt(document.getElementById("socialDay").value);
@@ -134,10 +139,10 @@ function setParameters () {
 	if(tempIL<=1.00 && tempIL>=0.00){IL_RATE = tempIL;}
 	if(tempSL<=1.00 && tempSL>=0.00){SL_RATE = tempSL;}
 
-	// Checkbox && Radio Buttons
-	INDIVIDUAL_LEARNING = document.getElementById("il").checked;
-	SOCIAL_LEARNING = document.getElementById("sl").checked;
-	BIOLOGICAL_LEARNING = document.getElementById("pl").checked;
+	// // Checkbox && Radio Buttons
+	// INDIVIDUAL_LEARNING = document.getElementById("il").checked;
+	// SOCIAL_LEARNING = document.getElementById("sl").checked;
+	// BIOLOGICAL_LEARNING = document.getElementById("pl").checked;
 
 	// Setting up Social Learning Environment
 	SOCIAL_LEARNING_ENVIRONMENT_CELL = document.otherCheckboxes.learningEnvironment[0].checked;

@@ -214,9 +214,9 @@ class Agent{
 	 */
 	genomeCost(){
 		var accumulator = BASE_REPRODUCTION_COST; // Incorporated here, compare to earlier
-		accumulator += this.bGenome.genomeCost(this.bGenome) * this.bGenome.costReproFactor;
-		accumulator += this.iGenome.genomeCost(this.iGenome) * this.iGenome.costReproFactor;
-		accumulator += this.sGenome.genomeCost(this.sGenome) * this.sGenome.costReproFactor;
+		accumulator += this.bGenome.genomeCost(this.bGenome) * B_REPRODUCTION_FACTOR;
+		accumulator += this.iGenome.genomeCost(this.iGenome) * I_REPRODUCTION_FACTOR;
+		accumulator += this.sGenome.genomeCost(this.sGenome) * S_REPRODUCTION_FACTOR;
 		//console.log(accumulator);
 		return accumulator;
 	}
